@@ -169,9 +169,9 @@ graph TB
 
 Decision trees divide the feature space into axis-parallel rectangles, and label each rectangle with one of the$\ K $ classes. You can always represent a boolean function with a decision tree, since truth tables are very inefficient decision trees. The tree will in the worst case require exponentially many nodes.
 
-![image_of_decision_tree](/home/lilschw4nz/All/Prog/ML/CSEP-PedroDomingo/images/image_of_decision_tree_1.png)
+![image_of_decision_tree](/home/lilschw4nz/All/Prog/ML/ML-PedroDomingos-CSEP-546/images/image_of_decision_tree_1.png)
 
-![image_of_truth_table](/home/lilschw4nz/All/Prog/ML/CSEP-PedroDomingo/images/image_of_truth_table_1.png)
+![image_of_truth_table](/home/lilschw4nz/All/Prog/ML/ML-PedroDomingos-CSEP-546/images/image_of_truth_table_1.png)
 
 
 
@@ -189,7 +189,7 @@ As the number of nodes _(or depth)_ of a tree increases, the hypothesis space gr
 
 The same basic learning algorithm has been discovered by many people independently:
 
-$\ \begin{aligned}&\large \textbf{GrowTree}(S)\\&\textbf{if}\ (y=0\ \textrm{for all}\ \langle x,y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(0)}\\&\textbf{else if}\ (y = 1\ \textrm{for all}\ \langle x, y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(1)} \\&\textbf{else}\\&\qquad\textrm{choose best attribue}\ x_j\\&\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0\\&\qquad \textbf{return}\ \textrm{new node}(x_j,\ \textrm{GrowTree}(S_0), \ \textrm{GrowTree}(S_1))\\ \end{aligned}$
+$\ \begin{aligned}&\large \textbf{G} \normalsize \textbf{ROW} \large \textbf{T} \normalsize \textbf{REE} (S)\\&\textbf{if}\ (y=0\ \textrm{for all}\ \langle x,y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(0)}\\&\textbf{else if}\ (y = 1\ \textrm{for all}\ \langle x, y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(1)} \\&\textbf{else}\\&\qquad\textrm{choose best attribue}\ x_j\\&\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0\\&\qquad \textbf{return}\ \textrm{new node}(x_j,\ \textrm{GrowTree}(S_0), \ \textrm{GrowTree}(S_1))\\ \end{aligned}$
 
 
 
@@ -214,7 +214,7 @@ Greedy search often works pretty well, and it prevents us from over-fitting. The
 |       1        |       1        |       0        |      0       |
 |       1        |       1        |       1        |      0       |
 
-![image_of_best_att](/home/lilschw4nz/All/Prog/ML/CSEP-PedroDomingo/images/image_of_choosing_best_attribute_1.png)
+![image_of_best_att](/home/lilschw4nz/All/Prog/ML/ML-PedroDomingos-CSEP-546/images/image_of_choosing_best_attribute_1.png)
 
 
 
@@ -255,7 +255,7 @@ $$
 $$
 This is the average surprise of describing the result of one "trial" of $\ V$ _(one coin toss)_. 
 
-![image_of_shannon_entropy_graph](/home/lilschw4nz/All/Prog/ML/images/image_of_shannon_entropy_graph.png)
+![image_of_shannon_entropy_graph](/home/lilschw4nz/All/Prog/ML/ML-PedroDomingos-CSEP-546/images/image_of_shannon_entropy_graph.png)
 
 Entropy can be viewed as a measure of uncertainty.
 
@@ -271,7 +271,7 @@ $$
 $$
 In particular, consider the class $\ Y$ of each training example and the value of feature $\ x_1$ to be random variables. Then the mutual information quantifies how much $\ x_1$ tells us about the value of the class $\ Y$.
 
-![image_of_mutual_info](/home/lilschw4nz/All/Prog/ML/CSEP-PedroDomingo/images/image_of_mutual_info_1.png)
+![image_of_mutual_info](/home/lilschw4nz/All/Prog/ML/ML-PedroDomingos-CSEP-546/images/image_of_mutual_info_1.png)
 
 
 
