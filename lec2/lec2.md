@@ -247,7 +247,7 @@ It turns out that the surprise is equal to the number of bits of information tha
 
 <h2>Entropy</h2>
 
-The $\ \textrm{entropy of}\ V\ $, denoted $\ H(V) $ is defined as follows:
+The $\ \textrm{entropy of}\ V$, denoted $\ H(V) $ is defined as follows:
 $$
 \begin{align*} 
 	&& H(V) = \sum_{v=0}^1 -P(H=v) \log P(H=v) \\ 
@@ -269,15 +269,116 @@ $$
 	&&I(A;B) = H(A) - \sum_{b} P(B=b) \cdot H(A|B=b)\\
 \end{align*}
 $$
+>   $\ H(A)\ $ is the entropy of $\ A\ $before seeing $\ B\ $
+>
+>   $\ H(A|B=b)\ $ is the entropy of $\ A\ $conditioned on $\ B$
+
+
+
 In particular, consider the class $\ Y$ of each training example and the value of feature $\ x_1$ to be random variables. Then the mutual information quantifies how much $\ x_1$ tells us about the value of the class $\ Y$.
 
 ![image_of_mutual_info](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_mutual_info_1.png)
 
 
 
+<h2>Visualizing Heuristics</h2>
+
+![image_of_visualizing_heuristics](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_visualizing_heuristics.png)
+
+Mutual information works, because it's a convex measure.
+
+
+
+<h2>Non-Boolean Features</h2>
+
+Before having an industrial level decision tree, we have to deal with some issues. The first one is, when features are not boolean. The obvious way is to use features with multiple values.
+
+1.  **Features with multiple discrete values**
+
+    -   Construct a multi-way split?
+
+    -   Test for one value versus all of the others?
+    -   Group the values into two disjoint subsets?
+
+2.  **Real-valued features**
+
+    Consider a threshold split using each observed value of the feature.
+
+Whichever method is used, the mutual information can be computer to choose the best split. The simplest way to deal with real-valued attributes is to consider different thresholds _(e.g. temperature being higher or lower than $\ x^\circ C$)_. In essence, what setting a threshold does, is it reduces continuous levels to boolean ones.
+
+
+
+<h2>Learning Parity With Noise</h2>
+
+All of the things shown thus far are heuristics, which means that they fail sometimes. Now how can we detect if it is failing or not? When learning $\ XOR\ $_("exclusive-or", the 2-bit parity)_, all splits look equally good. Hence, decision tree algorithms cannot distinguish random noisy features from parity features. 
+
+
+
+| $\ x_1$ | $\ x_2$ | $\ x_3$ | $\ y$ |
+| :-----: | :-----: | :-----: | :---: |
+|    0    |    0    |    0    |   0   |
+|    0    |    0    |    1    |   0   |
+|    0    |    1    |    0    |   1   |
+|    0    |    1    |    1    |   1   |
+|    1    |    0    |    0    |   1   |
+|    1    |    0    |    1    |   1   |
+|    1    |    1    |    0    |   0   |
+|    1    |    1    |    1    |   0   |
+
+![image_of_best_att](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_choosing_best_attribute_1.png)
+
+This problem isn't only for decision trees, but in machine learning in general. In practice, what happens is that you have pretty complex frontiers. Therefore, there are subproblems that aren't parities. In that case, you either have to give up on, or have a lot of data and split by luck.
+
+
+
+<h2>Attributes With Many Values</h2>
+
+What happens when we have an attribute with many values? For a problem like credit scoring, we have the social security numbers of the applicants. Now what happens if we split on the social security number? What will be the resulting entropy? It's going to be zero. But this has problem: **Massive Over-fitting**
+
+If someone comes with a new social security number, we will have no idea on what to do. With the algorithms we have seen so far, attributes with more values have unfair advantage compared to attributes with less values, because we can split the data on them more finely. Consequentially, the resulting entropy on the former will be less.
+
+Problem:
+
+-   If attribute has many values, $\ \textrm{Gain}\ $will select it.
+-   Imagine using $\ \textrm{Date}=June\ 3rd\ 1996\ $as an attribute.
+
+One approach would be to use $\ \textrm{GainRatio}\ $instead:
+$$
+\begin{align}
+\textrm{GainRatio}(S, A) = \frac{\textrm{Gain}(S, A)}{\textrm{SplitInformation}(S, A)} \\ \textrm{SplitInformation}(S, A) = - \sum_{i=1}^c \frac{|S_i|}{|S|} \log_2 \frac{|S_i|}{|S|} \\
+\end{align}
+$$
+
+>   $\ S_i\ $is a subset of $\ S\ $ for which $\ A\ $has the value of $\ v_i$
+
+
+
+<h2>Unknown Attribute Values</h2>
+
+The bigger the dataset, the worse it is. We have big data, but they're most likely filled with noise or unknown values. For instance, when you have a medical diagnose dataset of a patient, but not all of the test results. So there are missing information. 
+
+What if some examples are missing values of $\ A\ $? Use training examples anyway, sort through trees, and then perform one of these methods:
+
+1.  If node $\ n\ $tests $\ A\ $, assign most common value of $\ A\ $among other examples sorted to node $\ n\ $.
+2.  Assign the most common value of $\ A\ $among other examples with the same target value.
+3.  Assign probability $\ p_i\ $to each possible value $\ v_i\ $of $\ A\ $and then assign fraction $\ p_i\ $ of example to each descendant in the tree.
+
+Classify the new examples in the same fashion.
+
+
+
+:grey_question:
+
+>   **Q:** How do you come up with the values for $\ p_i\ $?
+>
+>   **A:** You count. So you have your training set at that node, and then look at the examples of the same class, and you count the fraction of those examples with the same attributes. That will be your probability.
+>
+>   **Q:** So what about the test data?
+>
+>   **A:** In test data, you actually have to have the probabilities to be able to apply them.
 
 
 
 
 
-
+<h2
