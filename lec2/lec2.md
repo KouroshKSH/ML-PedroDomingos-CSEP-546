@@ -314,16 +314,16 @@ All of the things shown thus far are heuristics, which means that they fail some
 
 
 
-| $\ x_1$ | $\ x_2$ | $\ x_3$ | $\ y$ |
-| :-----: | :-----: | :-----: | :---: |
-|    0    |    0    |    0    |   0   |
-|    0    |    0    |    1    |   0   |
-|    0    |    1    |    0    |   1   |
-|    0    |    1    |    1    |   1   |
-|    1    |    0    |    0    |   1   |
-|    1    |    0    |    1    |   1   |
-|    1    |    1    |    0    |   0   |
-|    1    |    1    |    1    |   0   |
+| $\ \large x_1$ | $\ \large x_2$ | $\ \large x_3$ | $\ \large y$ |
+| :------------: | :------------: | :------------: | :----------: |
+|       0        |       0        |       0        |      0       |
+|       0        |       0        |       1        |      0       |
+|       0        |       1        |       0        |      1       |
+|       0        |       1        |       1        |      1       |
+|       1        |       0        |       0        |      1       |
+|       1        |       0        |       1        |      1       |
+|       1        |       1        |       0        |      0       |
+|       1        |       1        |       1        |      0       |
 
 ![image_of_best_att](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_choosing_best_attribute_1.png)
 
@@ -381,4 +381,101 @@ Classify the new examples in the same fashion.
 
 
 
-<h2
+<h2>
+    Overfitting In Decision Trees
+</h2>
+
+Overfitting is the biggest problem as of today in machine learning. More papers have been written about combating overfitting than anything else. 
+
+Now let's go back to the previous example of you trying to take your friend to play tennis. Let's suppose a random unexpected event happens _(e.g. your friend being hangover from the night before)_ and suddenly you get a **No** as an answer, even when everything else was perfectly set. Now what do you do? Your decision tree now is broken. After this incident, the future examples will be misclassified _(since your friend won't be hungover next time most likely)_, and a sub region of similar instances will be incorrectly generalized _(which damages the tree)_ and also your decision tree will become bigger.
+
+```mermaid
+graph TB
+	o(Outlook) -->|Sunny| h(Humidity)
+	o -->|Overcast| y_o(Yes)
+	o -->|Rain| w(Wind)
+	h -->|High| n_h(No)
+	h -->|Normal| y_h(Yes)
+	w -->|Strong| n_w(No)
+	w -->|Weak| y_w(Yes)
+```
+
+Consider adding a noisy training example:
+$$
+\begin{align*}
+	&&\textrm{Sunny, Hot, Normal, Strong, PlayTennis = No}
+\end{align*}
+$$
+What effect does this have on our tree?
+
+
+
+<h1>Overfitting</h1>
+
+Consider error of hypothesis $\ h\ $over:
+
+-   Training data: $\ \textrm{error}_{\textrm{train}} (h) $
+-   Entire distribution $\ D\ $of data:  $\ \textrm{error}_{D} (h) $
+
+Hypothesis $\ h \in H\ $**overfitts** the training data if there is an alternative hypothesis $\ h^{\prime} \in H\ $such that:
+$$
+\begin{align*}
+	&& \textrm{error}_{\textrm{train}} (h) < \textrm{error}_{\textrm{train}} (h^{\prime})
+\end{align*}
+$$
+ and:
+$$
+\begin{align*}
+	&& \textrm{error}_{D} (h) < \textrm{error}_{D} (h^{\prime})
+\end{align*}
+$$
+
+
+<h2>Overfitting In Decision Tree Learning</h2>
+
+What happens in practice when you overfit?
+
+![image_of_overfitting_1](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_overfitting_1.png)
+
+People who compete in [Kaggle](https://www.kaggle.com/) usually learn this painful lesson that they're at the top of the leader board at first, since the leader board is based on the training data _(and not the test data)_, but then finally the winners are chosen from the test data that only Kaggle sees. So some models are at the top because they have overfit and increased their accuracy, but then after the submission is over, they aren't even in the top 10.
+
+So when you give a machine learning project to someone, make sure that you hold on some of the data to later check whether the model actually works or not. Now if you are going to make a model, make sure to split the data into 2 groups:
+
+1.  Training data
+2.  Test data
+
+That way, you can have a dataset that you're going to use only in the very last part of the project to test your model. That last dataset is also called the **Validation dataset**, which can be used by either parties in a project. 
+
+Initially the accuracy rises up rapidly, on both of the datasets, but then things tend to flatten out. The real disaster comes when you decide to grow the tree. You're still bettering your predictions, but the accuracy on the test dataset will go down until it becomes somewhat worse than random guessing.  This is the biggest pitfall in machine learning.
+
+In the example, size 10 is presumably the best size for our tree before it gets worse. As you can see, after that point, the accuracy on the test data drops continuously.
+
+
+
+<h2>Avoiding Overfitting</h2>
+
+How can we avoid overfitting?
+
+1.  Stop growing when data split isn't statistically significant.
+2.  Grow a full tree, then post-prune.
+
+How to select the **best** tree?
+
+1.  Measure performance over training data.
+2.  Measure performance over separate validation datasets.
+3.  Add complexity penalty to performance measure.
+
+You can find more info about the topic of **Pruning** on [Wikipedia](https://en.wikipedia.org/wiki/Decision_tree_pruning) or from this document by [Carnegie Mellon University](https://www.cs.cmu.edu/~bhiksha/courses/10-601/decisiontrees/).
+
+<img src="https://www.cs.cmu.edu/~bhiksha/courses/10-601/decisiontrees/DTtwig.png" style="background-color: #0FBAFF;" />
+
+>   This image is from the Carnegie Mellon documentation.
+
+
+
+
+
+
+
+
+
