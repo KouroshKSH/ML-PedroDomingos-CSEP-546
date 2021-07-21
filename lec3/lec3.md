@@ -40,7 +40,6 @@ Like decision trees, rules are not a mathematically complicated representation.
     x_1 = Sunny \ \and \ x_2 \le 75 \% \Rightarrow y = 1
     $$
     
-
 -   **A rule set is a disjunction of rules.** Typically all of the rules are for one class _(e.g. $\ y = 1 $)_. An example is classified into $\ y = 1 $ if **any** rule is satisfied.
     $$
     \begin{align}
@@ -54,13 +53,30 @@ Like decision trees, rules are not a mathematically complicated representation.
 
 <h1>Relationship To Decision Trees</h1>
 
+You can turn a set of rules, into a truth table, and then transform that into a decision tree. Since a decision tree may be larger than a set of rules, you can't just easily turn decision trees into rule sets and vice versa; there's a snag. 
+
+A small set of rules can correspond to a big decision tree, because of the $\ Replication \ Problem $ .
+$$
+x_1 \and x_2 \Rightarrow y = 1 \qquad \qquad x_3 \and x_4 \Rightarrow y = 1 \qquad \qquad x_5 \and x_6 \Rightarrow y = 1
+$$
+![image_of_relationship_to_decision_trees](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_relationship_decision_trees.png)
+
+If we allow a [decision graph](https://www.bayesserver.com/docs/introduction/decision-graphs), then a decision tree graph won't suffer from a blob of set of rules. However, these graphs host a number of problems that make them inefficient. 
+
+As we can see, even though the rules are simple, the size of the tree grows exponentially with the number of rules. In general, converting a set of rules into a decision tree might cause an exponential blowup. In this regard, rules have a serious advantage compared to decision trees.
 
 
 
+<h1>Learning A Single Rule</h1>
+
+How can we propose a set of rules? For example, we have a bank, and they want to decide whether a customer is a good credit risk. Probably, the first thing to consider is a rule that has a highly predictive feature, such as the person's total net worth in this case.
+
+We grow a rule by starting with an empty rule and adding tests one at a time until the rule **covers** only positive examples.
+
+$\ \begin{aligned}&\large \textbf{GrowRule} (S)\\& R = \{ \ \} \\&\textbf{repeat} \\&\qquad\textrm{choose best test}\ x_j \Theta v \ \textrm{to add to}\  R, \textrm{where}\ \Theta \in \{= , \neq , \leq , \ge \} \\ & \qquad S := S - (\textrm{all examples that do not satisfy}\ R \cup \{ x_j \Theta v \}) \\ & \textbf{until}\ S \ \textrm{contains only positive examples} \end{aligned} $
 
 
 
+A question might be asked, what if we have added every single feature to a rule, but there is still a mixture of positive and negative examples? Might this situation happen? **Absolutely!** 
 
-
-
-
+Consider this, we have 2 patients, with exactly the same symptoms. Now, one of them might have the flue, and the other doesn't. This can happen all the time. Therefore, there's a similarity between this and the induction on decision trees. You might have one rule that can capture a certain portion of the population, but what if you want to find out the other people, who can be valid candidates in your research? It's like when a single rule covers a small portion of positive examples _(they were counted for)_, but now there are still a bunch of other positive examples that the rule hasn't covered, but we still need to find. The next thing to do, is to find another rule that can cover as many positive examples as possible, which is accurate as much as possible _(meaning, it covers as less negative examples as possible)_.   
