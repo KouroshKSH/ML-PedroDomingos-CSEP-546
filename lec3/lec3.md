@@ -33,3 +33,34 @@ The funny thing is that, in the previous example, Walmart decided to put the bee
 
 <h1>Rule Set Hypothesis Space</h1>
 
+Like decision trees, rules are not a mathematically complicated representation. 
+
+-   **Each rule is a conjunction of tests.** Each test has the form $\ x_j = v,\ x_j \le v $ or $\ x_j \ge v $ where $\ v $ is a value for $\ x_j $ that appears in the training data.
+    $$
+    x_1 = Sunny \ \and \ x_2 \le 75 \% \Rightarrow y = 1
+    $$
+    
+
+-   **A rule set is a disjunction of rules.** Typically all of the rules are for one class _(e.g. $\ y = 1 $)_. An example is classified into $\ y = 1 $ if **any** rule is satisfied.
+    $$
+    \begin{align}
+    	x_1 = Sunny \ \and \ x_2 \le 75 \% \Rightarrow y = 1 \\
+    	x_1 = Overcast \Rightarrow y = 1 \\
+    	x_1 = Rain \ \and \ x_3 \le 20 \Rightarrow y = 1
+    \end{align}
+    $$
+
+
+
+<h1>Relationship To Decision Trees</h1>
+
+
+
+
+
+
+
+
+
+
+
