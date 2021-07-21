@@ -189,7 +189,7 @@ As the number of nodes _(or depth)_ of a tree increases, the hypothesis space gr
 
 The same basic learning algorithm has been discovered by many people independently:
 
-$\ \begin{aligned}&\large \textbf{GrowTree} (S)\\&\textbf{if}\ (y=0\ \textrm{for all}\ \langle x,y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(0)}\\&\textbf{else if}\ (y = 1\ \textrm{for all}\ \langle x, y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(1)} \\&\textbf{else:}\\&\qquad\textrm{choose best attribue}\ x_j\\&\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0\\&\qquad \textbf{return}\ \textrm{new node}(x_j,\ \textrm{GrowTree}(S_0), \ \textrm{GrowTree}(S_1))\\ \end{aligned}$
+$\ \begin{aligned}&\large \textbf{GrowTree} (S)\\&\textbf{if}\ (y=0\ \textrm{for all}\ \langle x,y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(0)}\\&\textbf{else if}\ (y = 1\ \textrm{for all}\ \langle x, y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(1)} \\&\textbf{else:}\\&\qquad\textrm{choose best attribute}\ x_j\\&\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0\\&\qquad \textbf{return}\ \textrm{new node}(x_j,\ \textrm{GrowTree}(S_0), \ \textrm{GrowTree}(S_1))\\ \end{aligned}$
 
 
 
