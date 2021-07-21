@@ -22,5 +22,5 @@ It should be noted that, most resources recommend inserting the images of these 
 
 Furthermore, if someone wants to view these notes on their mobile, they can enable the _open in desktop view_ option in their mobile browser _(usually in hamburger menu)_, download the ```zip``` file of the project, unzip it and finally view it online by selecting the ```HTML``` file and opening it in a browser _(since opening it via a mobile text editor will show the source code fully)_.  
 
-With all of these being said, I still prefer typing everything in Typora and not care how they look on GitHub. The best way of presenting the notes is definitely exporting them to ```HTML``` and then opening them in a browser. 
+With all of these being said, I still prefer typing everything in Typora and not care how they look on GitHub. The best way of presenting the notes is definitely exporting them to ```HTML``` and then opening them in a browser.
 
