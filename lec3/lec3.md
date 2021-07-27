@@ -75,8 +75,85 @@ We grow a rule by starting with an empty rule and adding tests one at a time unt
 
 $\ \begin{aligned}&\large \textbf{GrowRule} (S)\\& R = \{ \ \} \\&\textbf{repeat} \\&\qquad\textrm{choose best test}\ x_j \Theta v \ \textrm{to add to}\  R, \textrm{where}\ \Theta \in \{= , \neq , \leq , \ge \} \\ & \qquad S := S - (\textrm{all examples that do not satisfy}\ R \cup \{ x_j \Theta v \}) \\ & \textbf{until}\ S \ \textrm{contains only positive examples} \end{aligned} $
 
-
+---
 
 A question might be asked, what if we have added every single feature to a rule, but there is still a mixture of positive and negative examples? Might this situation happen? **Absolutely!** 
 
 Consider this, we have 2 patients, with exactly the same symptoms. Now, one of them might have the flue, and the other doesn't. This can happen all the time. Therefore, there's a similarity between this and the induction on decision trees. You might have one rule that can capture a certain portion of the population, but what if you want to find out the other people, who can be valid candidates in your research? It's like when a single rule covers a small portion of positive examples _(they were counted for)_, but now there are still a bunch of other positive examples that the rule hasn't covered, but we still need to find. The next thing to do, is to find another rule that can cover as many positive examples as possible, which is accurate as much as possible _(meaning, it covers as less negative examples as possible)_.   
+
+---
+
+
+
+# Learning A Set Of Rules (Separate-and-Conquer)
+
+To summarize what we just learned, we have an outer loop that calls the inner loop, the inner loop is growing a single rule, the outer rule will throw out the learned rules until there are no positive examples left.
+
+$\ \ \begin{aligned}&\large \textbf{GrowRuleSet} (S)\\& A = \{ \ \} \\&\textbf{repeat} \\&\qquad R := \textrm{GrowRule}(S) \\ & \qquad \textrm{Add}\ R \ \textrm{to} \ A \\ & \qquad S := S - (\textrm{all positive examples that satisfy}\ R ) \\ & \textbf{until}\ S \ \textrm{is empty} \\ & \textbf{return}\ A \end{aligned} $
+
+---
+
+
+
+# Choosing The Best Test
+
+-   Current rule $\ R$ covers $\ m_0$ negative examples and $\ m_1$ positive examples.
+
+    $\ \textrm{Let}\ p = \frac{m_1}{m_0 + m_1}$
+
+-   Proposed rule $\ R \cup \{ x_j \Theta v \}$ covers $\ m_{0}^{'}$ and $\ m_{1}^{'}$ examples.
+
+    $\ \textrm{Let}\ p = \frac{m_{1}^{'}}{m_{0}^{'} + m_{1}^{'}}$
+
+-   $\ \textrm{Gain} = m_{1}^{'}[(-p \lg p) - (-p^{'} \lg p^{'})]$
+
+We want to reduce our surprise to the point where we are _certain_, but we also want the rule to cover many examples. This formula tries to implement this trade-off.
+
+---
+
+
+
+# More Thorough Search Procedures
+
+All of our algorithms so far have used greedy algorithms. Finding the smallest set of rules is **NP-Hard**. But there are some more thorough search procedures that can produce better rule sets.
+
+1.  **Round-Robin replacement:** After growing a complete rule set, we can delete the first rule, compute the set $\ S$ of training examples not covered by any rule, and one or more new rules, to cover $\ S$. This can be repeated with each of the original rules. This process allows a later rule to *"capture"* the positive examples of a rule that was learned earlier. 
+2.  **Back-fitting:** After each new rule is added to the rule set, we perform a few iterations to Round-Robin replacement, since it typically converges quickly. We repeat this process of growing a new rule and ten performing Round-Robin replacement until all positive examples are covered.
+3.  **Beam search:** Instead of growing one new rule, we grow $\ B$ new rules. We consider adding each possible test to each rule and keep the best $\ B$ resulting rules. When no more tests can be added, we choose the best of the $\ B$ rules and add it to the rule set.
+
+---
+
+
+
+# Probability Estimates From Small Numbers
+
+When $\ m_0$ and $\ m_1$ are very small, we can end up with:
+$$
+p = \frac{m_1}{m_0 + m_1}
+$$
+being very unreliable, or even zero.
+
+## Two Possible Fixes
+
+1.  **Laplace estimate:** Add 1/2 to the numerator and 1 to the denominator.
+    $$
+    p = \frac{m_1 + 0.5}{m_0 + m_1 + 1}
+    $$
+    This is essentially saying that in the absence of any evidence, we expect $\ p = 1/2$, but our belief is very weak _(equivalent to 1/2 of an example)_. 
+
+2.  **General prior estimate:** If you have a prior belief that $\ p = 0.25$, you can add any number $\ k$ to the numerator and $\ 4k$ to the denominator.
+    $$
+    p = \frac{m_1 + k}{m_0 + m_1 + 4k}
+    $$
+    The larger $\ k$ is, the stronger our prior belief becomes.
+
+Many authors have added 1 to both the numerator and denominator in rule learning cases _(weak prior belief that $\ p = 1$)_.
+
+---
+
+Laplace made an example out of the possibility of the sun not coming out one day, also known as [The Sunrise Problem](https://en.wikipedia.org/wiki/Sunrise_problem), and how probable that would be. At first, when there was no sun, the first time that the sun would come out would make its probability equal to 1. Then, for the second day, it would be $\ \large \frac{1}{2}$. Then, when it comes out again, it would be $\ \large \frac{2}{3}$, and then $\ \large \frac{3}{4}$ and so on and so forth. However, you can never be infinitely surprised if the sun doesn't come out one day, since you always know that there is a small chance of this happening, which is $\ \large \frac{1}{n}$, where $\ n$ is a large number, such as the age of our solar system.
+
+Or for instance, the famous **Inductivist Turkey** theory from [Bertrand Russell](https://en.wikipedia.org/wiki/Bertrand_Russell) which can be found on [Tuning In To Safety](https://www.tuningintosafety.com/blog/2020/1/16/safety-and-the-inductivist-turkey)'s blog, in which the Turkey was confident that he would be fed for the rest of his life, even though his throat was cut open before thanksgiving. With Laplace's estimation, we can always have the possibility of being wrong in the back of our minds. 
+
+---
+
