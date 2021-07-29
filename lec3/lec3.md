@@ -157,3 +157,41 @@ Or for instance, the famous **Inductivist Turkey** theory from [Bertrand Russell
 
 ---
 
+
+
+# Learning Rules For Multiple Classes
+
+What if we have more than one class?
+
+There are two possibilities:
+
+1.   **Ordered rules** (decision list)
+     -   It literally makes a big ```if{...} else{...}``` statement.
+     -   We can have some quantitative measures of how good the rules are. 
+2.   **Weighted votes** (e.g. $\ \textrm{weight}\ = \textrm{accuracy} \times \textrm{coverage}$ )
+     -   All the rules get to vote.
+     -   The majority will win, even if the first rule states otherwise, since there is somewhat a _democracy_ in this method.
+     -   The better rules have more weight, and the class with more weight wins.
+
+---
+
+
+
+# Learning First-Order Rules
+
+Why do that? Until now, the computers haven't been able to achieve impressive milestones. Decision trees are in essence a bunch of ```if{...} else{...}``` statements, which is hardly a general approach to programming. Now, if we apply some knowledge to the rules we already have and take ideas to learn completely general purposes, we might find something new. 
+
+Now, why should we even try to change the method? Let's start with the concept of **Ancestors**.  
+
+-   Can learn sets of rules such as:
+    $$
+    \begin{align*}
+    	& \textrm{Ancestor}(x, y) \leftarrow \textrm{Parent}(x, y) \\
+    	& \textrm{Ancestor}(x, y) \leftarrow \textrm{Parent}(x, z) \and \textrm{Ancestor}(z, y)
+    \end{align*}
+    $$
+    
+
+-   The ```Prolog``` programming language:
+
+    >   Programs are sets of such rules mentioned above.
