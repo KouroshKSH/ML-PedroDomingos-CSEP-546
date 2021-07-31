@@ -191,7 +191,80 @@ Now, why should we even try to change the method? Let's start with the concept o
     \end{align*}
     $$
     
-
 -   The ```Prolog``` programming language:
 
     >   Programs are sets of such rules mentioned above.
+
+
+
+---
+
+
+
+# First-Order Rule For Classifying Web Pages
+
+This example is from a rule induction system used back in 1997 for classifying web pages. It was learned from a dataset of web pages.
+
+$\ \begin{align*} & \textrm{course}(A) \leftarrow \\ & \qquad \textrm{has-word(A, instructor),} \\ & \qquad \neg \ \textrm{has-word(A, good),} \\ & \qquad \textrm{link-form(A, B),} \\ & \qquad \neg \ \textrm{link-form(B, C)} \\ \end{align*} $
+
+>   Train: 31/31, Test: 31/34
+
+
+
+---
+
+
+
+# FOIL (First-Order Inductive Learning)
+
+Same as propositional separate-and-conquer, expect:
+
+-   Different candidate specializations (literals)
+-   Different evaluation function
+
+Predicting whether a new substance is viable or not, can be a better approach compared to the expensive trial & testing methods. If you have a trial that can cause millions of dollars and fails, maybe you can predict that some drug has harmful side effects and  it should be not developed. For example, there exist robot biologists like [Adam and Eve](https://ui.adsabs.harvard.edu/abs/2017APS..MARX49001K/abstract) that use inducting logic programming, starting with some knowledge of biology, and then carry out experiments. They are in control and refine the rules based off of the results of the previous experiments. They are a complete automated scientists. 
+
+---
+
+## Specializing Rules In FOIL
+
+**Learning rule:** $\ P(x_1, x_2, \ldots , x_k) \leftarrow L_1, L_2, \ldots , L_n$
+
+Candidate specializations add new literal of form:
+
+-   $\ Q(v_1, v_2, \ldots , v_r)$ , where at least one of the $\ v_i$ in the created literal must already exist as a variable in the rule.
+-   $\ Equal(x_j, x_k)$ , where $\ x_j$ and $\ x_k$ are variables already presenting the rule.
+-   The negation of either of the above forms of literals.
+
+---
+
+## Information Gain In FOIL
+
+$$
+FoilGain(L, R) \equiv t (\log_2 \frac{p_1}{p_1 + n_1} - \log_2 \frac{p_0}{p_0 + n_0})
+$$
+
+>   **Where:**
+>
+>   -   $\ L$ is the candidate literal to add to rule $\ R$
+>   -   $\ p_0 =$  number of positive bindings of $\ R$
+>   -   $\ n_0 =$ number of negative bindings of $\ R$
+>   -   $\ p_1 =$ number of positive bindings of $\ R + L$
+>   -   $\ n_1 =$ number of negative bindings of $\ R + L$
+>   -   $\ t =$ number of positive bindings of $\ R$ also covered by $\ R + L$
+
+
+
+:grey_question:
+
+>**Q:** What are the examples of _negative binding_?
+>
+>**A:** Suppose we have a database of people. In it, we have $\ Parent(x, y)$ where $\ x$ is a parent of $\ y$ . Now if $\ Parent(A, B)$ is in the database, it's a positive binding. Now there are 2 possible meanings of negative bindings:
+>
+>1.   Anything that **is not** in the database, is a negative binding. This means that a lot of possible bindings are negative, since an exponential amount of bindings are more likely not in a regular database.
+>2.   The statement is a negative binding if the statement **NOT** appears. And if the statement doesn't appear, it's neither positive, nor negative.
+
+---
+
+## FOIL Example
+
