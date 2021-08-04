@@ -315,7 +315,7 @@ $$
 
 Induction is finding $h$ such that:
 $$
-(\forall \langle x_i, f(x_i) \rangle \in D)\ B\ \and h \and x_i\ \vdash f(x_i) 
+(\forall \langle x_i, f(x_i) \rangle \in D)\ B\ \and h \and x_i\ \vdash f(x_i)
 $$
 Where:
 
@@ -346,5 +346,78 @@ The symbol $\large \vdash$ (or ```\vdash``` in Latex):
 >   $$
 >   As stated by user ```@JMP``` on [StackExchange](https://math.stackexchange.com/a/2281078).
 
+Now let's make an induction system!
+
 ---
+
+**"Pairs of people $\large \langle u, v \rangle$ such that child of $\large u$ is $\large v$."**
+
+-   $f(x_i)\ :\ Child(Bob, Sharon)$
+-   $x_i\ :\ Male(Bob), Female(Sharon), Father(Sharon, Bob)$
+-   $B\ :\ Parent(u, v) \leftarrow Father(u, v)$
+
+
+
+What satisfies $\large (\forall \langle x_i, f(x_i) \rangle \in D)\ B\ \and h \and x_i\ \vdash f(x_i)$ ?​
+$$
+h_1\ :\ Child(u, v) \leftarrow Father(v, u)\\
+h_2\ :\ Child(u, v) \leftarrow Parent(v, u)
+$$
+
+---
+
+## Step 1
+
+We have mechanical **deductive** operators $F(A, B) = C$​ , where $A \and B \vdash C$​ .
+
+We also need **inductive** operators $O(B, D) = h$​ ,  where $(\forall \langle x_i, f(x_i) \rangle \in D)\ B\ \and h \and x_i\ \vdash f(x_i)$​ .​
+
+---
+
+**Positives:**
+
+-   Subsumes earlier idea of finding $h$ that *"fits"* training data.
+
+-   Domain theory $B$ helps define the meaning of *"fit"* the data.
+    $$
+    B \and h \and x_i\ \vdash f(x_i)
+    $$
+
+-   Suggests algorithms that search $H$ guided by $B$ .
+
+
+
+**Negatives:**
+
+-   Doesn't allow for noisy data. Consider:
+    $$
+    (\forall \langle x_i, f(x_i) \rangle \in D)\ B\ \and h \and x_i\ \vdash f(x_i)
+    $$
+
+-   First order logic gives a *huge* hypothesis space $H$ :
+
+    $\rightarrow$ Overfitting
+
+    $\rightarrow$​ Intractability of calculating all acceptable $h$'s
+
+---
+
+## Deduction: Resolution Rule
+
+$$
+\begin{equation*}\begin{array}{c}
+\phantom{\times} P \or L\\
+\underline{\phantom{\times}\neg L \or R \quad }\\
+\phantom{\times}P \or R\\
+\end{array}\end{equation*}
+$$
+
+1.   Given initial clauses $C_1$ and $C_2$ , find a literal $L$ from clause $C_1$ such that $\neg L$ occurs in clause $C_2$ .
+
+2.   Form the resolvent $C$ by including all literals from $C_1$ and $C_2$ , except for $L$ and $\neg L$ . More precisely, the set of literals occurring in the conclusion $C$​ is
+     $$
+     C = (C_1 - \{ L \}) \cup (C_2 - \{ \neg L \})
+     $$
+
+     >    where $\large \cup$ denotes set union, and "$-$" is set difference.
 
