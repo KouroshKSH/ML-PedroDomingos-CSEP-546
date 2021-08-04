@@ -35,12 +35,12 @@ The funny thing is that, in the previous example, Walmart decided to put the bee
 
 Like decision trees, rules are not a mathematically complicated representation. 
 
--   **Each rule is a conjunction of tests.** Each test has the form $\ x_j = v,\ x_j \le v $ or $\ x_j \ge v $ where $\ v $ is a value for $\ x_j $ that appears in the training data.
+-   **Each rule is a conjunction of tests.** Each test has the form $ x_j = v,\ x_j \le v $ or $\ x_j \ge v $ where $\ v $ is a value for $\ x_j $ that appears in the training data.
     $$
     x_1 = Sunny \ \and \ x_2 \le 75 \% \Rightarrow y = 1
     $$
     
--   **A rule set is a disjunction of rules.** Typically all of the rules are for one class _(e.g. $\ y = 1 $)_. An example is classified into $\ y = 1 $ if **any** rule is satisfied.
+-   **A rule set is a disjunction of rules.** Typically all of the rules are for one class _(e.g. $\ y = 1 $​)_. An example is classified into $ y = 1 $​ if **any** rule is satisfied.
     $$
     \begin{align}
     	x_1 = Sunny \ \and \ x_2 \le 75 \% \Rightarrow y = 1 \\
@@ -55,7 +55,7 @@ Like decision trees, rules are not a mathematically complicated representation.
 
 You can turn a set of rules, into a truth table, and then transform that into a decision tree. Since a decision tree may be larger than a set of rules, you can't just easily turn decision trees into rule sets and vice versa; there's a snag. 
 
-A small set of rules can correspond to a big decision tree, because of the $\ Replication \ Problem $ .
+A small set of rules can correspond to a big decision tree, because of the $ Replication \ Problem $​ .
 $$
 x_1 \and x_2 \Rightarrow y = 1 \qquad \qquad x_3 \and x_4 \Rightarrow y = 1 \qquad \qquad x_5 \and x_6 \Rightarrow y = 1
 $$
@@ -97,7 +97,7 @@ $\ \ \begin{aligned}&\large \textbf{GrowRuleSet} (S)\\& A = \{ \ \} \\&\textbf{r
 
 # Choosing The Best Test
 
--   Current rule $\ R$ covers $\ m_0$ negative examples and $\ m_1$ positive examples.
+-   Current rule $\ R$​ covers $ m_0$​ negative examples and $ m_1$​ positive examples.
 
     $\ \textrm{Let}\ p = \frac{m_1}{m_0 + m_1}$
 
@@ -117,9 +117,9 @@ We want to reduce our surprise to the point where we are _certain_, but we also 
 
 All of our algorithms so far have used greedy algorithms. Finding the smallest set of rules is **NP-Hard**. But there are some more thorough search procedures that can produce better rule sets.
 
-1.  **Round-Robin replacement:** After growing a complete rule set, we can delete the first rule, compute the set $\ S$ of training examples not covered by any rule, and one or more new rules, to cover $\ S$. This can be repeated with each of the original rules. This process allows a later rule to *"capture"* the positive examples of a rule that was learned earlier. 
+1.  **Round-Robin replacement:** After growing a complete rule set, we can delete the first rule, compute the set $S$​ of training examples not covered by any rule, and one or more new rules, to cover $S$​. This can be repeated with each of the original rules. This process allows a later rule to *"capture"* the positive examples of a rule that was learned earlier. 
 2.  **Back-fitting:** After each new rule is added to the rule set, we perform a few iterations to Round-Robin replacement, since it typically converges quickly. We repeat this process of growing a new rule and ten performing Round-Robin replacement until all positive examples are covered.
-3.  **Beam search:** Instead of growing one new rule, we grow $\ B$ new rules. We consider adding each possible test to each rule and keep the best $\ B$ resulting rules. When no more tests can be added, we choose the best of the $\ B$ rules and add it to the rule set.
+3.  **Beam search:** Instead of growing one new rule, we grow $B$​ new rules. We consider adding each possible test to each rule and keep the best $B$​ resulting rules. When no more tests can be added, we choose the best of the $\ B$​ rules and add it to the rule set.
 
 ---
 
@@ -139,19 +139,19 @@ being very unreliable, or even zero.
     $$
     p = \frac{m_1 + 0.5}{m_0 + m_1 + 1}
     $$
-    This is essentially saying that in the absence of any evidence, we expect $\ p = 1/2$, but our belief is very weak _(equivalent to 1/2 of an example)_. 
+    This is essentially saying that in the absence of any evidence, we expect $p = 1/2$​, but our belief is very weak _(equivalent to 1/2 of an example)_. 
 
-2.  **General prior estimate:** If you have a prior belief that $\ p = 0.25$, you can add any number $\ k$ to the numerator and $\ 4k$ to the denominator.
+2.  **General prior estimate:** If you have a prior belief that $p = 0.25$​, you can add any number $k$​ to the numerator and $4k$​ to the denominator.
     $$
     p = \frac{m_1 + k}{m_0 + m_1 + 4k}
     $$
-    The larger $\ k$ is, the stronger our prior belief becomes.
+    The larger $k$​ is, the stronger our prior belief becomes.
 
-Many authors have added 1 to both the numerator and denominator in rule learning cases _(weak prior belief that $\ p = 1$)_.
+Many authors have added 1 to both the numerator and denominator in rule learning cases _(weak prior belief that $p = 1$​)_.
 
 ---
 
-Laplace made an example out of the possibility of the sun not coming out one day, also known as [The Sunrise Problem](https://en.wikipedia.org/wiki/Sunrise_problem), and how probable that would be. At first, when there was no sun, the first time that the sun would come out would make its probability equal to 1. Then, for the second day, it would be $\ \large \frac{1}{2}$. Then, when it comes out again, it would be $\ \large \frac{2}{3}$, and then $\ \large \frac{3}{4}$ and so on and so forth. However, you can never be infinitely surprised if the sun doesn't come out one day, since you always know that there is a small chance of this happening, which is $\ \large \frac{1}{n}$, where $\ n$ is a large number, such as the age of our solar system.
+Laplace made an example out of the possibility of the sun not coming out one day, also known as [The Sunrise Problem](https://en.wikipedia.org/wiki/Sunrise_problem), and how probable that would be. At first, when there was no sun, the first time that the sun would come out would make its probability equal to 1. Then, for the second day, it would be $\large \frac{1}{2}$​. Then, when it comes out again, it would be $\large \frac{2}{3}$​, and then $\large \frac{3}{4}$​ and so on and so forth. However, you can never be infinitely surprised if the sun doesn't come out one day, since you always know that there is a small chance of this happening, which is $\ \large \frac{1}{n}$​, where $\ n$​ is a large number, such as the age of our solar system.
 
 Or for instance, the famous **Inductivist Turkey** theory from [Bertrand Russell](https://en.wikipedia.org/wiki/Bertrand_Russell) which can be found on [Tuning In To Safety](https://www.tuningintosafety.com/blog/2020/1/16/safety-and-the-inductivist-turkey)'s blog, in which the Turkey was confident that he would be fed for the rest of his life, even though his throat was cut open before thanksgiving. With Laplace's estimation, we can always have the possibility of being wrong in the back of our minds. 
 
@@ -168,7 +168,7 @@ There are two possibilities:
 1.   **Ordered rules** (decision list)
      -   It literally makes a big ```if{...} else{...}``` statement.
      -   We can have some quantitative measures of how good the rules are. 
-2.   **Weighted votes** (e.g. $\ \textrm{weight}\ = \textrm{accuracy} \times \textrm{coverage}$ )
+2.   **Weighted votes** (e.g. $\textrm{weight}\ = \textrm{accuracy} \times \textrm{coverage}$​ )
      -   All the rules get to vote.
      -   The majority will win, even if the first rule states otherwise, since there is somewhat a _democracy_ in this method.
      -   The better rules have more weight, and the class with more weight wins.
@@ -228,12 +228,12 @@ Predicting whether a new substance is viable or not, can be a better approach co
 
 ## Specializing Rules In FOIL
 
-**Learning rule:** $\ P(x_1, x_2, \ldots , x_k) \leftarrow L_1, L_2, \ldots , L_n$
+**Learning rule:** $P(x_1, x_2, \ldots , x_k) \leftarrow L_1, L_2, \ldots , L_n$​
 
 Candidate specializations add new literal of form:
 
--   $\ Q(v_1, v_2, \ldots , v_r)$ , where at least one of the $\ v_i$ in the created literal must already exist as a variable in the rule.
--   $\ Equal(x_j, x_k)$ , where $\ x_j$ and $\ x_k$ are variables already presenting the rule.
+-   $Q(v_1, v_2, \ldots , v_r)$​ , where at least one of the $v_i$​ in the created literal must already exist as a variable in the rule.
+-   $Equal(x_j, x_k)$​ , where $x_j$​ and $x_k$​ are variables already presenting the rule.
 -   The negation of either of the above forms of literals.
 
 ---
@@ -246,12 +246,12 @@ $$
 
 >   **Where:**
 >
->   -   $\ L$ is the candidate literal to add to rule $\ R$
->   -   $\ p_0 =$  number of positive bindings of $\ R$
->   -   $\ n_0 =$ number of negative bindings of $\ R$
->   -   $\ p_1 =$ number of positive bindings of $\ R + L$
->   -   $\ n_1 =$ number of negative bindings of $\ R + L$
->   -   $\ t =$ number of positive bindings of $\ R$ also covered by $\ R + L$
+>   -   $L$​ is the candidate literal to add to rule $R$​
+>   -   $p_0 =$​  number of positive bindings of $R$​
+>   -   $n_0 =$​ number of negative bindings of $R$​
+>   -   $p_1 =$​ number of positive bindings of $R + L$​
+>   -   $n_1 =$​ number of negative bindings of $R + L$​
+>   -   $t =$​ number of positive bindings of $\ R$​ also covered by $R + L$​
 
 
 
@@ -259,7 +259,7 @@ $$
 
 >**Q:** What are the examples of _negative binding_?
 >
->**A:** Suppose we have a database of people. In it, we have $\ Parent(x, y)$ where $\ x$ is a parent of $\ y$ . Now if $\ Parent(A, B)$ is in the database, it's a positive binding. Now there are 2 possible meanings of negative bindings:
+>**A:** Suppose we have a database of people. In it, we have $Parent(x, y)$​ where $x$​ is a parent of $y$​ . Now if $Parent(A, B)$​ is in the database, it's a positive binding. Now there are 2 possible meanings of negative bindings:
 >
 >1.   Anything that **is not** in the database, is a negative binding. This means that a lot of possible bindings are negative, since an exponential amount of bindings are more likely not in a regular database.
 >2.   The statement is a negative binding if the statement **NOT** appears. And if the statement doesn't appear, it's neither positive, nor negative.
@@ -267,4 +267,84 @@ $$
 ---
 
 ## FOIL Example
+
+To learn reachability, the concept of $node(x)\ \textbf{is reachable}\ from\ node(y)$, we can use the **FOIL** method on a graph.
+
+```mermaid
+graph LR
+	0 --> 1
+	0 --> 2
+	1 --> 2
+	2 --> 3
+	3 --> 4
+	3 --> 8
+	4 --> 8
+	4 --> 5
+	5 --> 6
+	6 --> 8
+	6 --> 7
+	7 --> 8
+```
+
+
+$$
+x \rightarrow y \qquad \qquad \textrm{repersents}\ \qquad \qquad LinkedTo(x, y)
+$$
+
+
+---
+
+
+
+# Target Function
+
+-   $CanReach(x, y)\ \textbf{true}\ \textrm{iff directed path from}\ x\ \textrm{to}\ y$ instances
+-   Pairs of nodes, e.g. $\langle 1, 5 \rangle$ , with graph described by literals $LinkedTo(0, 1),\ \neg LinkedTo(0, 8)$ & etc.
+
+**Hypothesis space:**
+
+>   Each $h \in H$​ is a set of *Horn* clauses using predicates $LinkedTo(.,.)$ (and $CanReach(.,.)$).
+
+
+
+---
+
+
+
+# Induction As Inverted Deduction
+
+Induction is finding $h$ such that:
+$$
+(\forall \langle x_i, f(x_i) \rangle \in D)\ B\ \and h \and x_i\ \vdash f(x_i) 
+$$
+Where:
+
+-   $x_i$ is the $i$th training instance
+-   $f(x_i)$ is the target function value for $x_i$
+-   $B$ is other background knowledge
+
+---
+
+:anger: ***Note***
+
+The symbol $\large \vdash$ (or ```\vdash``` in Latex):
+
+>    A **partition** of a positive integer n is a multi-set of positive integers that sum to n. We denote the number of partitions of n by $\large p_n$​.
+>
+>   We can write:
+>   $$
+>   \lambda : n = n_1 + n_2 + \cdots + n_k \qquad \textrm{or} \qquad \lambda \vdash n
+>   $$
+>   As stated by user ```@W.R.P.S``` on [StackExchange](https://math.stackexchange.com/a/2281178).
+
+>   $\lambda \vdash n$ means that:
+>   $$
+>   \begin{align}
+>   &\textrm{if}\ \lambda = (\lambda_1, \lambda_2, \dots, \lambda_k) \\
+>   &\textrm{then}\ \sum_{i = 1}^{k} \lambda_i = n
+>   \end{align}
+>   $$
+>   As stated by user ```@JMP``` on [StackExchange](https://math.stackexchange.com/a/2281078).
+
+---
 
