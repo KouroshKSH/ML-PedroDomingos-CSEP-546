@@ -421,3 +421,47 @@ $$
 
      >    where $\large \cup$ denotes set union, and "$-$" is set difference.
 
+---
+
+## Inverting Resolution
+
+For example, in the first part, if you know the material, you'll pass the exam.
+
+![invert_example_1](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_invert_res_1.png)
+
+If you study, then you'll know the material.
+
+![invert_res_2](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_invert_res_2.png)
+
+What is the *little* ($L$) that appears in one clause and negated ($\neg$) in the other? $C_2 : KnowMaterial$
+
+So we're going to cut $C_2$ out and combine $PassExam$ and $\neg Study$ together. So what we did here was a simple application of deduction by resolution.
+
+**Remember:exclamation:** Whatever knowledge-base you have, you can turn it into a *CNF* ([Conjunctive Normal Form](https://en.wikipedia.org/wiki/Conjunctive_normal_form)).
+
+---
+
+## Inverted Resolution (Propositional)
+
+1.   Given initial clauses $C_1$ and $C$ , find a literal $L$ that occurs in clause $C_1$ , but not in clause $C$ .
+
+2.   Form the second clause $C_2$ by including the following literals:
+     $$
+     C_2 = (C - (C_1 - \{ L \})) \cup \{ \neg L \}
+     $$
+
+
+
+---
+
+# First-Order Resolution
+
+Now that we have variables and general rules, things get more interesting. Now how do we resolution in the first-order case?  All we need to do is to find a literal, a negation that predicates the statement and another one, such that there is some substitution of variables by variables/constants that will make one the negation of another.
+
+1.   Find a literal $L_1$ from clause $C_1$ , literal $L_2$ from clause $C_2$ and substitution $\theta$ such that $L_1 \theta = \neg L_2 \theta$ .
+
+2.   Form the resolvent $C$ by including all literals from $C_1 \theta$ and $C_2 \theta$ except for $L_1 \theta$ and $\neg L_2 \theta$ . More precisely, the set of literals occurring in the conclusion $C$ is:
+     $$
+     C = (C_1 - \{ L_1 \}) \theta \cup (C_2 - \{ L_2 \}) \theta
+     $$
+     
