@@ -167,7 +167,7 @@ graph TB
 
 <h2>Decision Tree Decision Boundaries</h2>
 
-Decision trees divide the feature space into axis-parallel rectangles, and label each rectangle with one of the$\ K $ classes. You can always represent a boolean function with a decision tree, since truth tables are very inefficient decision trees. The tree will in the worst case require exponentially many nodes.
+Decision trees divide the feature space into axis-parallel rectangles, and label each rectangle with one of the $K$ classes. You can always represent a boolean function with a decision tree, since truth tables are very inefficient decision trees. The tree will in the worst case require exponentially many nodes.
 
 ![image_of_decision_tree](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_decision_tree_1.png)
 
@@ -180,7 +180,7 @@ Decision trees divide the feature space into axis-parallel rectangles, and label
 As the number of nodes _(or depth)_ of a tree increases, the hypothesis space grows.
 
 -   **Depth 1 :** Can represent any boolean function of one feature _("decision stump")_.
--   **Depth 2 :** Any boolean function of two features, some boolean functions involving three features, such as $\ (x_1 \and x_2) \or (\neg x_1 \and \neg x_3)$.
+-   **Depth 2 :** Any boolean function of two features, some boolean functions involving three features, such as $(x_1 \land x_2) \lor (\neg x_1 \and \neg x_3)$.
 -   **etc.**
 
 
@@ -189,7 +189,7 @@ As the number of nodes _(or depth)_ of a tree increases, the hypothesis space gr
 
 The same basic learning algorithm has been discovered by many people independently:
 
-$\ \begin{aligned}&\large \textbf{GrowTree} (S)\\&\textbf{if}\ (y=0\ \textrm{for all}\ \langle x,y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(0)}\\&\textbf{else if}\ (y = 1\ \textrm{for all}\ \langle x, y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(1)} \\&\textbf{else:}\\&\qquad\textrm{choose best attribute}\ x_j\\&\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0\\&\qquad \textbf{return}\ \textrm{new node}(x_j,\ \textrm{GrowTree}(S_0), \ \textrm{GrowTree}(S_1))\\ \end{aligned}$
+$$\begin{aligned}&\large \textbf{GrowTree} (S)\\&\textbf{if}\ (y=0\ \textrm{for all}\ \langle x,y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(0)}\\&\textbf{else if}\ (y = 1\ \textrm{for all}\ \langle x, y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(1)} \\&\textbf{else:}\\&\qquad\textrm{choose best attribute}\ x_j\\&\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0\\&\qquad \textbf{return}\ \textrm{new node}(x_j,\ \textrm{GrowTree}(S_0), \ \textrm{GrowTree}(S_1))\\ \end{aligned}$$
 
 
 
@@ -197,7 +197,7 @@ $\ \begin{aligned}&\large \textbf{GrowTree} (S)\\&\textbf{if}\ (y=0\ \textrm{for
 
 One way to choose the best attribute is to perform a 1-step lookahead search and choose the attribute that gives the lowest error rate on the training data.
 
-$\ \begin{aligned}&\large \textbf{ChooseBestAttribute}(S)\\ &\textrm{choose}\ j\ \textrm{to mininmize}\ J_j \textrm{, computed as follows:}\\ &\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0 \\ &\qquad S_1 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 1 \\ &\qquad y_0 = \textrm{the most common value of}\ y\ \textrm{in}\ S_0\\ &\qquad y_1 = \textrm{the most common value of}\ y\ \textrm{in}\ S_1\\ &\qquad J_0 = \textrm{number of examples}\ \langle x, y \rangle \in\ S_0\ \textrm{with}\ y \neq y_0\\  &\qquad J_1 = \textrm{number of examples}\ \langle x, y \rangle \in\ S_1\ \textrm{with}\ y \neq y_1\\ &\qquad J_j = J_0 + J_1\ \textrm{(total errors if we split on this feature)}\\ &\textbf{return}\ j\\ \end{aligned}$
+$$\begin{aligned}&\large \textbf{ChooseBestAttribute}(S) \\ &\textrm{choose}\ j\ \textrm{to mininmize}\ J_j \textrm{, computed as follows:}\\ &\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0 \\ &\qquad S_1 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 1 \\ &\qquad y_0 = \textrm{the most common value of}\ y\ \textrm{in}\ S_0 \\ &\qquad y_1 = \textrm{the most common value of}\ y\ \textrm{in}\ S_1\\ &\qquad J_0 = \textrm{number of examples}\ \langle x, y \rangle \in\ S_0\ \textrm{with}\ y \neq y_0\\  &\qquad J_1 = \textrm{number of examples}\ \langle x, y \rangle \in\ S_1\ \textrm{with}\ y \neq y_1 \\ &\qquad J_j = J_0 + J_1\ \textrm{(total errors if we split on this feature)} \\ &\textbf{return}\ j\\ \end{aligned}$$
 
 Greedy search often works pretty well, and it prevents us from over-fitting. Therefore, most people don't implement a decision tree and jump straight to using greedy search. With ensembles trees, you can learn different things at different times _(which is always better)_.
 
@@ -224,16 +224,16 @@ Just using the number of errors or the accuracy as your criteria is not a good i
 
 <h2>A Better Heuristic From Information Theory</h2>
 
-Let $\ V$ be a random variable with the following probability distribution:
+Let $V$ be a random variable with the following probability distribution:
 
-| $\ \large P(V=0)$ | $\ \large P(V=1)$ |
+| $\large P(V=0)$ | $\large P(V=1)$ |
 | :---------------: | :---------------: |
 |        0.2        |        0.8        |
 
-The $\ \textrm{surprise}\ $ , $\ S(V = v)\ $ of each value of $\ V\ $ is defined to be:
+The $\textrm{surprise}$ , $S(V = v)$ of each value of $V$ is defined to be:
 $$
 \begin{align*} 
-	&& S(V=v) = -\log P(V=v)\\ 
+	&& S(V=v) = -\log P(V=v)
 \end{align*}
 $$
 
@@ -247,7 +247,7 @@ It turns out that the surprise is equal to the number of bits of information tha
 
 <h2>Entropy</h2>
 
-The $\ \textrm{entropy of}\ V$, denoted $\ H(V) $ is defined as follows:
+The $\textrm{entropy of}\ V$, denoted $H(V)$ is defined as follows:
 $$
 \begin{align*} 
 	&& H(V) = \sum_{v=0}^1 -P(H=v) \log P(H=v) \\ 
@@ -269,13 +269,13 @@ $$
 	&&I(A;B) = H(A) - \sum_{b} P(B=b) \cdot H(A|B=b)\\
 \end{align*}
 $$
->   $\ H(A)\ $ is the entropy of $\ A\ $ before seeing $\ B\ $ 
+>   $H(A)$ is the entropy of $A$ before seeing $B$ 
 >
->   $\ H(A|B=b)\ $ is the entropy of $\ A\ $ conditioned on $\ B$
+>   $H(A|B=b)$ is the entropy of $A$ conditioned on $B$
 
 
 
-In particular, consider the class $\ Y$ of each training example and the value of feature $\ x_1$ to be random variables. Then the mutual information quantifies how much $\ x_1$ tells us about the value of the class $\ Y$.
+In particular, consider the class $Y$ of each training example and the value of feature $x_1$ to be random variables. Then the mutual information quantifies how much $x_1$ tells us about the value of the class $Y$.
 
 ![image_of_mutual_info](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_mutual_info_1.png)
 
@@ -304,7 +304,7 @@ Before having an industrial level decision tree, we have to deal with some issue
 
     Consider a threshold split using each observed value of the feature.
 
-Whichever method is used, the mutual information can be computer to choose the best split. The simplest way to deal with real-valued attributes is to consider different thresholds _(e.g. temperature being higher or lower than $\ x^\circ C$)_. In essence, what setting a threshold does, is it reduces continuous levels to boolean ones.
+Whichever method is used, the mutual information can be computer to choose the best split. The simplest way to deal with real-valued attributes is to consider different thresholds _(e.g. temperature being higher or lower than $x^\circ C$)_. In essence, what setting a threshold does, is it reduces continuous levels to boolean ones.
 
 
 
