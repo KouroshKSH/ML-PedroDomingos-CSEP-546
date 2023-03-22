@@ -11,21 +11,21 @@ In either case:
 
 <h1>Terminology</h1>
 
-- **Training example:** An example of the form $\  \langle x, f(x) \rangle$ .
+- **Training example:** An example of the form $\langle x, f(x) \rangle$ .
 
-- **Target function (target concept):** The true function $\  f $ .
+- **Target function (target concept):** The true function $f$ .
 
-- **Hypothesis:** A proposed function $\  h$  believed to be similar to $\  f$ .
+- **Hypothesis:** A proposed function $h$  believed to be similar to $f$ .
 
-- **Concept:** A boolean function. Examples for which $\  f(x) = 1 $ are **positive examples** or **positive instances** of the concept. Examples for which $\  f(x) = 0 $ are called **negative examples** or **negative instances**.
+- **Concept:** A boolean function. Examples for which $f(x) = 1$ are **positive examples** or **positive instances** of the concept. Examples for which $f(x) = 0$ are called **negative examples** or **negative instances**.
 
-- **Classifier:** A discrete-valued function. The possible values $\  f(x) \in \{1, ..., K\} $ are called the **classes** or **class labels**.
+- **Classifier:** A discrete-valued function. The possible values $f(x) \in \{ 1, \ldots , K \}$ are called the **classes** or **class labels**.
 
 - **Hypothesis space:** The space of all hypothesis that can, in practice, be output by a learning algorithm.
 
 - **Version space:** The space of all hypothesis in the hypothesis space that have not yet been ruled out by a training example.
 
-  $\  Version \ Space \subseteq Hypothesis \ Space$
+$$\text{Version Space} \subseteq \text{Hypothesis  Space}$$
 
 If your version space winds up empty, you have probably done something wrong. 
 
@@ -128,14 +128,14 @@ Learning algorithms for decision trees can be described as:
 
 - **Constructive search:** The tree is built by adding nodes.
 - **Eager**
-- **Batch** _(although, online algorithms do exist)_​
+- **Batch** (although, online algorithms do exist)
 
 
 
 <h2>Decision Tree Hypothesis Space</h2>
 
--   **Internal nodes:**: They test the value of particular features $\ x_j $ and branch according to the results of the test.
--   **Leaf nodes:** They specify the class $\ h(x) $.
+-   **Internal nodes:**: They test the value of particular features $x_j$ and branch according to the results of the test.
+-   **Leaf nodes:** They specify the class $h(x)$.
 
 
 
@@ -150,7 +150,7 @@ Learning algorithms for decision trees can be described as:
 	w -->|Weak| y_w(Yes)
 ```
 
-Suppose the features are **Outlook** $\ (x_1) $, **Temperature** $\ (x_2) $, **Humidity** $\ (x_3) $ and **Wind** $\ (x_4) $. Then the feature vector $\ \chi = (Sunny,\ Hot,\ High,\ Strong) $ will be classified as a **No**. The **Temperature** feature is irrelevant.
+Suppose the features are **Outlook** $(x_1)$, **Temperature** $(x_2)$, **Humidity** $(x_3)$ and **Wind** $(x_4)$. Then the feature vector $\chi = \text{(Sunny,\ Hot,\ High,\ Strong)}$ will be classified as a **No**. The **Temperature** feature is irrelevant.
 
 If the features are continuous, internal nodes may test the value of a feature against a threshold.
 
@@ -178,18 +178,26 @@ Decision trees divide the feature space into axis-parallel rectangles, and label
 <h3>Decision Trees Provide Variable-Size Hypothesis Space</h3>
 
 As the number of nodes _(or depth)_ of a tree increases, the hypothesis space grows.
-
 -   **Depth 1 :** Can represent any boolean function of one feature _("decision stump")_.
--   **Depth 2 :** Any boolean function of two features, some boolean functions involving three features, such as $(x_1 \land x_2) \lor (\neg x_1 \and \neg x_3)$.
+-   **Depth 2 :** Any boolean function of two features, some boolean functions involving three features, such as $(x_1 \land x_2) \lor (\neg x_1 \land \neg x_3)$.
 -   **etc.**
 
 
 
 <h2>Learning Algorithms For Decision Trees</h2>
-
 The same basic learning algorithm has been discovered by many people independently:
 
-$$\begin{aligned}&\large \textbf{GrowTree} (S)\\&\textbf{if}\ (y=0\ \textrm{for all}\ \langle x,y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(0)}\\&\textbf{else if}\ (y = 1\ \textrm{for all}\ \langle x, y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(1)} \\&\textbf{else:}\\&\qquad\textrm{choose best attribute}\ x_j\\&\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0\\&\qquad \textbf{return}\ \textrm{new node}(x_j,\ \textrm{GrowTree}(S_0), \ \textrm{GrowTree}(S_1))\\ \end{aligned}$$
+$$\large
+\begin{aligned}
+	&\large \textbf{GrowTree} (S) \\
+	&\textbf{if}\ (y=0\ \textrm{for all}\ \langle x,y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(0)} \\
+	&\textbf{else if}\ (y = 1\ \textrm{for all}\ \langle x, y \rangle \in S)\ \textbf{return}\ \textrm{new leaf(1)} \\
+	&\textbf{else:} \\
+	&\qquad\textrm{choose best attribute}\ x_j \\
+	&\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0 \\
+	&\qquad \textbf{return}\ \textrm{new node}(x_j,\ \textrm{GrowTree}(S_0), \ \textrm{GrowTree}(S_1))
+\end{aligned}
+$$
 
 
 
@@ -197,13 +205,26 @@ $$\begin{aligned}&\large \textbf{GrowTree} (S)\\&\textbf{if}\ (y=0\ \textrm{for 
 
 One way to choose the best attribute is to perform a 1-step lookahead search and choose the attribute that gives the lowest error rate on the training data.
 
-$$\begin{aligned}&\large \textbf{ChooseBestAttribute}(S) \\ &\textrm{choose}\ j\ \textrm{to mininmize}\ J_j \textrm{, computed as follows:}\\ &\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0 \\ &\qquad S_1 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 1 \\ &\qquad y_0 = \textrm{the most common value of}\ y\ \textrm{in}\ S_0 \\ &\qquad y_1 = \textrm{the most common value of}\ y\ \textrm{in}\ S_1\\ &\qquad J_0 = \textrm{number of examples}\ \langle x, y \rangle \in\ S_0\ \textrm{with}\ y \neq y_0\\  &\qquad J_1 = \textrm{number of examples}\ \langle x, y \rangle \in\ S_1\ \textrm{with}\ y \neq y_1 \\ &\qquad J_j = J_0 + J_1\ \textrm{(total errors if we split on this feature)} \\ &\textbf{return}\ j\\ \end{aligned}$$
+$$\large
+\begin{aligned}
+	&\large \textbf{ChooseBestAttribute}(S) \\
+	&\textrm{choose}\ j\ \textrm{to mininmize}\ J_j \textrm{, computed as follows:} \\
+	&\qquad S_0 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 0 \\
+	&\qquad S_1 = \textrm{all}\ \langle x, y \rangle \in S\ \textrm{with}\ x_j = 1 \\
+	&\qquad y_0 = \textrm{the most common value of}\ y\ \textrm{in}\ S_0 \\
+	&\qquad y_1 = \textrm{the most common value of}\ y\ \textrm{in}\ S_1 \\
+	&\qquad J_0 = \textrm{number of examples}\ \langle x, y \rangle \in\ S_0\ \textrm{with}\ y \neq y_0 \\
+	&\qquad J_1 = \textrm{number of examples}\ \langle x, y \rangle \in\ S_1\ \textrm{with}\ y \neq y_1 \\
+	&\qquad J_j = J_0 + J_1\ \textrm{(total errors if we split on this feature)} \\
+	&\textbf{return}\ j
+\end{aligned}
+$$
 
 Greedy search often works pretty well, and it prevents us from over-fitting. Therefore, most people don't implement a decision tree and jump straight to using greedy search. With ensembles trees, you can learn different things at different times _(which is always better)_.
 
 
 
-| $\ \large x_1$ | $\ \large x_2$ | $\ \large x_3$ | $\ \large y$ |
+| $\large x_1$ | $\large x_2$ | $\large x_3$ | $\large y$ |
 | :------------: | :------------: | :------------: | :----------: |
 |       0        |       0        |       0        |      1       |
 |       0        |       0        |       1        |      0       |
@@ -231,29 +252,24 @@ Let $V$ be a random variable with the following probability distribution:
 |        0.2        |        0.8        |
 
 The $\textrm{surprise}$ , $S(V = v)$ of each value of $V$ is defined to be:
-$$
-\begin{align*} 
-	&& S(V=v) = -\log P(V=v)
-\end{align*}
-$$
+
+$$S(V=v) = -\log P(V=v)$$
 
 
 -   An even with probability 1 gives us zero surprise. 
 -   An event with probability 0 gives us infinite surprise!
 
-It turns out that the surprise is equal to the number of bits of information that need to be transmitted to a recipient who knows the probabilities of the results. This is also called the $\ \textrm{description length of}\ V = v\ $ . Fractional bits only make sense if they are part of a longer message _(e.g. describe a whole sequence of coin tosses)_.
+It turns out that the surprise is equal to the number of bits of information that need to be transmitted to a recipient who knows the probabilities of the results. This is also called the $\textrm{description length of } V = v$ . Fractional bits only make sense if they are part of a longer message _(e.g. describe a whole sequence of coin tosses)_.
 
 
 
 <h2>Entropy</h2>
 
-The $\textrm{entropy of}\ V$, denoted $H(V)$ is defined as follows:
-$$
-\begin{align*} 
-	&& H(V) = \sum_{v=0}^1 -P(H=v) \log P(H=v) \\ 
-\end{align*}
-$$
-This is the average surprise of describing the result of one "trial" of $\ V$ _(one coin toss)_. 
+The $\textrm{entropy of }V$, denoted $H(V)$ is defined as follows:
+
+$$H(V) = \sum_{v=0}^1 - P(H=v) \log P(H=v)$$
+	
+This is the average surprise of describing the result of one "trial" of $V$ _(one coin toss)_. 
 
 ![image_of_shannon_entropy_graph](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_shannon_entropy_graph.png)
 
@@ -263,15 +279,13 @@ Entropy can be viewed as a measure of uncertainty.
 
 <h2>Mutual Information</h2>
 
-Now consider two random variables $\ A$ and $\ B$ that are not necessarily independent. The $\ \textrm{mutual information}$ between $\ A$ and $\ B$ is the amount of information we learn about $\ B$ by knowing the value of $\ A$ _(and vice versa)_. It is computed as follows:
-$$
-\begin{align*}
-	&&I(A;B) = H(A) - \sum_{b} P(B=b) \cdot H(A|B=b)\\
-\end{align*}
-$$
+Now consider two random variables $A$ and $B$ that are not necessarily independent. The $\textrm{mutual information}$ between $A$ and $B$ is the amount of information we learn about $\ B$ by knowing the value of $A$ _(and vice versa)_. It is computed as follows:
+
+$$I(A;B) = H(A) - \sum_{b} P(B=b) \cdot H(A|B=b)$$
+
 >   $H(A)$ is the entropy of $A$ before seeing $B$ 
 >
->   $H(A|B=b)$ is the entropy of $A$ conditioned on $B$
+>   $H(A | B=b)$ is the entropy of $A$ conditioned on $B$
 
 
 
@@ -294,15 +308,12 @@ Mutual information works, because it's a convex measure.
 Before having an industrial level decision tree, we have to deal with some issues. The first one is, when features are not boolean. The obvious way is to use features with multiple values.
 
 1.  **Features with multiple discrete values**
-
     -   Construct a multi-way split?
-
     -   Test for one value versus all of the others?
     -   Group the values into two disjoint subsets?
 
 2.  **Real-valued features**
-
-    Consider a threshold split using each observed value of the feature.
+Consider a threshold split using each observed value of the feature.
 
 Whichever method is used, the mutual information can be computer to choose the best split. The simplest way to deal with real-valued attributes is to consider different thresholds _(e.g. temperature being higher or lower than $x^\circ C$)_. In essence, what setting a threshold does, is it reduces continuous levels to boolean ones.
 
@@ -310,11 +321,11 @@ Whichever method is used, the mutual information can be computer to choose the b
 
 <h2>Learning Parity With Noise</h2>
 
-All of the things shown thus far are heuristics, which means that they fail sometimes. Now how can we detect if it is failing or not? When learning $\ XOR\ $ _("exclusive-or", the 2-bit parity)_, all splits look equally good. Hence, decision tree algorithms cannot distinguish random noisy features from parity features. 
+All of the things shown thus far are heuristics, which means that they fail sometimes. Now how can we detect if it is failing or not? When learning $\oplus$ _("exclusive-or", the 2-bit parity)_, all splits look equally good. Hence, decision tree algorithms cannot distinguish random noisy features from parity features. 
 
 
 
-| $\ \large x_1$ | $\ \large x_2$ | $\ \large x_3$ | $\ \large y$ |
+| $\large x_1$ | $\large x_2$ | $\large x_3$ | $\large y$ |
 | :------------: | :------------: | :------------: | :----------: |
 |       0        |       0        |       0        |      0       |
 |       0        |       0        |       1        |      0       |
@@ -339,17 +350,19 @@ If someone comes with a new social security number, we will have no idea on what
 
 Problem:
 
--   If attribute has many values, $\ \textrm{Gain}\ $ will select it.
--   Imagine using $\ \textrm{Date}=June\ 3rd\ 1996\ $ as an attribute.
+-   If attribute has many values, $\textrm{Gain}$ will select it.
+-   Imagine using $\textrm{Date}=June\ 3rd\ 1996$ as an attribute.
 
-One approach would be to use $\ \textrm{GainRatio}\ $ instead:
-$$
+One approach would be to use $\textrm{GainRatio}$ instead:
+
+$$\Large
 \begin{align}
-\textrm{GainRatio}(S, A) = \frac{\textrm{Gain}(S, A)}{\textrm{SplitInformation}(S, A)} \\ \textrm{SplitInformation}(S, A) = - \sum_{i=1}^c \frac{|S_i|}{|S|} \log_2 \frac{|S_i|}{|S|} \\
+	\textrm{GainRatio}(S, A) = &\frac{\textrm{Gain}(S, A)}{\textrm{SplitInformation}(S, A)} \\
+	\textrm{SplitInformation}(S, A) = & - \sum_{i=1}^c \frac{|S_i|}{|S|} \log_2 \frac{|S_i|}{|S|}
 \end{align}
 $$
 
->   $\ S_i\ $ is a subset of $\ S\ $  for which $\ A\ $ has the value of $\ v_i$
+>   $S_i$ is a subset of $S$  for which $A$ has the value of $v_i$
 
 
 
@@ -357,11 +370,11 @@ $$
 
 The bigger the dataset, the worse it is. We have big data, but they're most likely filled with noise or unknown values. For instance, when you have a medical diagnose dataset of a patient, but not all of the test results. So there are missing information. 
 
-What if some examples are missing values of $\ A\ $ ? Use training examples anyway, sort through trees, and then perform one of these methods:
+What if some examples are missing values of $A$ ? Use training examples anyway, sort through trees, and then perform one of these methods:
 
-1.  If node $\ n\ $ tests $\ A\ $ , assign most common value of $\ A\ $ among other examples sorted to node $\ n\ $ .
-2.  Assign the most common value of $\ A\ $ among other examples with the same target value.
-3.  Assign probability $\ p_i\ $ to each possible value $\ v_i\ $ of $\ A\ $ and then assign fraction $\ p_i\ $ of example to each descendant in the tree.
+1.  If node $n$ tests $A$ , assign most common value of $A$ among other examples sorted to node $n$ .
+2.  Assign the most common value of $\ A$ among other examples with the same target value.
+3.  Assign probability $p_i$ to each possible value $v_i$ of $A$ and then assign fraction $p_i$ of example to each descendant in the tree.
 
 Classify the new examples in the same fashion.
 
@@ -369,7 +382,7 @@ Classify the new examples in the same fashion.
 
 :grey_question:
 
->   **Q:** How do you come up with the values for $\ p_i\ $ ?
+>   **Q:** How do you come up with the values for $p_i$ ?
 >
 >   **A:** You count. So you have your training set at that node, and then look at the examples of the same class, and you count the fraction of those examples with the same attributes. That will be your probability.
 >
@@ -398,34 +411,26 @@ graph TB
 ```
 
 Consider adding a noisy training example:
-$$
-\begin{align*}
-	&&\textrm{Sunny, Hot, Normal, Strong, PlayTennis = No}
-\end{align*}
-$$
+
+$$\textrm{Sunny, Hot, Normal, Strong, PlayTennis = No}$$
+
 What effect does this have on our tree?
 
 
 
 <h1>Overfitting</h1>
 
-Consider error of hypothesis $\ h\ $ over:
+Consider error of hypothesis $h$ over:
 
--   Training data: $\ \textrm{error}_{\textrm{train}} (h) $
--   Entire distribution $\ D\ $ of data:  $\ \textrm{error}_{D} (h) $
+-   Training data: $\textrm{error}_{\textrm{train}} (h)$
+-   Entire distribution $D$ of data:  $\textrm{error}_{D} (h)$
 
-Hypothesis $\ h \in H\ $ **overfitts** the training data if there is an alternative hypothesis $\ h^{\prime} \in H\ $ such that:
-$$
-\begin{align*}
-	&& \textrm{error}_{\textrm{train}} (h) < \textrm{error}_{\textrm{train}} (h^{\prime})
-\end{align*}
-$$
+Hypothesis $h \in H$ **overfitts** the training data if there is an alternative hypothesis $h^{\prime} \in H$ such that:
+
+$$\textrm{error}_{\textrm{train}} (h) < \textrm{error}_{\textrm{train}} (h^{\prime})$$
  and:
-$$
-\begin{align*}
-	&& \textrm{error}_{D} (h) < \textrm{error}_{D} (h^{\prime})
-\end{align*}
-$$
+ 
+$$\textrm{error}_{D} (h) < \textrm{error}_{D} (h^{\prime})$$
 
 
 <h2>Overfitting In Decision Tree Learning</h2>
@@ -483,9 +488,7 @@ Cross-validation is a very clever way to make maximum use of our data. The snipp
 
 
 <h2>Rule Post-Pruning</h2>
-
 The idea is that to post-prune the decision tree into something that is no longer a decision tree, but a set of rules.
-
 1.  Convert tree to equivalent set of rules.
 2.  Prune each rule independently of others.
 3.  Sort final rules into desired sequences for use.
@@ -493,10 +496,16 @@ The idea is that to post-prune the decision tree into something that is no longe
 
 
 <h3>Converting A Tree To Rules</h3>
-
 When you turn each path to leaf into a rule, you have converted that tree to a set of rules. For instance:
 
-$\ \begin{align*} &\textbf{if}\ (Outlook = Sunny) \and (Humidity = High): \\ &\qquad \textbf{then}\ PlayTennis := No \\ &\textbf{if}\ (Outlook = Sunny) \and (Humidity = Normal): \\ &\qquad \textbf{then}\ PlayTennis := Yes \end{align*} $
+$$\large
+\begin{align*}
+	&\textbf{if}\ (Outlook = Sunny) \land (Humidity = High): \\
+	&\qquad \textbf{then}\ PlayTennis := \textrm{No} \\
+	&\textbf{if}\ (Outlook = Sunny) \land (Humidity = Normal): \\
+	&\qquad \textbf{then}\ PlayTennis := \textrm{Yes}
+\end{align*}
+$$
 
 ![image_of_converting_tree_to_rules](https://raw.githubusercontent.com/LiLSchw4nz/ML-PedroDomingos-CSEP-546/master/images/image_of_converting_tree_to_rules.png)
 
@@ -504,12 +513,10 @@ The number of rules will be equal to the number of leafs of the tree. A set of r
 
 How can someone **sort the rules**? The rule of thumb is to put the **more accurate ones first**.
 
-
+---
 
 <h1>Scaling Up</h1>
-
 Scaling won't be taught heavily in this course, however, it is preferable to know the 3 main algorithms that have been developed to work with data.
-
--   **ID3, C4.5:** assume data first in main memory, which is suitable for up to hundred of thousands of examples.
--   **SPRINT, SLIQ:** multiple sequential scans of data, which is suitable for up to millions of examples.
--   **VFDT:** at most one sequential scan, which is suitable for up to billions of examples.
+- **ID3, C4.5:** assume data first in main memory, which is suitable for up to hundred of thousands of examples.
+- **SPRINT, SLIQ:** multiple sequential scans of data, which is suitable for up to millions of examples.
+- **VFDT:** at most one sequential scan, which is suitable for up to billions of examples.
