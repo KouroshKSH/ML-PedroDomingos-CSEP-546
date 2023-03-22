@@ -304,7 +304,7 @@ Depending on what we are predicting:
 | :-----------------------------------: | :-------------: |
 |       $\large \Rightarrow y$        |        1        |
 |     $\large x_1 \Rightarrow y$      |        3        |
-| $\large x_1 \and x_2 \Rightarrow y$ |        3        |
+| $\large x_1 \\and x_2 \Rightarrow y$ |        3        |
 |            $\large \ldots$             | $\ \large ... $ |
 
 No simple rule can explain the data. The same is true for simple clauses.
