@@ -5,7 +5,7 @@ Why not just directly learn rules, instead of first making a decision tree and t
 
 ---
 
-<h1>Learning Sets Of Rules</h1> 
+# Learning Sets Of Rules
 A famous example is from Walmart where the data miners realized that: 
 >   A set of customers who buy diapers, purchase beers as well. :baby: :beer:
 
@@ -24,7 +24,7 @@ Learning algorithms for rule sets can be described as:
 
 The funny thing is that, in the previous example, Walmart decided to put the beer section as far away as possible from the diapers section, in order to maximize the chances of persuading fathers to purchase extra stuff whilst walking the aisle. The actions you take based on the rules are a whole different issue, but the first step is to discover the associations.
 
-
+---
 
 # Rule Set Hypothesis Space
 Like decision trees, rules are not a mathematically complicated representation. 
@@ -55,9 +55,9 @@ If we allow a [decision graph](https://www.bayesserver.com/docs/introduction/dec
 
 As we can see, even though the rules are simple, the size of the tree grows exponentially with the number of rules. In general, converting a set of rules into a decision tree might cause an exponential blowup. In this regard, rules have a serious advantage compared to decision trees.
 
+---
 
-
-<h1>Learning A Single Rule</h1>
+# Learning A Single Rule
 How can we propose a set of rules? For example, we have a bank, and they want to decide whether a customer is a good credit risk. Probably, the first thing to consider is a rule that has a highly predictive feature, such as the person's total net worth in this case.
 
 We grow a rule by starting with an empty rule and adding tests one at a time until the rule **covers** only positive examples.
@@ -79,8 +79,6 @@ Consider this, we have 2 patients, with exactly the same symptoms. Now, one of t
 
 ---
 
-
-
 # Learning A Set Of Rules (Separate-and-Conquer)
 To summarize what we just learned, we have an outer loop that calls the inner loop, the inner loop is growing a single rule, the outer rule will throw out the learned rules until there are no positive examples left.
 
@@ -99,16 +97,9 @@ $$
 ---
 
 
-
 # Choosing The Best Test
--   Current rule $R$ covers $m_0$ negative examples and $m_1$ positive examples.
-
-    $\textrm{Let}\ p = \frac{m_1}{m_0 + m_1}$
-
--   Proposed rule $R \cup \{ x_j \Theta v \}$ covers $m_{0}^{'}$ and $\ m_{1}^{'}$ examples.
-
-    $\textrm{Let}\ p = \frac{m_{1}^{'}}{m_{0}^{'} + m_{1}^{'}}$
-
+-   Current rule $R$ covers $m_0$ negative examples and $m_1$ positive examples. $\textrm{Let}\ p = \frac{m_1}{m_0 + m_1}$
+-   Proposed rule $R \cup \{ x_j \Theta v \}$ covers $m_{0}^{'}$ and $\ m_{1}^{'}$ examples. $\textrm{Let}\ p = \frac{m_{1}^{'}}{m_{0}^{'} + m_{1}^{'}}$
 -   $\textrm{Gain} = m_{1}^{'}[(-p \lg p) - (-p^{'} \lg p^{'})]$
 
 We want to reduce our surprise to the point where we are _certain_, but we also want the rule to cover many examples. This formula tries to implement this trade-off.
@@ -124,8 +115,6 @@ All of our algorithms so far have used greedy algorithms. Finding the smallest s
 3.  **Beam search:** Instead of growing one new rule, we grow $B$ new rules. We consider adding each possible test to each rule and keep the best $B$ resulting rules. When no more tests can be added, we choose the best of the $B$ rules and add it to the rule set.
 
 ---
-
-
 
 # Probability Estimates From Small Numbers
 When $m_0$ and $m_1$ are very small, we can end up with:
@@ -149,8 +138,6 @@ Laplace made an example out of the possibility of the sun not coming out one day
 Or for instance, the famous **Inductivist Turkey** theory from [Bertrand Russell](https://en.wikipedia.org/wiki/Bertrand_Russell) which can be found on [Tuning In To Safety](https://www.tuningintosafety.com/blog/2020/1/16/safety-and-the-inductivist-turkey)'s blog, in which the Turkey was confident that he would be fed for the rest of his life, even though his throat was cut open before thanksgiving. With Laplace's estimation, we can always have the possibility of being wrong in the back of our minds. 
 
 ---
-
-
 
 # Learning Rules For Multiple Classes
 What if we have more than one class?
@@ -403,8 +390,6 @@ So we're going to cut $C_2$ out and combine $PassExam$ and $\neg Study$ together
 1.   Given initial clauses $C_1$ and $C$ , find a literal $L$ that occurs in clause $C_1$ , but not in clause $C$ .
 2.   Form the second clause $C_2$ by including the following literals: $$C_2 = (C - (C_1 - \{ L \})) \cup \{ \neg L \}$$
 
-
-
 ---
 
 # First-Order Resolution
@@ -412,4 +397,3 @@ Now that we have variables and general rules, things get more interesting. Now h
 1.   Find a literal $L_1$ from clause $C_1$ , literal $L_2$ from clause $C_2$ and substitution $\theta$ such that $L_1 \theta = \neg L_2 \theta$ .
 2.   Form the resolvent $C$ by including all literals from $C_1 \theta$ and $C_2 \theta$ except for $L_1 \theta$ and $\neg L_2 \theta$ . More precisely, the set of literals occurring in the conclusion $C$ is:
 $$C = (C_1 - \{ L_1 \}) \theta \cup (C_2 - \{ L_2 \}) \theta$$
-     
