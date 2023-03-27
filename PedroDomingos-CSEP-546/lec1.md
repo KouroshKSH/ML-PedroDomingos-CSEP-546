@@ -1,6 +1,4 @@
-<h1> What Is Machine Learning?</h1>
-
-
+# What Is Machine Learning?
 - Automating automation
 - Getting computers to program themselves
 - Writing software is the bottleneck
@@ -8,7 +6,7 @@
 
 The current software developers, are **the new bottlenecks** in modern industries. The way computer engineers put traditional workers out of work, will happen between machine learning scientists and traditional software engineers.
 
-
+---
 
 <h1> Differences Between Traditional Programming And Machine Learning</h1>
 
@@ -67,13 +65,10 @@ The output program in machine learning can be used as the input program for the 
 	
 ```
 
+---
 
-
-<h1> Is It Magic?</h1>
-
-
+# Is It Magic?
 Machine Learning is more like **gardening** than magic, because:
-
 - Seeds = Algorithms
 - Nutrients = Data
 - Gardener = You
@@ -97,9 +92,9 @@ Machine Learning is more like **gardening** than magic, because:
 
 :outbox_tray:  Information extraction   
 
-:busts_in_silhouette: ​Social networks 
+:busts_in_silhouette: Social networks 
 
-:bug: ​Debugging  
+:bug: Debugging  
 
 
 
@@ -170,8 +165,7 @@ Depending on what we are predicting:
 
 
 
-<h1>What Will Be Covered</h1>
-
+# What Will Be Covered
 1. Supervised Learning:
    - Decision tree induction
    - Rule induction
@@ -185,9 +179,9 @@ Depending on what we are predicting:
    - Clustering
    - Dimensionality reduction
 
+---
 
-
-<h1>Machine Learning In Practice</h1>
+# Machine Learning In Practice
 
 1. Understanding domain, prior knowledge and goals
    - The first step is to understand the problem.
@@ -216,12 +210,10 @@ Depending on what we are predicting:
 
 6. Loop :repeat: 
 
+---
 
-
-<h1>Inductive Learning</h1>
-
-<h2>Supervised Learning</h2>
-
+# Inductive Learning
+## Supervised Learning
 **Given:** Training Example $(x, f(x))$ for some unknown function $f$
 
 **Find:** A good approximation of $f$
@@ -294,7 +286,7 @@ Depending on what we are predicting:
 
 
 
-<h3>Hypothesis Spaces</h3>
+### Hypothesis Spaces
 
 **Complete Ignorance:** There are $2^{16} = 65536$ possible boolean functions over four input features. We can't figure out which one is correct until we've seen every possible input-output pair.
 
@@ -304,7 +296,7 @@ Depending on what we are predicting:
 | :-----------------------------------: | :-------------: |
 |       $\large \Rightarrow y$        |        1        |
 |     $\large x_1 \Rightarrow y$      |        3        |
-| $\large x_1 \\and x_2 \Rightarrow y$ |        3        |
+| $\large x_1 \\land x_2 \Rightarrow y$ |        3        |
 |            $\large \ldots$             | $\ \large ... $ |
 
 No simple rule can explain the data. The same is true for simple clauses.
@@ -325,9 +317,9 @@ No simple rule can explain the data. The same is true for simple clauses.
 
 Finally, there is a situation that actually works _(the **! ! !** example)_. It fits all training data perfectly. So now, we have a candidate. The goal of machine learning algorithms is to come up with the right candidate.
 
+---
 
-
-<h1>Two Views Of Learning</h1>
+# Two Views Of Learning
 
 1. **Learning is the removal of our remaining uncertainty.** Suppose we knew that the unknown function was an $m- \ of- n$ boolean function, then we could use the training examples to infer which function it is.
 2. **Learning requires guessing a good, small hypothesis class.** We can start with a very small class and enlarge it until it contains an hypothesis that fits the data.
