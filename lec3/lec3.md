@@ -26,10 +26,12 @@ The funny thing is that, in the previous example, Walmart decided to put the bee
 
 # Rule Set Hypothesis Space
 Like decision trees, rules are not a mathematically complicated representation. 
--   **Each rule is a conjunction of tests.** Each test has the form $x_j = v,\ x_j \lor v$ or $\ x_j \lor v$ where $v$ is a value for $x_j$ that appears in the training data.
+- **Each rule is a conjunction of tests.** Each test has the form $x_j = v,\ x_j \lor v$ or $\ x_j \lor v$ where $v$ is a value for $x_j$ that appears in the training data.
+
 $$x_1 = Sunny \ \land \ x_2 \le 75 \% \Rightarrow y = 1$$
     
--   **A rule set is a disjunction of rules.** Typically all of the rules are for one class _(e.g. $y = 1$)_. An example is classified into $y = 1$ if **any** rule is satisfied.
+- **A rule set is a disjunction of rules.** Typically all of the rules are for one class _(e.g. $y = 1$)_. An example is classified into $y = 1$ if **any** rule is satisfied.
+  
 $$
 \begin{align}
     	x_1 = Sunny \ \land \ x_2 \le 75 \% \Rightarrow y = 1 \\
@@ -38,7 +40,7 @@ $$
 \end{align}
 $$
 
-
+---
 
 <h1>Relationship To Decision Trees</h1>
 You can turn a set of rules, into a truth table, and then transform that into a decision tree. Since a decision tree may be larger than a set of rules, you can't just easily turn decision trees into rule sets and vice versa; there's a snag. 
@@ -167,6 +169,7 @@ Why do that? Until now, the computers haven't been able to achieve impressive mi
 
 Now, why should we even try to change the method? Let's start with the concept of **Ancestors**.  
 -   Can learn sets of rules such as:
+
 $$
 \begin{align}
     	& \textrm{Ancestor}(x, y) \leftarrow \textrm{Parent}(x, y) \\
@@ -219,6 +222,7 @@ Candidate specializations add new literal of form:
 ---
 
 ## Information Gain In FOIL
+
 $$FoilGain(L, R) \equiv t (\log_2 \frac{p_1}{p_1 + n_1} - \log_2 \frac{p_0}{p_0 + n_0})$$
 
 >   **Where:**
@@ -276,7 +280,7 @@ $$x \rightarrow y \qquad \qquad \textrm{repersents}\ \qquad \qquad LinkedTo(x, y
 -   Pairs of nodes, e.g. $\langle 1, 5 \rangle$ , with graph described by literals $LinkedTo(0, 1),\ \neg LinkedTo(0, 8)$ & etc.
 
 **Hypothesis space:**
->   Each $h \in H$ is a set of *Horn* clauses using predicates $LinkedTo(.,.)$ (and $CanReach(.,.)$).
+>   Each $h \in H$ is a set of *Horn* clauses using predicates $\textrm{LinkedTo} \left( . , . \right)$, and $\textrm{CanReach} \left( . , . \right)$.
 
 
 
@@ -305,6 +309,7 @@ The symbol $\large \vdash$ (or ```\vdash``` in Latex):
 >   As stated by user ```@W.R.P.S``` on [StackExchange](https://math.stackexchange.com/a/2281178).
 
 $\lambda \vdash n$ means that:
+
 $$
 	\begin{align}
 		&\textrm{if}\ \lambda = (\lambda_1, \lambda_2, \dots, \lambda_k) \\
@@ -325,6 +330,7 @@ Now let's make an induction system!
 
 
 What satisfies $\large (\forall \langle x_i, f(x_i) \rangle \in D)\ B\ \land h \land x_i\ \vdash f(x_i)$?
+
 $$
 \begin{align}
 	h_1\ :\ Child(u, v) \leftarrow Father(v, u) \\
@@ -356,6 +362,7 @@ We also need **inductive** operators $O(B, D) = h$,  where $(\forall \langle x_i
 ---
 
 ## Deduction: Resolution Rule
+
 $$
 \begin{equation*}
 	\begin{array}{c}
@@ -369,7 +376,7 @@ $$
 1.   Given initial clauses $C_1$ and $C_2$ , find a literal $L$ from clause $C_1$ such that $\neg L$ occurs in clause $C_2$ .
 2.   Form the resolvent $C$ by including all literals from $C_1$ and $C_2$ , except for $L$ and $\neg L$ . More precisely, the set of literals occurring in the conclusion $C$ is: $$C = (C_1 - \{ L \}) \cup (C_2 - \{ \neg L \})$$
 
->    where $\large \cup$ denotes set union, and "$-$" is set difference.
+>    where $A \large \cup B$ denotes set union, and "$A - B$" is set difference.
 
 ---
 
