@@ -3,11 +3,13 @@ Why not just directly learn rules, instead of first making a decision tree and t
 1.  Propositional rules
 2.  First-order rules
 
-
+---
 
 <h1>Learning Sets Of Rules</h1> 
-A famous example is from [Walmart](https://www.walmart.com/), where the data miners realized that: 
+A famous example is from Walmart where the data miners realized that: 
 >   A set of customers who buy diapers, purchase beers as well. :baby: :beer:
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Walmart_logo.svg/1280px-Walmart_logo.svg.png)
 
 The explanation for this situation is that, fathers who are buying diapers for their kids, may tend to buy beers to compensate for the pain of life.
 Rules are very easy to understand popular in data mining:
