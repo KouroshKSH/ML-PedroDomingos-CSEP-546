@@ -17,11 +17,8 @@ Welcome to the Machine Learning Specialization! You're joining millions of other
 ---
 ---
 
-## What is [[Machine Learning]]? 🤖
-```ad-quote
-"Machine learning is the field of study that gives computers the ability to learn without being explicitly programmed."
-Arthur Samuel, 1950
-```
+## What is Machine Learning? 🤖
+> "Machine learning is the field of study that gives computers the ability to learn without being explicitly programmed." - Arthur Samuel, 1950
 
 #question If Arthur Samuel's checkers-playing program had been allowed to play only 10 games (instead of tens of thousands games) against itself, how would this have affected its performance?
 - Would have made it worse ✅
@@ -30,26 +27,26 @@ Arthur Samuel, 1950
 > In general, the more opportunities you give a learning algorithm to learn, the better it will perform. 
 
 There 2 main types of ML:
-1. [[Supervised Learning]]
-2. [[Unsupervised Learning]]
+1. Supervised Learning
+2. Unsupervised Learning
 
 By far, the most used types of learning algorithms today are supervised learning, unsupervised learning, and recommender systems. In machine learning, making sure you have the tools is really important and so is making sure that you know how to apply the tools of machine learning effectively. 
 
 ---
 
-## [[Supervised Learning]] Part 1
+## Supervised Learning Part 1
 Supervised machine learning or more commonly, supervised learning, refers to algorithms that learn $x$ to $y$ or `input -> output` mappings. The key characteristic of supervised learning is that ==you give your learning algorithm examples to learn from==. That includes the *right answers*, whereby right answer, the correct label $y$ for a given input $x$, and is by seeing correct pairs of input $x$ and desired output label $y$ that the learning algorithm eventually learns to take just the input alone without the output label and gives a reasonably accurate prediction or guess of the output.
 
 Some examples of such algorithms:
 
 | Input             | Output            | Application             |
 | ----------------- | ----------------- | ----------------------- |
-| email             | spam (0/1)        | [[Spam Filter]]         |
-| audio clip        | text transcript   | [[Speech Recognition]]  |
-| English           | Spanish           | [[Machine Translation]] |
-| ad, user info     | click (0/1)       | [[Online Advertising]]  |
-| image, radar info | positions of cars | [[Autonomous Vehicle]]  |
-| image of product  | defect (0/1)      | [[Visual Inspection]]   |
+| email             | spam (0/1)        | Spam Filter         |
+| audio clip        | text transcript   | Speech Recognition  |
+| English           | Spanish           | Machine Translation |
+| ad, user info     | click (0/1)       | Online Advertising  |
+| image, radar info | positions of cars | Autonomous Vehicle  |
+| image of product  | defect (0/1)      | Visual Inspection   |
 
 In all of these applications, you will first train your model with examples of inputs $x$ and the right answers, that is the labels $y$. After the model has learned from these input, output, or $x$ and $y$ pairs, they can then take a brand new input $x$, something it has never seen before, and try to produce the appropriate corresponding output $y$. 
 
@@ -62,13 +59,13 @@ Say you want to predict housing prices based on the size of the house. You've co
 
 One thing a learning algorithm might be able to do is fitting a straight line. But fitting a straight line isn't the only learning algorithm you can use. There are others that could work better for this application. For example, instead of fitting a straight line, you might decide that it's better to fit a curve, a function that's slightly more complicated or more complex than a straight line. ==The task of the learning algorithm is to produce more right answers.==
 
-To define a little bit more terminology, this housing price prediction is the particular type of supervised learning called [[Regression (Statistics)]]. By regression, I mean we're trying to predict a number from infinitely many possible numbers such as the house prices in our example, which could be 150,000 or 70,000 or 183,000 or any other number in between. 
+To define a little bit more terminology, this housing price prediction is the particular type of supervised learning called Regression (Statistics). By regression, I mean we're trying to predict a number from infinitely many possible numbers such as the house prices in our example, which could be 150,000 or 70,000 or 183,000 or any other number in between. 
 
-But there's also a second major type of supervised learning problem called [[Classification (Statistics)]].
+But there's also a second major type of supervised learning problem called Classification (Statistics).
 
 ---
 
-## [[Supervised Learning]] Part 2
+## Supervised Learning Part 2
 There's a second major type of supervised learning algorithm called a classification algorithm. Take breast cancer detection as an example of a classification problem. Using a patient's medical records your machine learning system tries to figure out if a tumor that is a lump is:
 - **malignant:** meaning cancerous or dangerous
 - **benign:** meaning that it's just a lump that isn't cancerous and isn't that dangerous
@@ -97,15 +94,15 @@ Supervised learning maps input x to output y, where the learning algorithm learn
 > For instance, emails labeled as "spam" or "not spam" are examples used for training a supervised learning algorithm. The trained algorithm will then be able to predict with some degree of accuracy whether an unseen email is spam or not.
 
 
-Next there's a second major type of machine learning called [[Unsupervised Learning]].
+Next there's a second major type of machine learning called Unsupervised Learning.
 
 ---
 ---
 
-## [[Unsupervised Learning]] Part 1
+## Unsupervised Learning Part 1
 When the given data isn't associated with output labels such as $y$, our job would be ==to find some structure== or some pattern or just find something interesting in the data. This is unsupervised learning, we call it unsupervised because we're not trying to supervise the algorithm. 
 
-An unsupervised learning algorithm, might decide that the data can be assigned to two different groups or two different clusters. And so it might decide, that there's one cluster what group over here, and there's another cluster or group over here. This is a particular type of unsupervised learning, called a [[Clustering (Analysis)]] algorithm. Because it places the unlabeled data, into different clusters and this turns out to be used in many applications. 
+An unsupervised learning algorithm, might decide that the data can be assigned to two different groups or two different clusters. And so it might decide, that there's one cluster what group over here, and there's another cluster or group over here. This is a particular type of unsupervised learning, called a Clustering (Analysis) algorithm. Because it places the unlabeled data, into different clusters and this turns out to be used in many applications. 
 
 In unsupervised learning, we're not telling the algorithm in advance, that there is a type one person with certain characteristics. Or a type two person with certain characteristics, instead what we're saying is here's a bunch of data. I don't know what the different types of people are but can you automatically find structure into data.
 
@@ -113,12 +110,12 @@ To summarize a clustering algorithm: ==is a type of unsupervised learning algori
 
 ---
 
-## [[Unsupervised Learning]] Part 2
+## Unsupervised Learning Part 2
 Whereas in supervised learning, the data comes with both inputs $x$ and input labels $y$, in unsupervised learning, the data comes only with inputs $x$ but not output labels $y$, and the algorithm has to find some structure or some pattern or something interesting in the data. 
 
 In this specialization, you'll learn about clustering as well as two other types of unsupervised learning:
-1. [[Anomaly Detection]]: which is used to detect unusual events. This turns out to be really important for fraud detection in the financial system, where unusual events, unusual transactions could be signs of fraud and for many other applications.
-2. [[Dimensionality Reduction]]: This lets you take a big data-set and almost magically compress it to a much smaller data-set while losing as little information as possible. 
+1. Anomaly Detection: which is used to detect unusual events. This turns out to be really important for fraud detection in the financial system, where unusual events, unusual transactions could be signs of fraud and for many other applications.
+2. Dimensionality Reduction: This lets you take a big data-set and almost magically compress it to a much smaller data-set while losing as little information as possible. 
 
 #question Of the following examples, which would you address using an unsupervised learning algorithm?  (Check all that apply.)
 - Given a set of news articles found on the web, group them into sets of articles about the same stories. ☑️ ✅
@@ -183,7 +180,7 @@ print(f"f strings allow you to embed variables {variable}")
 ---
 ---
 
-## Quiz: [[Supervised Learning]] vs. [[Unsupervised Learning]] 
+## Quiz: Supervised Learning vs. Unsupervised Learning 
 1. Which are the two common types of supervised learning? (Choose two)
 	1. Classification ☑️✅
 	2. Regression ☑️✅
@@ -196,7 +193,7 @@ print(f"f strings allow you to embed variables {variable}")
 ---
 ---
 
-## [[Linear Regression]] Model Part 1
+## Linear Regression Model Part 1
 Linear regression means fitting a straight line to your data. It's probably the most widely used learning algorithm in the world today. Let's look at a house price and size graph:
 
 <p align="center"><img src="http://www.amybergquist.com/blog/wp-content/uploads/2008/10/2008-10-01-home-price-vs-home-size.jpg"></p>
@@ -208,14 +205,9 @@ One thing you could do this, you can build a linear regression model from this d
 
 This linear regression model is a particular type of supervised learning model. It's called regression model because it predicts numbers as the output like prices in dollars. Any supervised learning model that predicts a number such as 220,000 or 1.5 or negative 33.2 is addressing what's called a regression problem. Linear regression is one example of a regression model. 
 
-```ad-tip
-title: Reminder
-Just to remind you, in contrast with the regression model, the other most common type of supervised learning model is called a classification model. Classification model predicts categories or discrete categories, such as predicting if a picture is of a cat, meow or a dog, woof, or if given medical record, it has to predict if a patient has a particular disease. 
+#### Tip
+Just to remind you, in contrast with the regression model, the other most common type of supervised learning model is called a classification model. Classification model predicts categories or discrete categories, such as predicting if a picture is of a cat, meow or a dog, woof, or if given medical record, it has to predict if a patient has a particular disease. As a reminder about the difference between classification and regression, in classification, there are only a small number of possible outputs; whereas in regression, there are infinitely many possible numbers that the model could output
 
----
-
-As a reminder about the difference between classification and regression, in classification, there are only a small number of possible outputs; whereas in regression, there are infinitely many possible numbers that the model could output
-```
 
 Let's draw the data table for our graph:
 
@@ -229,7 +221,7 @@ Let's draw the data table for our graph:
 
 Notice that the horizontal and vertical axis correspond to these two columns, the size and the price. 
 
-The dataset that you just saw and that is used to train the model is called a [[Training Set (AI)]]. Note that your client's house is not in this dataset because it's not yet sold, so no one knows what the price is. To predict the price of your client's house, you first train your model to learn from the training set and that model can then predict your client's houses price. 
+The dataset that you just saw and that is used to train the model is called a Training Set (AI). Note that your client's house is not in this dataset because it's not yet sold, so no one knows what the price is. To predict the price of your client's house, you first train your model to learn from the training set and that model can then predict your client's houses price. 
 
 The standards in ML are:
 - $x$ = "input" variable, feature, input feature
@@ -241,15 +233,14 @@ The standards in ML are:
 Therefore, in our example, we can write the second training example as:
 $$\left( x^{(2)} , y^{(2)} \right) = \left( 1416, 232 \right)$$
 
-```ad-attention
-Don't mistake this notation with exponentiation!
-```
+> Don't mistake this notation with exponentiation!
 
-Just to note, this superscript $i$ in parentheses (or  $x^{(i)}$) is not an [[Exponential Function]]. When I write this, this is not $x^2$ (or x to the power 2). It just refers to the second training example. This $i$, is just an index into the training set and refers to row $i$ in the table. 
+
+Just to note, this superscript $i$ in parentheses (or  $x^{(i)}$) is not an Exponential Function. When I write this, this is not $x^2$ (or x to the power 2). It just refers to the second training example. This $i$, is just an index into the training set and refers to row $i$ in the table. 
 
 ---
 
-### [[Linear Regression]] Model Part 2
+### Linear Regression Model Part 2
 Recall that a training set in supervised learning includes:
 1. **input features:** such as the size of the house
 2. **output targets:** such as the price of the house
@@ -276,7 +267,7 @@ $$f_{w, b} (x) = wx + b$$
 For now, $w$ and $b$ are numbers, and the values chosen for them will determine the prediction $\hat{y}$ based on the input feature $x$. This $f_{w , b}$ of $x$ means $f$ is a function that takes $x$ as input, and depending on the values of $w$ and $b$, will output some value of a prediction $\hat{y}$. For the sake of simplicity: 
 $$f_{w, b} (x) = f(x) = wx + b$$
 
-Here's what this function is doing, it's making predictions for the value of $y$ using a streamline function of $x$. Since this is a straight-line, it's called a [[Linear Regression]]. More specifically, this is linear regression with *one variable*, where the phrase one variable means that there's a **single input variable** or feature $x$, namely the size of the house. Another name for a linear model with one input variable is *univariate* linear regression, where *uni* means one in Latin, and where *variate* means variable. 
+Here's what this function is doing, it's making predictions for the value of $y$ using a streamline function of $x$. Since this is a straight-line, it's called a Linear Regression. More specifically, this is linear regression with *one variable*, where the phrase one variable means that there's a **single input variable** or feature $x$, namely the size of the house. Another name for a linear model with one input variable is *univariate* linear regression, where *uni* means one in Latin, and where *variate* means variable. 
 
 #question For linear regression, the model is represented by $f_{w,b} (x) = wx+b$.  Which of the following is the output or "target" variable?
 - $x$
@@ -288,9 +279,6 @@ Here's what this function is doing, it's making predictions for the value of $y$
 
 ---
 
-```ad-note
-title:Optional Lab
-```
 ### Optional Lab: Model Representation
 #### Goals
 In this lab you will:
@@ -472,8 +460,8 @@ In this lab you have learned:
 ---
 ---
 
-## [[Cost Function (Mathematics)]] Formula
-In order to implement linear regression the first key step is first to define something called a [[Cost Function (Mathematics)]]. The cost function will tell us how well the model is doing so that we can try to get it to do better. 
+## Cost Function (Mathematics) Formula
+In order to implement linear regression the first key step is first to define something called a Cost Function (Mathematics). The cost function will tell us how well the model is doing so that we can try to get it to do better. 
 
 To introduce a little bit more terminology, $w$ and $b$ are called the *parameters* of the model. In machine learning, parameters of the model are the variables you can adjust during training in order to improve the model. Sometimes you also hear the parameters $w$ and $b$ referred to as *coefficients* or as *weights*. Depending on the values you've chosen for $w$ and $b$, you get a different function $f(x)$, which generates a different line on the graph.
 
@@ -494,7 +482,7 @@ $$\hat{y}^{(i)} = f_{w,b} \left( x^{(i)} \right) = w x^{(i)} + b$$
 
 Now the question is how do you find values for $w$ and $b$ so that the prediction $\hat{y}^{(i)}$ is close to the true target $y^{(i)}$ for many or maybe all training examples $\left( x^{(i)} , y^{(i)} \right)$? 
 
-To answer that question, let's first take a look at how to measure how well a line fits the training data. To do that, we're going to construct a [[Cost Function (Mathematics)]]. The cost function takes the prediction $\hat{y}$ and compares it to the target $y$ by:
+To answer that question, let's first take a look at how to measure how well a line fits the training data. To do that, we're going to construct a Cost Function (Mathematics). The cost function takes the prediction $\hat{y}$ and compares it to the target $y$ by:
 $${\rm{error}} := \hat{y}^{(i)} - y^{(i)}$$
 
 This difference is called the *error*. We're measuring how far off to prediction is from the target. Next, let's compute the square of this error. Also, we're going to want to compute this term for different training examples $i$ in the training set. Finally, we want to measure the error across the entire training set. In particular, the summation of squared errors. We'll sum from $i = 1$ all the way up to $m$ (and remember that $m$ is the number of training examples). Notice that if we have more training examples $m$ is larger and your cost function will calculate a bigger number. By convention, we will compute the *average squared error* instead of the total squared error and we do that by dividing by $m$, also, the cost function that machine learning people use actually divides by $2m$. The extra division by 2 is just meant to make some of our later calculations look neater, but the cost function still works whether you include this division by 2 or not. 
@@ -518,7 +506,7 @@ But what is $J(w,b)$ really computing?
 
 ---
 
-## [[Cost Function (Mathematics)]] Intuition
+## Cost Function (Mathematics) Intuition
 Depending on the values chosen for the parameters $w$ and $b$, you get different straight lines. You want to find values for your parameters, so that the straight line fits the training data well. To measure how well a choice of the parameters fit the training data, you have a cost function $J$. What the cost function $J$ does is, it measures the difference between the model's predictions, and the actual true values for $y$. 
 - Model: $$f_{w,b} (x) = wx + b$$
 - Parameters: $$w \quad \textrm{and} \quad b$$
@@ -569,7 +557,7 @@ If you draw the graph both for $f(x)$ and $J$, you would get:
 ---
 ---
 
-## Visualizing the [[Cost Function (Mathematics)]]
+## Visualizing the Cost Function (Mathematics)
 Let's go back to the original model without setting $b$ to zero.
 - Model: $$f_{w,b} (x) = wx + b$$
 - Parameters: $$w \quad \textrm{and} \quad b$$
@@ -578,34 +566,34 @@ Let's go back to the original model without setting $b$ to zero.
 
 Now let's check the housing price example once again. Let's say our original guess for the model is: $$f_{w,b} (x) = 0.06x + 50$$
 
-![[/img/MLS_C1_HousePrice_CostFunction1.jpg]]
+!/img/MLS_C1_HousePrice_CostFunction1.jpg
 
 ---
 
 ### The Bowl Shape 🍜
 Now if you plot the graph for $J$ with respect to $w$ and $b$, it would be a 3D graph that looks like a soup bowl.
 
-![[MLS_C1_HousePrice_CostFunction2.jpg]]
+!MLS_C1_HousePrice_CostFunction2.jpg
 
 ---
 
 ### Mount Fuji 🗻
-Now, if you were to look at this shape from the top, you could use a [[Contour Map]] to find all the points on the line that have the same height. Just like how we can find the similar points on Mount Fuji, where the red lines represent the contour lines.
+Now, if you were to look at this shape from the top, you could use a Contour Map to find all the points on the line that have the same height. Just like how we can find the similar points on Mount Fuji, where the red lines represent the contour lines.
 
-![[MLS_C1_HousePrice_CostFunction3.jpg]]
+!MLS_C1_HousePrice_CostFunction3.jpg
 
-![[MLS_C1_HousePrice_CostFunction4.jpg]]
+!MLS_C1_HousePrice_CostFunction4.jpg
 
 ---
 
 ### Contours for the Houses
 Now using the previous technique, let's see how different parameters behave.
 
-![[MLS_C1_HousePrice_CostFunction5.jpg]]
+!MLS_C1_HousePrice_CostFunction5.jpg
 
 On the upper right is a contour plot of this exact same cost function as that shown at the bottom. The two axes on this contour plots are $b$, on the vertical axis, and $w$ on the horizontal axis. What each of these ovals, also called ellipses, shows, is the center points on the 3D surface which are at the exact same height. In other words, the set of points which have the same value for the cost function $J$. To get the contour plots, you take the 3D surface at the bottom and you use a knife to slice it horizontally. You take horizontal slices of that 3D surface and get all the points, they're at the same height. Therefore, each horizontal slice ends up being shown as one of these ellipses or one of these oval.
 
-![[MLS_C1_HousePrice_CostFunction6.jpg]]
+!MLS_C1_HousePrice_CostFunction6.jpg
 
 > The bottom of the bowl, where the cost function $J$ is at a minimum, is this point right here (the blue "minimum" sign), at the center of this concentric ovals. 
 
@@ -616,26 +604,24 @@ On the upper right is a contour plot of this exact same cost function as that sh
 Now let's try out some different values for $w$ and $b$, and see how they behave and whether or not they're the best parameters that can minimize our cost function $j$, which would give us the best fitting line for the actual model $f_{w,b} (x)$.
 1. `w=-0.15, b=800`: as you can see, it's not a very good prediction because its error is too big, and it's very distant from the center of the ovals.
 
-![[MLS_C1_HousePrice_CostFunction7.jpg]]
+!MLS_C1_HousePrice_CostFunction7.jpg
 
 2. `w=0, b=360`: even though this is better than the previous one, it's still not that good.
 
-![[MLS_C1_HousePrice_CostFunction8.jpg]]
+!MLS_C1_HousePrice_CostFunction8.jpg
 
 3. `w=0.13, b=71`: now these parameters are very good, since they're pretty close to the minimum, and the line fits the data very well (the summation of the errors is little).
 
-![[MLS_C1_HousePrice_CostFunction9.jpg]]
+!MLS_C1_HousePrice_CostFunction9.jpg
 
 ---
 
 ### Is there another way to find these parameters?
-Now in linear regression, rather than having to manually try to read a contour plot for the best value for w and b, which isn't really a good procedure and also won't work once we get to more complex machine learning models. What you really want is *an efficient algorithm* that you can write in code for automatically finding the values of parameters $w$ and $b$ they give you the best fit line that minimizes the cost function $J$. There is an algorithm for doing this called [[Gradient Descent]]. This algorithm is one of the most important algorithms in machine learning. Gradient descent and variations on gradient descent are used to train, not just linear regression, but some of the biggest and most complex models in all of AI. 
+Now in linear regression, rather than having to manually try to read a contour plot for the best value for w and b, which isn't really a good procedure and also won't work once we get to more complex machine learning models. What you really want is *an efficient algorithm* that you can write in code for automatically finding the values of parameters $w$ and $b$ they give you the best fit line that minimizes the cost function $J$. There is an algorithm for doing this called Gradient Descent. This algorithm is one of the most important algorithms in machine learning. Gradient descent and variations on gradient descent are used to train, not just linear regression, but some of the biggest and most complex models in all of AI. 
 
 ---
 
-```ad-note
-The rest are from the Jupyter notebook provided by Coursera.
-```
+> The rest are from the Jupyter notebook provided by Coursera.
 
 ### Optional Lab:  Cost Function
 #### Introduction
@@ -683,7 +669,7 @@ def compute_cost(x, y, w, b):
 plt_intuition(x_train,y_train)
 ```
 
-![[MLS_C1_lab3_fig1.jpg]]
+!MLS_C1_lab3_fig1.jpg
 <br>
 ```python
 x_train = np.array([1.0, 1.7, 2.0, 2.5, 3.0, 3.2])
@@ -695,13 +681,13 @@ fig, ax, dyn_items = plt_stationary(x_train, y_train)
 updater = plt_update_onclick(fig, ax, x_train, y_train, dyn_items)
 ```
 
-![[MLS_C1_lab3_fig2.jpg]]
+!MLS_C1_lab3_fig2.jpg
 <br>
 ```python
 soup_bowl()
 ```
 
-![[MLS_C1_lab3_fig3.jpg]]
+!MLS_C1_lab3_fig3.jpg
 
 ---
 
@@ -713,7 +699,7 @@ You have learned the following:
 ---
 ---
 
-## Quiz: [[Regression (Statistics)]]
+## Quiz: Regression (Statistics)
 1. For linear regression, the model is $f_{w,b}(x) = wx + b$. Which of the following are the inputs, or features, that are fed into the model and with which the model is expected to make a prediction?
 	1. $w$ and $b$
 	2. $m$
@@ -730,8 +716,8 @@ You have learned the following:
 ---
 ---
 
-## [[Gradient Descent]]
-It would be nice if we had a more systematic way to find the values of $w$ and $b$, that results in the smallest possible cost, $J(w,b)$. It turns out there's an algorithm called "gradient descent" that you can use to do that. Gradient descent is used all over the place in machine learning, not just for linear regression, but for training for example some of the most advanced [[Artificial Neural Network]] models, also called [[Deep Learning]] models. 
+## Gradient Descent
+It would be nice if we had a more systematic way to find the values of $w$ and $b$, that results in the smallest possible cost, $J(w,b)$. It turns out there's an algorithm called "gradient descent" that you can use to do that. Gradient descent is used all over the place in machine learning, not just for linear regression, but for training for example some of the most advanced Artificial Neural Network models, also called Deep Learning models. 
 - have some function: $$J(w,b)$$
 - want to: $$\underset{w,b}{\textrm{min}} \ J(w,b)$$
 
@@ -745,41 +731,40 @@ One thing I should note is that ==for some functions $J$ that may not be a bow s
 
 For linear regression with the squared error cost function, you always end up with a bow shape or a hammock shape. But this is a type of cost function you might get if you're training a neural network model. 
 
-![[MLS_C1_GradientDescent1.jpg]]
+!MLS_C1_GradientDescent1.jpg
 
 ---
 
 ### What is our Goal? ⛳
 Now, let's imagine that this surface plot is actually a view of a slightly hilly outdoor park or a golf course where the high points are hills and the low points are valleys like so. I'd like you to imagine that you are physically standing at this point on the hill. ==Your goal is to start up here and get to the bottom of one of these valleys as efficiently as possible.==
 
-![[MLS_C1_GradientDescent2.jpg]]
+!MLS_C1_GradientDescent2.jpg
 
 Remember that you can choose a starting point at the surface by choosing starting values for the parameters $w$ and $b$. When you perform gradient descent a moment ago, you had started at the left point. Now, imagine if you try gradient descent again, but this time you choose a different starting point by choosing parameters that place your starting point just a couple of steps to the right over there.
 
-If you then repeat the gradient descent process, then you end up in a totally different valley. This different minimum over here on the right. The bottoms of both the first and the second valleys are called "local minima" (see [[Local Minimum]]). Because if you start going down the first valley, gradient descent won't lead you to the second valley, and the same is true if you started going down the second valley, you stay in that second minimum and not find your way into the first local minimum. 
+If you then repeat the gradient descent process, then you end up in a totally different valley. This different minimum over here on the right. The bottoms of both the first and the second valleys are called "local minima" (see Local Minimum). Because if you start going down the first valley, gradient descent won't lead you to the second valley, and the same is true if you started going down the second valley, you stay in that second minimum and not find your way into the first local minimum. 
 
 ---
 ---
 
-## Implementing [[Gradient Descent]]
+## Implementing Gradient Descent
 In this context, the `=` sign is the *assignment operator* from coding (where if `a=3` then `a=a+3` means assigning the number 5 to the variable `a`). This is **different** from *truth assertion* in mathematics (where $2=2$ is correct, but $a=a-1$ is incorrect because $0 \neq 1$).
 - for $w$: $$w = w - \alpha \frac{d}{dw} J(w,b)$$
 - for $b$: $$b = b - \alpha \frac{d}{db} J(w,b)$$
 
-What this expression is saying is, update your parameter $w$ by taking the current value of $w$ and adjusting it a small amount, which is this expression on the right, minus $\alpha$ times this expression (the [[Derivative]] of $J$ based on $w$): $$\frac{d}{dw} J(w,b)$$
+What this expression is saying is, update your parameter $w$ by taking the current value of $w$ and adjusting it a small amount, which is this expression on the right, minus $\alpha$ times this expression (the Derivative of $J$ based on $w$): $$\frac{d}{dw} J(w,b)$$
 
-```ad-hint
+### Hint
 
 |            | Coding | Math         |
 | ---------- | ------ | ------------ |
 | Assignment | `=`    | $\leftarrow$ |
 | Assertion  | `==`   | $=$          | 
 
-```
 
-In this equation, $\alpha$ is also called the [[Learning Rate (Computer Science)]]. The learning rate is usually: $$0 < \alpha < 1$$ What $\alpha$ does is, it basically controls how big of a step you take downhill. If it is very large, then that corresponds to a very aggressive gradient descent procedure where you're trying to take huge steps downhill. If it is very small, then you'd be taking small baby steps downhill. 
+In this equation, $\alpha$ is also called the Learning Rate (Computer Science). The learning rate is usually: $$0 < \alpha < 1$$ What $\alpha$ does is, it basically controls how big of a step you take downhill. If it is very large, then that corresponds to a very aggressive gradient descent procedure where you're trying to take huge steps downhill. If it is very small, then you'd be taking small baby steps downhill. 
 
-In combination with the learning rate $\alpha$, the derivation of $j$ also determines the size of the steps you want to take downhill. For this course, you don't need to know any [[Calculus]].
+In combination with the learning rate $\alpha$, the derivation of $j$ also determines the size of the steps you want to take downhill. For this course, you don't need to know any Calculus.
 
 ---
 
@@ -808,7 +793,7 @@ Now, one thing you may notice is that this value of $w$ gets updated (shown in �
 
 The difference between the right-hand side and the left-hand side implementations is that if you look over here, this $w$ has already been updated to this new value, and this is updated $w$ that actually goes into the cost function $J(w,b)$. It means that this term here on the right is not the same as this term over here that you see on the left. That also means this `tmp_b` term on the right is not quite the same as the `tmp_b` term on the left, and thus this updated value for $b$ on the right is not the same as this updated value for variable $b$ on the left. 
 
-![[MLS_C1_GradientDescent3.jpg]]
+!MLS_C1_GradientDescent3.jpg
 
 > Although some make the mistake and implement the incorrect one in the code (which sometimes might not affect the results that much), it's better to always stick to the correct method.
 
@@ -820,13 +805,13 @@ $$w = w - \alpha \frac{\partial J(w,b)}{\partial w}$$
 ---
 ---
 
-## [[Gradient Descent]] Intuition
-As a reminder, the variable represented with the Greek symbol $\alpha$, is the learning rate. ==The learning rate controls how big of a step you take when updating the model's parameters==, $w$ and $b$. For the purposes of this course, the [[Partial Derivative]] will simply be called [[Derivative]]:
+## Gradient Descent Intuition
+As a reminder, the variable represented with the Greek symbol $\alpha$, is the learning rate. ==The learning rate controls how big of a step you take when updating the model's parameters==, $w$ and $b$. For the purposes of this course, the Partial Derivative will simply be called Derivative:
 $$\frac{\partial}{\partial w} J(w,b)$$
 
 Now let's try to visualize gradient descent with a 2D example of $J$ and $w$ axis.
 
-![[MLS_C1_GradientDescent4.jpg]]
+!MLS_C1_GradientDescent4.jpg
 
 For a quick recap:
 1. when the derivative is **positive** (having an upward slope), $w$ becomes smaller, therefore, it moves to the **left** (closer to the actual minimum that we want), meaning your cost $J$ is **decreasing**
@@ -851,12 +836,12 @@ One other key quantity in the gradient descent algorithm is the learning rate $\
 ---
 ---
 
-## [[Learning Rate (Computer Science)]]
+## Learning Rate (Computer Science)
 The choice of the learning rate, $\alpha$ will have a huge impact on the efficiency of your implementation of gradient descent. And if the learning rate is chosen poorly, gradient descent may not even work at all. 
 
 Let's see what could happen if the learning rate alpha is either too small or if it is too large. 
 
-![[MLS_C1_GradientDescent5.jpg]]
+!MLS_C1_GradientDescent5.jpg
 
 Therefore:
 1. if $\alpha$ is **too small**: gradient descent may be slow
@@ -867,7 +852,7 @@ Therefore:
 ### What if we're already at the local minima? 🔚
 So, here's another question, you may be wondering one of your parameter $w$ is already at the desired point, so that your cost $J$ is already at a local minimum. What do you think one step of gradient descent will do if you've already reached a minimum? 
 
-![[MLS_C1_GradientDescent6.jpg]]
+!MLS_C1_GradientDescent6.jpg
 
 This means that you're at this point on the cost function $J$, and that happens to be a local minimum. Turns out if you draw attention to the function at this point, the slope of this line is zero and thus the derivative term here is equal to zero for the current value of $w$. And so you're gradient descent gets updated as:
 $$w = w - \alpha \cdot 0$$
@@ -875,7 +860,7 @@ And this is the same as saying let's set $w$ to be equal to $w$. So this means t
 
 So ==if your parameters have already brought you to a local minimum, then further gradient descent steps to absolutely nothing==. It doesn't change the parameters, which is what you want because it keeps the solution at that local minimum. This also explains why gradient descent can reach a local minimum, even with a fixed learning rate $\alpha$. 
 
-![[MLS_C1_GradientDescent7.jpg]]
+!MLS_C1_GradientDescent7.jpg
 
 ---
 
@@ -884,18 +869,18 @@ As we get closer to a local minimum, gradient descent will automatically take sm
 $$\textrm{the closer to local minimum} \Rightarrow \frac{\partial}{\partial w} J(w,b) \downarrow$$
 And that means the update steps also automatically gets smaller. Even if the learning rate $\alpha$ is kept at some fixed value ($\alpha \ \rm const.$)
 
-![[MLS_C1_GradientDescent8.jpg]]
+!MLS_C1_GradientDescent8.jpg
 
 ---
 ---
 
-## [[Gradient Descent]] for [[Linear Regression]]
+## Gradient Descent for Linear Regression
 A quick recap:
 - linear regression model: $$f_{w, b} (x) = wx + b$$
 - cost function: $$J(w,b) = \frac{1}{2m} \sum\limits_{i=1}^{m} (f_{w,b}(x^{(i)}) - y^{(i)})^2$$
 - gradient descent algorithm: $$\begin{align*} \text{repeat}&\text{ until convergence:} \; \lbrace \newline \;  w &= w -  \alpha \frac{\partial J(w,b)}{\partial w} \; \newline b &= b -  \alpha \frac{\partial J(w,b)}{\partial b}  \newline \rbrace \end{align*}$$
 
-![[MLS_C1_GradientDescent_LinearRegression1.jpg]]
+!MLS_C1_GradientDescent_LinearRegression1.jpg
 
 ---
 
@@ -904,14 +889,14 @@ Now let's take the derivations for the parameters:
 - for $w$: $$\frac{\partial}{\partial w} J(w,b) = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b} \left( x^{(i)} \right) - y^{(i)} \right) x^{(i)}$$
 - for $b$: $$\frac{\partial}{\partial b} J(w,b) = \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b} \left( x^{(i)} \right) - y^{(i)} \right)$$
 
-![[MLS_C1_GradientDescent_LinearRegression2.jpg]]
+!MLS_C1_GradientDescent_LinearRegression2.jpg
 
 ---
 
 #### Mathematical Proof (Optional)
 The proof is not that important, but for those who are interested, since we know: $$\frac{d}{dx} U^{n} = n \cdot U^{'} \cdot U^{n-1}$$ We can find the derivative of the parameters as below:
 
-![[MLS_C1_GradientDescent_LinearRegression3.jpg]]
+!MLS_C1_GradientDescent_LinearRegression3.jpg
 
 > The reason we used $2m$ in the cost function formula is that to get rid of with the power 2 here.
 
@@ -927,42 +912,38 @@ $$\begin{align*} \text{repeat}&\text{ until convergence:} \; \lbrace \newline
 
 ---
 
-### More than One [[Local Minimum]]
+### More than One Local Minimum
 As you can remember, based on where you start, you can end up at different places (if the model has more than one local min). With gradient descent is that it can lead to a local minimum instead of a global minimum. 
 
-![[MLS_C1_GradientDescent_LinearRegression4.jpg]]
+!MLS_C1_GradientDescent_LinearRegression4.jpg
 
 ---
 
-### [[Squared Error Cost Function]]
-When you're using a squared error cost function with linear regression, the cost function does not and will never have multiple local minima. ==It has a single global minimum because of this bowl-shape.== The technical term for this is that this cost function is a [[Convex Function]].
+### Squared Error Cost Function
+When you're using a squared error cost function with linear regression, the cost function does not and will never have multiple local minima. ==It has a single global minimum because of this bowl-shape.== The technical term for this is that this cost function is a Convex Function.
 
 Informally, a convex function is of bowl-shaped function and it cannot have any local minima other than the single global minimum. When you implement gradient descent on a convex function, one nice property is that so long as you're learning rate is chosen appropriately, it will always converge to the global minimum. 
 
-![[MLS_C1_GradientDescent_LinearRegression5.jpg]]
+!MLS_C1_GradientDescent_LinearRegression5.jpg
 
 ---
 ---
 
-## Running [[Gradient Descent]]
+## Running Gradient Descent
 Now we will see gradient descent in action. At first, we select random values for the parameters, but then we can see how the line changes to best fit the data, starting with the blue line and going all the way to the chartreuse (yellow-green) line.
 
-![[MLS_C1_RunningGradientDescent1.jpg]]
+!MLS_C1_RunningGradientDescent1.jpg
 
 ---
 
-### [[Batch Gradient Descent]]
+### Batch Gradient Descent
 To be more precise, this gradient descent process we're using is called "batch gradient descent". The term *batch* refers to the fact that on every step of gradient descent. Here,we're looking at all of the training examples, instead of just a subset of the training data. 
 
-![[MLS_C1_RunningGradientDescent2.jpg]]
+!MLS_C1_RunningGradientDescent2.jpg
 
 > [The Batch](https://read.deeplearning.ai/the-batch/) by [DeepLearning.AI](https://www.deeplearning.ai/) is actually a newsletter that got its name from "batch gradient descent".
 
 ---
-
-```ad-note
-The rest are from the Jupyter notebook provided by Coursera.
-```
 
 ### Optional Lab:  Gradient Descent
 #### Introduction
@@ -1029,7 +1010,7 @@ plt_gradients(x_train,y_train, compute_cost, compute_gradient)
 plt.show()
 ```
 
-![[MLS_C1_lab5_fig1.jpg]]
+!MLS_C1_lab5_fig1.jpg
 <br>
 ```python
 def gradient_descent(x, y, w_in, b_in, alpha, num_iters, cost_function, gradient_function): 
@@ -1093,7 +1074,7 @@ w_final, b_final, J_hist, p_hist = gradient_descent(x_train ,y_train, w_init, b_
 print(f"(w,b) found by gradient descent: ({w_final:8.4f},{b_final:8.4f})")
 ```
 
-![[MLS_C1_lab5_fig2.jpg]]
+!MLS_C1_lab5_fig2.jpg
 <br>
 ```python
 # plot cost versus iteration  
@@ -1106,7 +1087,7 @@ ax1.set_xlabel('iteration step')  ;  ax2.set_xlabel('iteration step')
 plt.show()
 ```
 
-![[MLS_C1_lab5_fig3.jpg]]
+!MLS_C1_lab5_fig3.jpg
 <br>
 ```python
 print(f"1000 sqft house prediction {w_final*1.0 + b_final:0.1f} Thousand dollars")
@@ -1121,7 +1102,7 @@ print(f"2000 sqft house prediction {w_final*2.0 + b_final:0.1f} Thousand dollars
 fig, ax = plt.subplots(1,1, figsize=(12, 6))
 plt_contour_wgrad(x_train, y_train, p_hist, ax)
 ```
-![[MLS_C1_lab5_fig4.jpg]]
+!MLS_C1_lab5_fig4.jpg
 <br>
 ```python
 fig, ax = plt.subplots(1,1, figsize=(12, 4))
@@ -1129,7 +1110,7 @@ plt_contour_wgrad(x_train, y_train, p_hist, ax, w_range=[180, 220, 0.5], b_range
             contours=[1,5,10,20],resolution=0.5)
 ```
 
-![[MLS_C1_lab5_fig5.jpg]]
+!MLS_C1_lab5_fig5.jpg
 <br>
 ```python
 # initialize parameters
@@ -1143,19 +1124,19 @@ w_final, b_final, J_hist, p_hist = gradient_descent(x_train ,y_train, w_init, b_
                                                     iterations, compute_cost, compute_gradient)
 ```
 
-![[MLS_C1_lab5_fig6.jpg]]
+!MLS_C1_lab5_fig6.jpg
 <br>
 ```python
 plt_divergence(p_hist, J_hist,x_train, y_train)
 plt.show()
 ```
 
-![[MLS_C1_lab5_fig7.jpg]]	
+!MLS_C1_lab5_fig7.jpg	
 
 ---
 ---
 
-## Quiz: Train the Model with [[Gradient Descent]]
+## Quiz: Train the Model with Gradient Descent
 1. Gradient descent is an algorithm for finding values of parameters w and b that minimize the cost function $J$. When $\frac{\partial J(w,b)}{\partial w}$ is a negative number (less than zero), what happens to $w$ after one update step? $$\begin{align*} \text{repeat}&\text{ until convergence:} \; \lbrace \newline \; w &= w - \alpha \frac{\partial J(w,b)}{\partial w}  \; \newline b &= b -  \alpha \frac{\partial J(w,b)}{\partial b}  \newline \rbrace \end{align*}$$
 	1. $w$ decreases
 	2. It is not possible to tell if $w$ will increase or decrease
