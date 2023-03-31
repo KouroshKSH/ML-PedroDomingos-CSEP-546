@@ -10,7 +10,7 @@ The list below showcases the courses I have taken/watched thus far. The links to
 
 <p align="center"><img src="https://logos-world.net/wp-content/uploads/2022/01/University-of-Washington-Symbol.png"></p>
 
-## 2) [Andrew Ng - Machine Learning Specialization - Coursera]()
+## 2) [Andrew Ng - Machine Learning Specialization - Coursera](https://github.com/KouroshKSH/Machine-Learning-Notes/tree/master/AndrewNg-MachineLearningSpecialization)
 
 <p align="center"><img src="https://cdn8.openculture.com/2022/06/21191516/Stanford-Deeplearning.ai-email-social-2-1024x536.png"></p>
 
