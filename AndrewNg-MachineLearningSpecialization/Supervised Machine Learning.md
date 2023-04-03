@@ -1167,7 +1167,7 @@ This week, you'll extend linear regression to handle multiple input features. Yo
 ---
 
 ## Multiple Features
-Now we have a version of [[Linear Regression]] that looks at not just one feature, but a lot of different features. In the original version of linear regression, you had a single feature $x$, the size of the house, and you were able to predict $y$, the price of the house (see [[MLS - C1 - Week 01#Predicting Housing Prices 🏘️]]. The model was: $$f_{w,b} = wx + b$$
+Now we have a version of Linear Regression that looks at not just one feature, but a lot of different features. In the original version of linear regression, you had a single feature $x$, the size of the house, and you were able to predict $y$, the price of the house (see MLS - C1 - Week 01#Predicting Housing Prices 🏘️. The model was: $$f_{w,b} = wx + b$$
 
 | $x$ Size ($\rm{feet}^{2})$ | $y$ Price ($1,000 \, \$$) |
 | -------------------------- | ------------------------- |
@@ -1190,15 +1190,15 @@ But now, what if you did not only have the size of the house as a feature with w
 ---
 
 ### Some New Notation 🔢
-To denote the 4 features, we're going to use $j$ as $x_j$ (`x` sub `j`) for each feature. Since there are 4 features in total, we would have $n=4$. To show the number of the [[Training Set (AI)]], we're going to use $i$ once again as $x^{(i)}$ (`x` superscript `i`).
+To denote the 4 features, we're going to use $j$ as $x_j$ (`x` sub `j`) for each feature. Since there are 4 features in total, we would have $n=4$. To show the number of the Training Set (AI), we're going to use $i$ once again as $x^{(i)}$ (`x` superscript `i`).
 
-Here, $x^{(i)}$ is actually going to be a list of four numbers, or sometimes we'll call this a [[Vector]] that includes all the features of the $i$th training example. Therefore, we can represent $x$ as: $$\vec x^{(i)}$$
+Here, $x^{(i)}$ is actually going to be a list of four numbers, or sometimes we'll call this a Vector that includes all the features of the $i$th training example. Therefore, we can represent $x$ as: $$\vec x^{(i)}$$
 
 So basically:
 1. $i$: row number
 2. $j$: column number
 
-![[MLS_C1_MultipleFeatures1.jpg]]
+!MLS_C1_MultipleFeatures1.jpg
 
 To recap:
 - $x_j$ = $j$th feature
@@ -1217,20 +1217,20 @@ $$f_{w,b}(x) = w_1 x_1 + w_2 x_2 + \ldots w_n x_n + b$$
 
 Each of the parameters $w_k$ (where $k \in [1, n]$) can represent a different number that determines the importance of the feature that is assigned to.
 
-![[MLS_C1_MultipleFeatures2.jpg]]
+!MLS_C1_MultipleFeatures2.jpg
 
 Now since we have 2 lists of numbers for $x$ and $w$, we can represent them as vectors, where our new model would be:
 $$f_{{\color{GoldenRod} \vec w}, b} ({\color{BlueGreen} \vec x}) = {\color{GoldenRod}\vec w} {\color{OrangeRed} \cdot} {\color{BlueGreen} \vec x} + b$$
 - $\color{GoldenRod} \vec w = [w_1 , w_2 , \ldots , w_n]$
-- $\color{OrangeRed} {\large \cdot} = \text{Dot Product}$ (see [[Dot Product]])
+- $\color{OrangeRed} {\large \cdot} = \text{Dot Product}$ (see Dot Product)
 - $\color{BlueGreen} \vec x = [x_1, x_2, \ldots , x_n]$
 
-![[MLS_C1_MultipleFeatures3.jpg]]
+!MLS_C1_MultipleFeatures3.jpg
 
-> This is called a [[Multiple Linear Regression]], in contrast to *univariate* linear regression that had a single feature.
+> This is called a Multiple Linear Regression, in contrast to *univariate* linear regression that had a single feature.
 
 ```ad-danger
-This is **NOT** a [[Multivariate Regression]]!
+This is **NOT** a Multivariate Regression!
 ```
 
 #question In the training set below, what is $x_{1}^{(4)}$? Please type in the number below (this is an integer such as 123, no decimal points).
@@ -1251,14 +1251,14 @@ This is **NOT** a [[Multivariate Regression]]!
 ---
 ---
 
-## [[Vectorization]] Part 1
-When you're implementing a learning algorithm, using vectorization will both make your code shorter and also make it run much more efficiently. Learning how to write vectorized code will allow you to also take advantage of modern [[Numerical Linear Algebra]] libraries such as [NumPy](https://numpy.org/), as well as maybe even GPU hardware (see [[Graphics Processing Unit]]). 
+## Vectorization Part 1
+When you're implementing a learning algorithm, using vectorization will both make your code shorter and also make it run much more efficiently. Learning how to write vectorized code will allow you to also take advantage of modern Numerical Linear Algebra libraries such as [NumPy](https://numpy.org/), as well as maybe even GPU hardware (see Graphics Processing Unit). 
 
 Now let's take a look at the different implementations of the operation:
 
-![[MLS_C1_Vectorization1.jpg]]
+!MLS_C1_Vectorization1.jpg
 
-As you can tell, the last option (with the 😃 face) is the most efficient, since it takes advantage of [[Hardware Acceleration]] and is the shortest.
+As you can tell, the last option (with the 😃 face) is the most efficient, since it takes advantage of Hardware Acceleration and is the shortest.
 ```python
 # import the numpy library
 import numpy as np
@@ -1300,24 +1300,24 @@ f = f + b
 ---
 ---
 
-## [[Vectorization]] Part 2
+## Vectorization Part 2
 Let's take a deeper look at how a vectorized implementation may work on your computer behind the scenes. Let's look at this `for` loop. The `for` loop like runs without vectorization:
 ```python
 for i in range(0, 16):
 	f = f + (w[i] * x[i])
 ```
 
-This will take you from `i = 0` all the way to `i = 16 - 1 = 15`. Meaning that there will be 16 steps in total. In contrast, if you were to use the vectorization method, with thanks to the special techniques that computer hardware can use, the whole [[Dot Product]] process would take you 2 steps. This is made possible because of [[Parallel Processing]]:
+This will take you from `i = 0` all the way to `i = 16 - 1 = 15`. Meaning that there will be 16 steps in total. In contrast, if you were to use the vectorization method, with thanks to the special techniques that computer hardware can use, the whole Dot Product process would take you 2 steps. This is made possible because of Parallel Processing:
 ```python
 f = np.dot(w, x) + b
 ```
 <br>
 
-![[MLS_C1_Vectorization2.jpg]]
+!MLS_C1_Vectorization2.jpg
 
 ---
 
-### [[Vectorization]] in [[Gradient Descent]]
+### Vectorization in Gradient Descent
 Now let's see how this helps with implementing multiple linear regression with multiple input features. Let's say you have 16 parameters and 16 features. In contrast, with factorization, you can imagine the computer's parallel processing hardware as:
 1. take all 16 values in the $\vec w$
 2. subtract in parallel
@@ -1326,7 +1326,7 @@ Now let's see how this helps with implementing multiple linear regression with m
 
 This is much more efficient than going through a loop 16 times, especially with real-world problems where the size of your parameters and features could go beyond hundred of thousands.
 
-![[MLS_C1_Vectorization3.jpg]]
+!MLS_C1_Vectorization3.jpg
 
 #question which of the following is a vectorized implementation for computing a linear regression model’s prediction?
 - A
@@ -1359,7 +1359,7 @@ import time
 
 <br>
 
-![[MLS_C1_lab7_fig1.jpg]]
+!MLS_C1_lab7_fig1.jpg
 
 ```python
 # NumPy routines which allocate memory and fill arrays with value
@@ -1367,23 +1367,23 @@ a = np.zeros(4);                print(f"np.zeros(4) :   a = {a}, a shape = {a.sh
 a = np.zeros((4,));             print(f"np.zeros(4,) :  a = {a}, a shape = {a.shape}, a data type = {a.dtype}")
 a = np.random.random_sample(4); print(f"np.random.random_sample(4): a = {a}, a shape = {a.shape}, a data type = {a.dtype}")
 ```
-![[MLS_C1_lab6_fig1.jpg]]
+!MLS_C1_lab6_fig1.jpg
 <br>
 ```python
 # NumPy routines which allocate memory and fill arrays with value but do not accept shape as input argument
 a = np.arange(4.);              print(f"np.arange(4.):     a = {a}, a shape = {a.shape}, a data type = {a.dtype}")
 a = np.random.rand(4);          print(f"np.random.rand(4): a = {a}, a shape = {a.shape}, a data type = {a.dtype}")
 ```
-![[MLS_C1_lab6_fig2.jpg]]
+!MLS_C1_lab6_fig2.jpg
 <br>
 ```python
 # NumPy routines which allocate memory and fill with user specified values
 a = np.array([5,4,3,2]);  print(f"np.array([5,4,3,2]):  a = {a},     a shape = {a.shape}, a data type = {a.dtype}")
 a = np.array([5.,4,3,2]); print(f"np.array([5.,4,3,2]): a = {a}, a shape = {a.shape}, a data type = {a.dtype}")
 ```
-![[MLS_C1_lab6_fig3.jpg]]
+!MLS_C1_lab6_fig3.jpg
 
-![[MLS_C1_lab7_fig2.jpg]]
+!MLS_C1_lab7_fig2.jpg
 
 > The reference for slicing and indexing: [link](https://numpy.org/doc/stable/reference/arrays.indexing.html)
 <br>
@@ -1516,8 +1516,8 @@ print(f"b = 5 * a : {b}")
 
 <br>
 
-![[MLS_C1_lab7_fig3.jpg]]
-![[MLS_C1_lab7_fig4.jpg]]
+!MLS_C1_lab7_fig3.jpg
+!MLS_C1_lab7_fig4.jpg
 
 <br>
 
@@ -1597,13 +1597,13 @@ loop version duration: 10138.8087 ms
 
 <br>
 
-> So, [[Vectorization]] provides a large speed up in this example. This is because NumPy makes better use of available [[Data Parallelism]] in the underlying hardware. GPU's (see [[Graphics Processing Unit]]) and modern CPU's (see [[Central Processing Unit]]) implement [[Single Instruction, Multiple Data]] (SIMD) pipelines allowing multiple operations to be issued in parallel. This is critical in [[Machine Learning]] where the data sets are often very large.
+> So, Vectorization provides a large speed up in this example. This is because NumPy makes better use of available Data Parallelism in the underlying hardware. GPU's (see Graphics Processing Unit) and modern CPU's (see Central Processing Unit) implement Single Instruction, Multiple Data (SIMD) pipelines allowing multiple operations to be issued in parallel. This is critical in Machine Learning where the data sets are often very large.
 
 <br>
 
 ```python
 # show common Course 1 example
-X = np.array([[1],[2],[3],[4]])
+X = np.array(1],[2],[3],[4)
 w = np.array([2])
 c = np.dot(X[1], w)
 
@@ -1620,7 +1620,7 @@ c has shape ()
 
 <br>
 
-![[MLS_C1_lab7_fig5.jpg]]
+!MLS_C1_lab7_fig5.jpg
 
 ```python
 a = np.zeros((1, 5))                                       
@@ -1634,30 +1634,30 @@ print(f"a shape = {a.shape}, a = {a}")
 ```
 
 ```
-a shape = (1, 5), a = [[0. 0. 0. 0. 0.]]
-a shape = (2, 1), a = [[0.]
- [0.]]
-a shape = (1, 1), a = [[0.44236513]]
+a shape = (1, 5), a = 0. 0. 0. 0. 0.
+a shape = (2, 1), a = 0.]
+ [0.
+a shape = (1, 1), a = 0.44236513
 ```
 
 <br>
 
 ```python
 # NumPy routines which allocate memory and fill with user specified values
-a = np.array([[5], [4], [3]]);   print(f" a shape = {a.shape}, np.array: a = {a}")
-a = np.array([[5],   # One can also
+a = np.array(5], [4], [3);   print(f" a shape = {a.shape}, np.array: a = {a}")
+a = np.array(5],   # One can also
               [4],   # separate values
-              [3]]); #into separate rows
+              [3); #into separate rows
 print(f" a shape = {a.shape}, np.array: a = {a}")
 ```
 
 ```
-a shape = (3, 1), np.array: a = [[5]
+a shape = (3, 1), np.array: a = 5]
 [4]
-[3]]
-a shape = (3, 1), np.array: a = [[5]
+[3
+a shape = (3, 1), np.array: a = 5]
 [4]
-[3]]
+[3
 ```
 
 <br>
@@ -1676,9 +1676,9 @@ print(f"a[2].shape:   {a[2].shape}, a[2]   = {a[2]}, type(a[2])   = {type(a[2])}
 
 ```
 a.shape: (3, 2), 
-a= [[0 1]
+a= 0 1]
  [2 3]
- [4 5]]
+ [4 5
 
 a[2,0].shape:   (), a[2,0] = 4,     type(a[2,0]) = <class 'numpy.int64'> Accessing an element returns a scalar
 
@@ -1717,15 +1717,15 @@ print("a[1]   = ", a[1],   ",  a[1].shape   =", a[1].shape, "a 1-D array")
 
 ```
 a = 
-[[ 0  1  2  3  4  5  6  7  8  9]
- [10 11 12 13 14 15 16 17 18 19]]
+ 0  1  2  3  4  5  6  7  8  9]
+ [10 11 12 13 14 15 16 17 18 19
 a[0, 2:7:1] =  [2 3 4 5 6] ,  a[0, 2:7:1].shape = (5,) a 1-D array
 a[:, 2:7:1] = 
- [[ 2  3  4  5  6]
- [12 13 14 15 16]] ,  a[:, 2:7:1].shape = (2, 5) a 2-D array
+  2  3  4  5  6]
+ [12 13 14 15 16 ,  a[:, 2:7:1].shape = (2, 5) a 2-D array
 a[:,:] = 
- [[ 0  1  2  3  4  5  6  7  8  9]
- [10 11 12 13 14 15 16 17 18 19]] ,  a[:,:].shape = (2, 10)
+  0  1  2  3  4  5  6  7  8  9]
+ [10 11 12 13 14 15 16 17 18 19 ,  a[:,:].shape = (2, 10)
 a[1,:] =  [10 11 12 13 14 15 16 17 18 19] ,  a[1,:].shape = (10,) a 1-D array
 a[1]   =  [10 11 12 13 14 15 16 17 18 19] ,  a[1].shape   = (10,) a 1-D array
 ```
@@ -1736,17 +1736,17 @@ In this lab you mastered the features of Python and NumPy that are needed for Co
 ---
 ---
 
-## [[Gradient Descent]] for [[Multiple Linear Regression]]
+## Gradient Descent for Multiple Linear Regression
 Let's have a quick review:
 
-|                                 | Previous Notation                                                                                                                                                                                                                                    | [[Vector]] Notation                                                                                                                                                                                                                  |
+|                                 | Previous Notation                                                                                                                                                                                                                                    | Vector Notation                                                                                                                                                                                                                  |
 |:-------------------------------:| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 |           Parameters            | $\small w_1,\ldots,w_n$ and $\small b$                                                                                                                                                                                                               | $\small \vec w = [w_1,\ldots,w_n]$ and $\small b$                                                                                                                                                                                    |
 |              Model              | $\small f_{\vec w,b}(\vec x) = w_1 x_1 + w_2 x_2 + \ldots w_n x_n + b$                                                                                                                                                                               | $\small f_{\vec w, b} (\vec x) = \vec w \cdot \vec x + b$                                                                                                                                                                            |
-| [[Cost Function (Mathematics)]] | $\small J(w_1,\ldots,w_n,b)$                                                                                                                                                                                                                         | $\small J(\vec w, b)$                                                                                                                                                                                                                |
-|      [[Gradient Descent]]       | $$\small \begin{align*} \text{repeat}& \; \lbrace \newline \;  w_j &= w_j -  \alpha \frac{\partial}{\partial w_j}  J(w_1,\ldots,w_n,b) \; \newline b &= b -  \alpha \frac{\partial}{\partial b} J(w_1,\ldots,w_n,b)  \newline \rbrace \end{align*}$$ | $$\small \begin{align*} \text{repeat}& \; \lbrace \newline \;  w_j &= w_j -  \alpha \frac{\partial}{\partial w_j}  J(\vec w,b) \; \newline b &= b -  \alpha \frac{\partial}{\partial b} J(\vec w,b)  \newline \rbrace \end{align*}$$ |
+| Cost Function (Mathematics) | $\small J(w_1,\ldots,w_n,b)$                                                                                                                                                                                                                         | $\small J(\vec w, b)$                                                                                                                                                                                                                |
+|      Gradient Descent       | $$\small \begin{align*} \text{repeat}& \; \lbrace \newline \;  w_j &= w_j -  \alpha \frac{\partial}{\partial w_j}  J(w_1,\ldots,w_n,b) \; \newline b &= b -  \alpha \frac{\partial}{\partial b} J(w_1,\ldots,w_n,b)  \newline \rbrace \end{align*}$$ | $$\small \begin{align*} \text{repeat}& \; \lbrace \newline \;  w_j &= w_j -  \alpha \frac{\partial}{\partial w_j}  J(\vec w,b) \; \newline b &= b -  \alpha \frac{\partial}{\partial b} J(\vec w,b)  \newline \rbrace \end{align*}$$ |
 
-Now let's take a look at the derivative term (see [[Derivative]] and [[Partial Derivative]]):
+Now let's take a look at the derivative term (see Derivative and Partial Derivative):
 - with one feature: $$\begin{align*} \text{repeat}& \; \lbrace \newline \;  w &= w -  \alpha \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b} \left( x^{(i)} \right) - y^{(i)} \right) x^{(i)} \; \newline b &= b -  \alpha \frac{1}{m} \sum_{i=1}^{m} \left( f_{w,b} \left( x^{(i)} \right) - y^{(i)} \right)  \newline \rbrace \end{align*}$$
 - with $n$ features ($n \geq 2$): $$\begin{align*} \text{repeat}& \; \lbrace \newline \;  w_n &= w_n -  \alpha \frac{1}{m} \sum_{i=1}^{m} \left( f_{\vec w,b} \left( \vec x^{(i)} \right) - y^{(i)} \right) x_{n}^{(i)} \; \newline b &= b -  \alpha \frac{1}{m} \sum_{i=1}^{m} \left( f_{\vec w,b} \left( \vec x^{(i)} \right) - y^{(i)} \right)  \newline \rbrace \end{align*}$$
 
@@ -1755,9 +1755,9 @@ This is basically gradient descent for multiple regression.
 ---
 
 ### An Alternative
-There's another method called the [Normal Equation Method](http://mlwiki.org/index.php/Normal_Equation) (see [[Normal Equation]]), where it **only** works for [[Linear Regression]] and can solve for $w$ and $b$ without iterations.
+There's another method called the [Normal Equation Method](http://mlwiki.org/index.php/Normal_Equation) (see Normal Equation), where it **only** works for Linear Regression and can solve for $w$ and $b$ without iterations.
 
-Given a [[Matrix Equation]] $$A \mathbf{x} = b$$ the normal equation is that which minimizes the square difference between the left and right sides: $$A^{T} A \mathbf{x} = A^{T} b$$ It is called a normal equation because $b - A \mathbf{x}$ is normal to the range of $A$. Here, $A^{T} A$ is a [[Normal Matrix]]. 
+Given a Matrix Equation $$A \mathbf{x} = b$$ the normal equation is that which minimizes the square difference between the left and right sides: $$A^{T} A \mathbf{x} = A^{T} b$$ It is called a normal equation because $b - A \mathbf{x}$ is normal to the range of $A$. Here, $A^{T} A$ is a Normal Matrix. 
 
 Unfortunately, it has some disadvantages:
 - can't generalize to other learning algorithms 
@@ -1809,7 +1809,7 @@ Now this is our new dataset:
 <br>
 
 ```python
-X_train = np.array([[2104, 5, 1, 45], [1416, 3, 2, 40], [852, 2, 1, 35]])
+X_train = np.array(2104, 5, 1, 45], [1416, 3, 2, 40], [852, 2, 1, 35)
 y_train = np.array([460, 232, 178])
 
 # data is stored in numpy array/matrix
@@ -1821,9 +1821,9 @@ print(y_train)
 
 ```
 X Shape: (3, 4), X Type:<class 'numpy.ndarray'>)
-[[2104    5    1   45]
+2104    5    1   45]
  [1416    3    2   40]
- [ 852    2    1   35]]
+ [ 852    2    1   35
 y Shape: (3,), y Type:<class 'numpy.ndarray'>)
 [460 232 178]
 ```
@@ -2074,7 +2074,7 @@ ax1.set_xlabel('iteration step')   ;  ax2.set_xlabel('iteration step')
 plt.show()
 ```
 
-![[MLS_C1_lab7_fig6.jpg]]
+!MLS_C1_lab7_fig6.jpg
 
 ### Congratulations!  🎉
 In this lab you:
@@ -2084,7 +2084,7 @@ In this lab you:
 ---
 ---
 
-## Quiz: [[Multiple Linear Regression]]
+## Quiz: Multiple Linear Regression
 1. In the training set below, what is $x_4^{(3)}$? Please type in the number below (this is an integer such as 123, no decimal points).
 
 | size in $\text{ft}^2$ | # bedrooms | # floors | age (years) | price ($1000s) |
@@ -2096,12 +2096,12 @@ In this lab you:
 
 30 ✅
 
-2. Which of the following are potential benefits of [[Vectorization]]? Please choose the best option.
+2. Which of the following are potential benefits of Vectorization? Please choose the best option.
 	1. It makes your code run faster
 	2. It can make your code shorter
 	3. It allows your code to run more easily on parallel compute hardware
 	4. All of the above ✅
-3. True/False? To make gradient descent converge about twice as fast, a technique that almost always works is to double the [[Learning Rate (Computer Science)]] $\alpha$.
+3. True/False? To make gradient descent converge about twice as fast, a technique that almost always works is to double the Learning Rate (Computer Science) $\alpha$.
 	1. true
 	2. false ✅
 
@@ -2112,7 +2112,7 @@ In this lab you:
 ---
 ---
 
-## [[Feature Scaling]] Part 1
+## Feature Scaling Part 1
 There are some techniques that make gradient descent work better. Let's start by taking a look at the relationship between the size of a feature, that is how big are the numbers for that feature, and the size of its associated parameter. 
 
 As a concrete example, let's predict the price of a house using two features:
@@ -2127,30 +2127,30 @@ So when a possible range of values of a feature is large (like the size and squa
 
 Now let's plot the data to see the relation between gradient descent and the behavior of large/small ranges of data:
 
-![[MLS_C1_FeatureScaling1.jpg]]
+!MLS_C1_FeatureScaling1.jpg
 
-Because the contours (see [[Contour Map]]) are so tall and skinny, gradient descent may end up bouncing back and forth for a long time before it can finally find its way to the [[Global Minimum]]. In situations like this, a useful thing to do is to scale the features, a.k.a [[Feature Scaling]]. This means performing some transformation of your training data so that:
+Because the contours (see Contour Map) are so tall and skinny, gradient descent may end up bouncing back and forth for a long time before it can finally find its way to the Global Minimum. In situations like this, a useful thing to do is to scale the features, a.k.a Feature Scaling. This means performing some transformation of your training data so that:
 1. $0 \leq x_1 \leq 1$
 2. $0 \leq x_2 \leq 1$
 
-![[MLS_C1_FeatureScaling2.jpg]]
+!MLS_C1_FeatureScaling2.jpg
 
-The key point is that the rescaled $x_1$ and $x_2$ are both now taking comparable ranges of values to each other. And if you run gradient descent on a [[Cost Function (Mathematics)]] to find on this, then the contours will look more like circles and less tall and skinny. Therefore, gradient descent can find a much more direct path to the global minimum. 
+The key point is that the rescaled $x_1$ and $x_2$ are both now taking comparable ranges of values to each other. And if you run gradient descent on a Cost Function (Mathematics) to find on this, then the contours will look more like circles and less tall and skinny. Therefore, gradient descent can find a much more direct path to the global minimum. 
 
 So to recap, when you have different features that take on very different ranges of values, it can cause gradient descent to run slowly. However, ==rescaling the different features so they all take on comparable range of values can speed up gradient descent significantly.== 
 
 ---
 ---
 
-## [[Feature Scaling]] Part 2
+## Feature Scaling Part 2
 How can we scale the features? There are 3 ways:
-1. Dividing by the maximum: where you divide the number by the maximum number in the range of your data, and then store the new number in the original value, giving you a possible range of $(0,1]$ $$x_i := \frac{x_i}{max(x_i)}$$ ![[MLS_C1_FeatureScaling3.jpg]]
-2. [[Mean Normalization]]: where you find the average value of the given range (called $\mu$), then you store the division of *the original value subtracted by the average* over *the interval of your range* (`max - min`), giving you a possible range of $(-1,1)$ $$x_i := \frac{x_i - \mu}{max(x_i) - min(x_i)}$$ ![[MLS_C1_FeatureScaling4.jpg]]
-3. [[Z-Score Normalization]]: where you first calculate the [[Standard Deviation]] ($\sigma$) of each feature (see [[Normal Distribution]]), then you find the [[Mean (Statistics)]] ($mu$), and then you store the division of *the original value subtracted by the mean* over *the standard deviation*, giving you a possible range of $(-3 \sigma, +3 \sigma)$ $$x_i := \frac{x_i - \mu}{\sigma}$$ ![[MLS_C1_FeatureScaling5.jpg]]
+1. Dividing by the maximum: where you divide the number by the maximum number in the range of your data, and then store the new number in the original value, giving you a possible range of $(0,1]$ $$x_i := \frac{x_i}{max(x_i)}$$ !MLS_C1_FeatureScaling3.jpg
+2. Mean Normalization: where you find the average value of the given range (called $\mu$), then you store the division of *the original value subtracted by the average* over *the interval of your range* (`max - min`), giving you a possible range of $(-1,1)$ $$x_i := \frac{x_i - \mu}{max(x_i) - min(x_i)}$$ !MLS_C1_FeatureScaling4.jpg
+3. Z-Score Normalization: where you first calculate the Standard Deviation ($\sigma$) of each feature (see Normal Distribution), then you find the Mean (Statistics) ($mu$), and then you store the division of *the original value subtracted by the mean* over *the standard deviation*, giving you a possible range of $(-3 \sigma, +3 \sigma)$ $$x_i := \frac{x_i - \mu}{\sigma}$$ !MLS_C1_FeatureScaling5.jpg
 <br>
 As a rule of thumb, when performing feature scaling, you might want to aim for getting the features to range from $(-1,1)$ for each feature $x_i$. But these values, negative one and plus one can be a little bit loose. 
 
-![[MLS_C1_FeatureScaling6.jpg]]
+!MLS_C1_FeatureScaling6.jpg
 
 ```ad-tip
 There's no harm in carrying out feature rescaling. When in doubt, just carry it out!
@@ -2165,12 +2165,12 @@ There's no harm in carrying out feature rescaling. When in doubt, just carry it 
 ---
 ---
 
-## Checking [[Gradient Descent]] for [[Convergence (Mathematics)]]
-When running gradient descent, how can you tell if it is converging? That is, whether it's helping you to find parameters close to the [[Global Minimum]] of the [[Cost Function (Mathematics)]]. By learning to recognize what a well-running implementation of gradient descent looks like, we will be better able to choose a good [[Learning Rate (Computer Science)]] $\alpha$. 
+## Checking Gradient Descent for Convergence (Mathematics)
+When running gradient descent, how can you tell if it is converging? That is, whether it's helping you to find parameters close to the Global Minimum of the Cost Function (Mathematics). By learning to recognize what a well-running implementation of gradient descent looks like, we will be better able to choose a good Learning Rate (Computer Science) $\alpha$. 
 
-Since our objective is to minimize the cost function, we can try to plot the value of $J$ in each iteration of the gradient descent to see how it changes. ==Remember that each iteration means after each simultaneous update of the parameters $w$ and $b$.== The curved line is called a [[Learning Curve (Machine Learning)]]. 
+Since our objective is to minimize the cost function, we can try to plot the value of $J$ in each iteration of the gradient descent to see how it changes. ==Remember that each iteration means after each simultaneous update of the parameters $w$ and $b$.== The curved line is called a Learning Curve (Machine Learning). 
 
-![[MLS_C1_GradDescConvg1.jpg]]
+!MLS_C1_GradDescConvg1.jpg
 
 ---
 
@@ -2184,43 +2184,43 @@ If gradient descent is working properly, then the cost $J$ should decrease after
 ### Is it Converging?
 If you look at your plot, the curve might start leveling off. This means that gradient descent has more or less converged because the curve is no longer decreasing. Looking at this learning curve, you can try to spot whether or not gradient descent is converging. By the way, the number of iterations that gradient descent takes a conversion can vary a lot between different applications. In this example, the number is 300 iterations, but it could differ in another problem.
 
-It turns out to be very difficult to tell in advance how many iterations gradient descent needs to converge, which is why you can create a learning curve graph. Another way to decide when your model is done training is with an [[Automatic Convergence Test]]. 
+It turns out to be very difficult to tell in advance how many iterations gradient descent needs to converge, which is why you can create a learning curve graph. Another way to decide when your model is done training is with an Automatic Convergence Test. 
 
 ---
 
-#### [[Automatic Convergence Test]] 
-You first give a value to $\epsilon$ (such as $10^{-3}$). Then you check whether your cost function is decreasing less than that value in each iteration. If so, you can state that it's converging. Doing so, you can find the parameters $\vec w$ and $b$ that get you closer to the [[Global Minimum]].
+#### Automatic Convergence Test 
+You first give a value to $\epsilon$ (such as $10^{-3}$). Then you check whether your cost function is decreasing less than that value in each iteration. If so, you can state that it's converging. Doing so, you can find the parameters $\vec w$ and $b$ that get you closer to the Global Minimum.
 $$J (\vec w, b) \leq \epsilon$$
 
-![[MLS_C1_GradDescConvg2.jpg]]
+!MLS_C1_GradDescConvg2.jpg
 
 Usually, choosing the right threshold $\epsilon$ is pretty difficult. Graphs like the one on the left are easier to analyze, rather than using an automatic convergence test. 
 
 ---
 ---
 
-## Choosing the [[Learning Rate (Computer Science)]]
+## Choosing the Learning Rate (Computer Science)
 Your learning algorithm will run much better with an appropriate choice of learning rate. If it's too small, it will run very slowly and if it is too large, it may not even converge. Now let's see how to choose a good learning rate $\alpha$. 
 
 If you plot the cost for a number of iterations and notice that the costs sometimes goes up and sometimes goes down, you should take that as a clear sign that gradient descent is not working properly. There are 2 possible explanations:
 1. there's a bug in the code
 2. or your learning rate is too large
 
-![[MLS_C1_GradDescConvg3.jpg]]
+!MLS_C1_GradDescConvg3.jpg
 
 ---
 
 ### How to fix it?
 To fix the issue, you can use a smaller learning rate. Then your updates may start here and go down a little bit and down a bit, and hopefully consistently decrease until it reaches the global minimum. Sometimes you may see that the cost consistently increases after each iteration, like the curve on the right. This is also likely due to a learning rate that is too large, and it could be addressed by choosing a smaller learning rate. But learning rates like this could also be a sign of a possible broken code. 
 
-![[MLS_C1_GradDescConvg4.jpg]]
+!MLS_C1_GradDescConvg4.jpg
 
 ---
 
 #### Possible Code Mistakes 🔣
 For example, if I wrote my code so that: $$w_1 = w_1 + \alpha (\text{derivative term})$$ this could result in the cost consistently increasing at each iteration. This is because having the derivative term moves your cost $J$ further from the global minimum instead of closer. So remember, ==you have to use the **minus sign**==, so the code should be updated as: $$w_1 = w_1 - \alpha (\text{derivative term})$$
 
-![[MLS_C1_GradDescConvg5.jpg]]
+!MLS_C1_GradDescConvg5.jpg
 
 ```ad-tip
 One debugging tip for a correct implementation of gradient descent is that with a small enough learning rate, the cost function should decrease on every single iteration. So if gradient descent isn't working, one thing to do is to just set $\alpha$ to be a very small number and see if that causes the cost to decrease on every iteration. 
@@ -2235,7 +2235,7 @@ Try a range of values for the learning rate $\alpha$. I may start by trying a le
 $$\ldots \; 0.001 \overset{\times 3}{\longrightarrow} 0.003 \overset{\times 3}{\longrightarrow} 0.01 \overset{\times 3}{\longrightarrow} 0.03 \overset{\times 3}{\longrightarrow} 0.1 \; \ldots$$
 For each choice of $\alpha$, you might run gradient descent just for a handful of iterations and plot the cost function $J$ as a function of the number of iterations and after trying a few different values, you might then ==pick the value that seems to decrease the learning rate rapidly, but also consistently.== 
 
-![[MLS_C1_GradDescConvg6.jpg]]
+!MLS_C1_GradDescConvg6.jpg
 
 What I'll do is try a range of values until I found the value of that's too small and then also make sure I've found a value that's too large. I'll slowly try to pick the largest possible learning rate, or just something slightly smaller than the largest reasonable value that I found. When I do that, it usually gives me a good learning rate for my model. 
 
@@ -2299,14 +2299,14 @@ ax[0].set_ylabel("Price (1000's)")
 plt.show()
 ```
 
-![[MLS_C1_lab8_fig1.jpg]]
+!MLS_C1_lab8_fig1.jpg
 
 ```python
 #set alpha to 9.9e-7
 _, _, hist = run_gradient_descent(X_train, y_train, 10, alpha = 9.9e-7)
 ```
 
-![[MLS_C1_lab8_fig2.jpg]]
+!MLS_C1_lab8_fig2.jpg
 
 <br>
 
@@ -2314,7 +2314,7 @@ _, _, hist = run_gradient_descent(X_train, y_train, 10, alpha = 9.9e-7)
 plot_cost_i_w(X_train, y_train, hist)
 ```
 
-![[MLS_C1_lab8_fig3.jpg]]
+!MLS_C1_lab8_fig3.jpg
 
 > Choosing different values for $\alpha$ will result in different behaviors. The other 2 values for the learning rate are not shown here. Check the notebook.
 
@@ -2369,7 +2369,7 @@ fig.suptitle("distribution of features before, during, after normalization")
 plt.show()
 ```
 
-![[MLS_C1_lab8_fig4.jpg]]
+!MLS_C1_lab8_fig4.jpg
 
 <br>
 
@@ -2408,7 +2408,7 @@ fig.suptitle("distribution of features after normalization")
 plt.show()
 ```
 
-![[MLS_C1_lab8_fig5.jpg]]
+!MLS_C1_lab8_fig5.jpg
 
 <br>
 
@@ -2416,7 +2416,7 @@ plt.show()
 w_norm, b_norm, hist = run_gradient_descent(X_norm, y_train, 1000, 1.0e-1, )
 ```
 
-![[MLS_C1_lab8_fig6.jpg]]
+!MLS_C1_lab8_fig6.jpg
 
 ```python
 #predict target using normalized features
@@ -2436,7 +2436,7 @@ fig.suptitle("target versus prediction using z-score normalized model")
 plt.show()
 ```
 
-![[MLS_C1_lab8_fig7.jpg]]
+!MLS_C1_lab8_fig7.jpg
 
 <br>
 
@@ -2460,7 +2460,7 @@ print(f" predicted price of a house with 1200 sqft, 3 bedrooms, 1 floor, 40 year
 plt_equal_scale(X_train, X_norm, y_train)
 ```
 
-![[MLS_C1_lab8_fig8.jpg]]
+!MLS_C1_lab8_fig8.jpg
 
 ### Congratulations!  🎉
 In this lab you:
@@ -2473,12 +2473,12 @@ In this lab you:
 ---
 ---
 
-## [[Feature Engineering]]
+## Feature Engineering
 The choice of features can have a huge impact on your learning algorithm's performance. In fact, for many practical applications, ==choosing the right features is a critical step to making the algorithm work well==. Now, how can choose the right one(s)?
 
-For instance, in the [[MLS - C1 - Week 01#Predicting Housing Prices 🏘️]] example, our initial model was: $$f_{\vec w, b} (\vec x) = w_1 x_1 + w_2 x_2 + b$$ However, you might notice that the area of the land can be calculated as: $$\text{Area} = \text{Width} \times \text{Depth}$$ You may have an intuition that the area of the land is more predictive of the price, than the frontage and depth as separate features. You might define a new feature, $x_3$, as: $$x_3 = x_1 x_2$$ This new feature $x_3$ is equal to the area of the plot of land. As a result, our new model will be: $$f_{\vec w, b} (\vec x) = w_1 x_1 + w_2 x_2 + w_3 x_3 + b$$
+For instance, in the MLS - C1 - Week 01#Predicting Housing Prices 🏘️ example, our initial model was: $$f_{\vec w, b} (\vec x) = w_1 x_1 + w_2 x_2 + b$$ However, you might notice that the area of the land can be calculated as: $$\text{Area} = \text{Width} \times \text{Depth}$$ You may have an intuition that the area of the land is more predictive of the price, than the frontage and depth as separate features. You might define a new feature, $x_3$, as: $$x_3 = x_1 x_2$$ This new feature $x_3$ is equal to the area of the plot of land. As a result, our new model will be: $$f_{\vec w, b} (\vec x) = w_1 x_1 + w_2 x_2 + w_3 x_3 + b$$
 
-![[MLS_C1_FeatureEngineering1.jpg]]
+!MLS_C1_FeatureEngineering1.jpg
 
 What we just did, creating a new feature is an example of what's called "feature engineering", in which you might use your knowledge or intuition about the problem to design new features usually by transforming or combining the original features of the problem in order to make it easier for the learning algorithm to make accurate predictions. Depending on what insights you may have into the application, rather than just taking the features that you happen to have started off with sometimes by defining new features, you might be able to get a much better model. 
 
@@ -2493,21 +2493,21 @@ It turns out that this one flavor of feature engineering allows you to fit not j
 ---
 ---
 
-## [[Polynomial Regression]]
+## Polynomial Regression
 So far we've just been fitting straight lines to our data. Let's take the ideas of multiple linear regression and feature engineering to come up with a new algorithm called "polynomial regression", which will let you fit curves, non-linear functions, to your data. 
 
 Let's say you have the data below. Since you can't really fit a straight line to it, you might try to fit a curved one. Note that if you were to choose a 2nd degree model, due to the nature of $y=x^2$, the line would then taper off (pink line), which is not acceptable because the price of a house wouldn't decrease the larger it gets. Therefore, you can introduce a third variable such as $x_3$ to fix this issue (purple line).
 
-![[MLS_C1_PolyReg1.jpg]]
+!MLS_C1_PolyReg1.jpg
 
-I just want to point out one more thing, which is that ==if you create features that are powers of the original features, then feature scaling becomes increasingly important.== If the size of the house ranges from say, $1-10^3 \; \text{ft}^2$, then the second feature, which is a size squared, will range from $1-10^6 \; \text{ft}^2$, and the third feature, which is size cubed, ranges from $1-10^9 \; \text{ft}^2$. These two features, $x^2$ and $x^3$, take on very different ranges of values compared to the original feature $x$. If you're using [[Gradient Descent]], it's important to apply feature scaling to get your features into comparable ranges of values. 
+I just want to point out one more thing, which is that ==if you create features that are powers of the original features, then feature scaling becomes increasingly important.== If the size of the house ranges from say, $1-10^3 \; \text{ft}^2$, then the second feature, which is a size squared, will range from $1-10^6 \; \text{ft}^2$, and the third feature, which is size cubed, ranges from $1-10^9 \; \text{ft}^2$. These two features, $x^2$ and $x^3$, take on very different ranges of values compared to the original feature $x$. If you're using Gradient Descent, it's important to apply feature scaling to get your features into comparable ranges of values. 
 
 ---
 
 ### The Wide Range of Features
-Don't forget that you have a wide range of features to use. For example, instead of choosing higher powers for your features that would increase your predictions exponentially (see [[Exponential Growth]]), you could choose another approach, such as $\sqrt{x}$. In this case, if you were to write: $$f_{\vec w, b} (\vec x) = w_1 x + w_2 \sqrt{x} + b$$ you would actually get an even better fitting line (blue line).
+Don't forget that you have a wide range of features to use. For example, instead of choosing higher powers for your features that would increase your predictions exponentially (see Exponential Growth), you could choose another approach, such as $\sqrt{x}$. In this case, if you were to write: $$f_{\vec w, b} (\vec x) = w_1 x + w_2 \sqrt{x} + b$$ you would actually get an even better fitting line (blue line).
 
-![[MLS_C1_PolyReg2.jpg]]
+!MLS_C1_PolyReg2.jpg
 
 You might ask yourself "how can I choose a good feature?" You'll find the answer to this question in the 2nd course.
 
@@ -2535,7 +2535,7 @@ plt.scatter(x, y, marker='x', c='r', label="Actual Value"); plt.title("no featur
 plt.plot(x,X@model_w + model_b, label="Predicted Value");  plt.xlabel("X"); plt.ylabel("y"); plt.legend(); plt.show()
 ```
 
-![[MLS_C1_lab9_fig1.jpg]]
+!MLS_C1_lab9_fig1.jpg
 
 <br>
 
@@ -2554,7 +2554,7 @@ plt.scatter(x, y, marker='x', c='r', label="Actual Value"); plt.title("Added x**
 plt.plot(x, np.dot(X,model_w) + model_b, label="Predicted Value"); plt.xlabel("x"); plt.ylabel("y"); plt.legend(); plt.show()
 ```
 
-![[MLS_C1_lab9_fig2.jpg]]
+!MLS_C1_lab9_fig2.jpg
 
 > Fits the data pretty well. If you were to do this for $x^3$, it wouldn't be as good as this.
 <br>
@@ -2576,7 +2576,7 @@ ax[0].set_ylabel("y")
 plt.show()
 ```
 
-![[MLS_C1_lab9_fig3.jpg]]
+!MLS_C1_lab9_fig3.jpg
 
 <br>
 
@@ -2609,7 +2609,7 @@ plt.scatter(x, y, marker='x', c='r', label="Actual Value"); plt.title("Normalize
 plt.plot(x,X@model_w + model_b, label="Predicted Value"); plt.xlabel("x"); plt.ylabel("y"); plt.legend(); plt.show()
 ```
 
-![[MLS_C1_lab9_fig4.jpg]]
+!MLS_C1_lab9_fig4.jpg
 
 ### Congratulations!  🎉
 In this lab you:
@@ -2620,7 +2620,7 @@ In this lab you:
 
 ## Optional Lab: Linear Regression with Scikit-Learn
 ### Introduction
-- This optional lab shows how to use a popular open source toolkit that implements linear regression. [Scikit learn](https://scikit-learn.org/stable/index.html) is a very widely used open source machine learning library that is used by many practitioners in many of the top [[Artificial Intelligence]], internet, [[Machine Learning]] companies in the world.
+- This optional lab shows how to use a popular open source toolkit that implements linear regression. [Scikit learn](https://scikit-learn.org/stable/index.html) is a very widely used open source machine learning library that is used by many practitioners in many of the top Artificial Intelligence, internet, Machine Learning companies in the world.
 - So if either now or in the future you are using machine learning in in your job there’s a very good chance you use tools like Scikit learn to train your models.
 
 ```python
@@ -2708,7 +2708,7 @@ fig.suptitle("target versus prediction using z-score normalized model")
 plt.show()
 ```
 
-![[MLS_C1_lab9_fig5.jpg]]
+!MLS_C1_lab9_fig5.jpg
 
 ### Congratulations! 🎉
 In this lab you:
@@ -2718,11 +2718,11 @@ In this lab you:
 ---
 ---
 
-## Quiz: [[Gradient Descent]] in Practice
-1. Which of the following is a valid step used during feature scaling? ![[MLS_C1_quiz_q1.jpg]]
+## Quiz: Gradient Descent in Practice
+1. Which of the following is a valid step used during feature scaling? !MLS_C1_quiz_q1.jpg
 	1. Add the mean (average) from each value and and then divide by the (max - min).
 	2. Subtract the mean (average) from each value and then divide by the (max - min). ✅
-2. Suppose a friend ran gradient descent three separate times with three choices of the learning rate $\alpha$ and plotted the learning curves for each (cost $J$ for each iteration). For which case, A or B, was the learning rate likely too large? ![[MLS_C1_quiz_q2.jpg]]
+2. Suppose a friend ran gradient descent three separate times with three choices of the learning rate $\alpha$ and plotted the learning curves for each (cost $J$ for each iteration). For which case, A or B, was the learning rate likely too large? !MLS_C1_quiz_q2.jpg
 	1. A only
 	2. B only ✅
 	3. A and B
@@ -2737,11 +2737,11 @@ In this lab you:
 	1. True ✅
 	2. False
 
-> 1. This is called [[Mean Normalization]].
-> 2. The [[Cost Function (Mathematics)]] is increasing as training continues, which likely indicates that the [[Learning Rate (Computer Science)]] $\alpha$ is too large.
+> 1. This is called Mean Normalization.
+> 2. The Cost Function (Mathematics) is increasing as training continues, which likely indicates that the Learning Rate (Computer Science) $\alpha$ is too large.
 > 3. For example, the “house size” in square feet may be as high as 2,000, which is much larger than the feature “number of bedrooms” having a value between 1 and 5 for most houses in the modern era.
 > 4. This feature can be interpreted as the revenue generated for each product. $$\text{Revenue} = \text{No. Sold} \times \text{Price per Item}$$
-> 5. A [[Polynomial Function]] can be non-linear.  This can potentially help the model to fit the training data better.
+> 5. A Polynomial Function can be non-linear.  This can potentially help the model to fit the training data better.
 
 ---
 ---
