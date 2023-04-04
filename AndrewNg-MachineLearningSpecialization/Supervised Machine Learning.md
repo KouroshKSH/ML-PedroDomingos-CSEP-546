@@ -2823,3 +2823,549 @@ def compute_gradient(x, y, w, b):
 ```
 
 > Passed · 100/100 points ✅
+
+---
+---
+
+# MLS - C1 - Week 3
+## Overview
+This week, you'll learn the other type of supervised learning, classification. You'll learn how to predict categories using the logistic regression model. You'll learn about the problem of overfitting, and how to handle this problem with a method called regularization. You'll get to practice implementing logistic regression with regularization at the end of this week!
+
+---
+
+### Learning Objectives
+- Use logistic regression for binary classification
+- Implement logistic regression for binary classification
+- Address overfitting using regularization, to improve model performance
+
+---
+---
+
+## [[Classification (Statistics)]] with [[Logistic Regression]]
+It turns out that [[Linear Regression]] is not a good algorithm for classification problems. Let's see why, and then realize why logistic regression is a better learning algorithm for [[Machine Learning]]. For example, in [[Spam Filter]] systems, the answer is either:
+- `yes`
+- `no`
+
+This type of classification problem where there are only two possible outputs is called [[Binary Classification]]. Where the word binary refers to there being only two possible classes or two possible categories. In these problems I will use the terms *class* and *category* relatively interchangeably. They mean basically the same thing. 
+
+By convention, we say:
+- $0$ = `false`
+- $1$ = `true`
+
+An email that has spam might be referred to as a positive training example because the answer to "Is it spam?" is *yes* or `true` or $1$ to be clear. ==Negative and positive **don't** mean bad versus good or evil versus good!== It's just that negative and positive examples are used to convey the concepts of absence or zero or false vs the presence or true or one of something you might be looking for. 
+
+![[MLS_C1_Motivations1.jpg]]
+
+So how do you build a classification algorithm? Here's the example of a training set for classifying if the tumor is malignant. The classes are:
+1. malignant, $1$, positive class, *yes*
+2. benign, $0$, negative class, *no*
+
+![[MLS_C1_Motivations2.jpg]]
+
+If you try to draw a straight line, it wouldn't fit well. Therefore, linear regression is not the best option in this case.
+
+![[MLS_C1_Motivations3.jpg]]
+
+> Linear regression can predict a range of numbers, but here, we want to classify our data.
+
+One thing you could try is to pick a threshold of say 0.5. So that if the model outputs a value below 0.5, then you predict $\hat{y} = 0$ or not malignant. And if the model outputs a number equal to or greater than 0.5, then $\hat{y} = 1$ or malignant. Notice that this threshold value of 0.5 intersects the best fit straight line at this point. So if you draw this vertical line here, everything to the left ends up with a prediction of y equals zero. And everything on the right ends up with the prediction of y equals one. Now, for this particular data set it looks like linear regression could do something reasonable. 
+
+![[MLS_C1_Motivations4.jpg]]
+
+Now if you were to introduce to another point, it could ruin the whole thing, and your predictions could become worse. Hence, using logistic regression is a better option.
+
+![[MLS_C1_Motivations5.jpg]]
+
+```ad-note
+One thing confusing about the name logistic regression is that even though it has the word "regression" in it, it's actually used for classification. Don't be confused by the name which was given for historical reasons. It's actually used to solve binary classification problems with output label $y$ as either zero or one. 
+```
+
+#question Which of the following is an example of a classification task?
+- Estimate the weight of a cat based on its height.
+- Decide if an animal is a cat or not a cat. ✅
+
+> This is an example of _binary classification_ where there are two possible classes (True/False or Yes/No or 1/0).
+
+---
+
+```ad-note
+title:Optional Lab
+```
+### Optional Lab: Classification
+#### Introduction
+- In this optional lab, you’ll get to take a look at what happens when you try to use linear regression for classification on categorical data.
+- You can see an interactive plot that attempts to classify between two categories. And you may notice that this doesn’t work very well, which is okay, because that motivates the need for a different model to do classification tasks.
+
+```ad-check
+From now on, I'll provide code from the optional labs if necessary, and in between the notes (not seperated).
+```
+
+---
+---
+
+## [[Logistic Regression]]
+Let's continue with the tumor example. In contrast to linear, what logistic regression we end up doing is fit a curve that looks like an S-shaped curve to this dataset. Even though we have a 0.7 threshold here, the output $y$ will always be either 1 or 0.
+
+![[MLS_C1_LogReg1.jpg]]
+
+To build out to the logistic regression algorithm, there's an important mathematical function called the [[Sigmoid Function]], sometimes also referred to as the [[Logistic Function]]. 
+$$g(x) = \frac{1}{1 + e^{-x}}$$
+
+> Where:
+> - $e$ is [[Euler's Number]]
+> - the function will always be: $$0 < g(x) < 1$$
+> - based on the value of $x$: $$\begin{align*} &1. \; x \to +\infty : g(x) \to 1 \\ &2. \; x \to -\infty : g(x) \to 0 \\ &3. \; x = 0 : g(x) = 0.5 \end{align*}$$
+
+---
+
+### How to Make it?
+Using [[Function Composition]], we can write the Sigmoid function. Since we know:
+$$f_{\vec w, b} (\vec x) = \vec w \cdot \vec x + b$$
+Then let:
+$$z = \vec w \cdot \vec x + b$$
+Then using $z$, we can write:
+$$g(z) = \frac{1}{1 + e^{-z}}$$
+So in the end:
+$$f_{\vec w, b} (\vec x) = g(\vec w \cdot \vec x + b) = \frac{1}{1 + e^{-(\vec w \cdot \vec x + b)}}$$
+
+And what it does is it inputs feature or set of features $x$, and outputs a number between 0 and 1. 
+
+![[MLS_C1_LogReg2.jpg]]
+
+---
+
+### Sigmoid Function for Tumor
+Going back to the tumor example, let's use the sigmoid function for finding the probability of the patient having a malignant tumor. Given:
+$$f_{\vec w, b} (\vec x) = \frac{1}{1 + e^{-(\vec w \cdot \vec x + b)}}$$
+if the "probability" of the class is considered to be 1, there would be a 70% chance in a patient's case for $y=1$. We can define this using:
+$$f_{\vec w, b} = ( \vec x ) = P \left( y=1 \vert \vec x ; \vec w, b \right)$$
+
+![[MLS_C1_LogReg3.jpg]]
+
+==Note that the summation of the probabilities should be 1.==
+$$P(y=0) + P(y=1) = 1$$
+
+#question Recall the sigmoid function. If z is a large negative number then: $$g(z) = \frac{1}{1+e^{-z}}$$
+- $g(z) \to 0$ ✅
+- $g(z) \to -1$
+
+---
+
+```python
+def sigmoid(z):
+    """
+    Compute the sigmoid of z
+
+    Args:
+        z (ndarray): A scalar, numpy array of any size.
+
+    Returns:
+        g (ndarray): sigmoid(z), with the same shape as z
+         
+    """
+
+    g = 1/(1+np.exp(-z))
+   
+    return g
+```
+
+---
+---
+
+## [[Decision Boundary]]
+The way you let your learning algorithm to predict is that you give it a certain threshold, above which you predict $y = 1$, or you set $\hat y = 1$, and below which you might say $\hat y= 0$. A common choice would be to pick a threshold of 0.5 so that:
+- if $f_{\vec w, b} (\vec x) \geq 0.5$, then predict $\hat y = 1$ 
+- if $f_{\vec w, b} (\vec x) < 0.5$, then predict $\hat y = 0$ 
+
+![[MLS_C1_DecBound1.jpg]]
+
+If you were to have more than 1 parameter, it would like the graph below. Now, if you were to draw the line differentiating the 2 classes, it would be the "decision boundary", where to the left and right sides of it would be the 2 classes.
+
+$$f_{\vec w, b} = ( \vec x ) = g(z) = g(w_1 x_1 + w_2 x_2 + b)$$
+
+![[MLS_C1_DecBound2.jpg]]
+
+---
+
+### Non-Linear Decision Boundaries
+$$f_{\vec w, b} = ( \vec x ) = g(z) = g(w_1 x_{1}^{2} + w_2 x_{2}^{2} + b)$$
+
+![[MLS_C1_DecBound3.jpg]]
+
+#question Let’s say you are creating a tumor detection algorithm. Your algorithm will be used to flag potential tumors for future inspection by a specialist. What value should you use for a threshold?
+- High, say a threshold of 0.9?
+- Low, say a threshold of 0.2? ✅
+
+> You would not want to miss a potential tumor, so you will want a low threshold. A specialist will review the output of the algorithm which reduces the possibility of a ‘false positive’. The key point of this question is to note that the threshold value does not need to be 0.5.
+
+---
+---
+
+## [[Cost Function (Mathematics)]] for [[Logistic Regression]]
+Remember that the cost function gives you a way to measure how well a specific set of parameters fits the training data. Thereby gives you a way to try to choose better parameters. In this video, we'll look at how the [[Squared Error Cost Function]] function is not an ideal cost function for logistic regression. We'll take a look at a different cost function that can help us choose better parameters for logistic regression. 
+
+As for the function:
+$$J \left( \vec w , b \right) = \frac{1}{m} \sum_{i=1}^{m} \frac{1}{2} \left( f_{\vec w , b} \left( \vec x ^{(i)} \right) - y^{(i)} \right) ^{2}$$
+
+And for the [[Loss Function]] we can say:
+$$L \left( f_{\vec w , b} \left( \vec x ^{(i)} \right) , y^{(i)} \right)$$
+
+![[MLS_C1_SqCostFunc1.jpg]]
+
+---
+
+### [[Loss Function]]
+And we can define the loss function as:
+$$
+L \left( f_{\vec w , b} \left( \vec x ^{(i)} \right) , y^{(i)} \right)\ = \left \{
+\begin{array}{ll}
+	- \log \left( f_{\vec w , b} \left( \vec x ^{(i)} \right) \right) & \text{if} \ y^{(i)} = 1 \\
+	- \log \left( 1 - f_{\vec w , b} \left( \vec x ^{(i)} \right) \right) & \text{if} \ y^{(i)} = 0 \\
+\end{array}
+\right.
+$$
+
+There are 2 scenarios, where depending on $y$, your loss could be maximized or minimized.
+
+---
+
+#### 1) $y=1$
+This means that when the prediction is close to the true label $y^{(i)}$, your loss would be minimized.
+
+![[MLS_C1_SqCostFunc2.jpg]]
+#### 2. $y=0$
+This means that when the prediction is far from the true label $y^{(i)}$, your loss would be maximized.
+
+![[MLS_C1_SqCostFunc3.jpg]] 
+
+---
+
+The loss for each case, whilst the cost is for the whole set. If it's convex, then you can reach a global minimum. Our aim is to find the parameters $w,b$ such that the cost $J$ would be minimized.
+
+![[MLS_C1_SqCostFunc4.jpg]]
+
+#question Why is the squared error cost not used in logistic regression?
+- The non-linear nature of the model results in a “wiggly”, non-convex cost function (see [[Convex Function]]) with many potential local minima (see [[Local Minimum]]). ✅
+- The mean squared error is used for logistic regression.
+
+> If using the mean squared error for logistic regression, the cost function is "non-convex", so it's more difficult for gradient descent to find an optimal value for the parameters w and b.
+
+---
+---
+
+## Simplified Cost Function for Logistic Regression
+So if we were to write the [[Cost Function (Mathematics)]] and the [[Loss Function]] in a simpler way, we could rewrite them as below.
+
+----
+
+### Simplified Loss Function
+$$\small
+L \left( f_{\vec w, b} \left( \vec x^{(i)}\right) , y^{(i)}  \right) = -y^{(i)} \log \left( f_{\vec w, b} \left( \vec x^{(i)} \right) \right) - \left( 1 - y^{(i)} \right) \log \left( 1 - f_{\vec w, b} \left( \vec x^{(i)} \right) \right)
+$$
+
+![[MLS_C2_SimplifiedCostFunc1.jpg]]
+
+---
+
+### Simplified Cost Function
+$$\small
+\begin{align}
+J \left( \vec w, b \right) &= \frac{1}{m} \sum_{i=1}^{m} \left[ L \left( f_{\vec w, b} \left( \vec x^{(i)} \right) , y^{(i)} \right)  \right] \\
+&= \frac{-1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log \left( f_{\vec w, b} \left( \vec x^{(i)} \right) \right) + \left( 1 - y^{(i)} \right) \log \left( 1 - f_{\vec w, b} \left( \vec x^{(i)} \right) \right) \right]
+\end{align}
+$$
+
+![[MLS_C2_SimplifiedCostFunc2.jpg]]
+
+---
+---
+
+## [[Gradient Descent]] Implementation
+
+
+---
+---
+
+## The Problem of [[Ovrerfitting]]
+
+---
+---
+
+## Addressing [[Ovrerfitting]]
+
+---
+---
+
+## [[Cost Function (Mathematics)]] with [[Regularization (Machine Learning)]]
+
+---
+---
+
+## Regularized [[Linear Regression]]
+
+---
+---
+
+## Regularized [[Logistic Regression]]
+
+---
+---
+
+## Programming Assignment: Week 3 practice lab: logistic regression
+Most of the notebook was already written, and it can be found in the folders. These are the lines that I personally wrote:
+```python
+# UNQ_C1
+# GRADED FUNCTION: sigmoid
+
+def sigmoid(z):
+    """
+    Compute the sigmoid of z
+
+    Args:
+        z (ndarray): A scalar, numpy array of any size.
+
+    Returns:
+        g (ndarray): sigmoid(z), with the same shape as z
+         
+    """
+          
+    ### START CODE HERE ### 
+    
+    g = []
+    
+    g = 1 / (1 + np.exp(-z))
+    
+    ### END SOLUTION ###  
+    
+    return g
+```
+
+<br>
+
+```python
+# UNQ_C2
+# GRADED FUNCTION: compute_cost
+def compute_cost(X, y, w, b, lambda_= 1):
+    """
+    Computes the cost over all examples
+    Args:
+      X : (ndarray Shape (m,n)) data, m examples by n features
+      y : (array_like Shape (m,)) target value 
+      w : (array_like Shape (n,)) Values of parameters of the model      
+      b : scalar Values of bias parameter of the model
+      lambda_: unused placeholder
+    Returns:
+      total_cost: (scalar)         cost 
+    """
+
+    m, n = X.shape
+    
+    ### START CODE HERE ###
+    
+    total_cost = 0.0
+    
+    for i in range(m):
+        z_i = np.dot(w, X[i]) + b
+        f_i = sigmoid(z_i)
+        loss = (-1 * y[i])*(np.log(f_i)) - (1 - y[i])*(np.log(1 - f_i))
+        total_cost += loss
+    
+    total_cost = total_cost / m
+    
+    ### END CODE HERE ### 
+
+    return total_cost
+```
+
+<br>
+
+```python
+# UNQ_C3
+# GRADED FUNCTION: compute_gradient
+def compute_gradient(X, y, w, b, lambda_=None): 
+    """
+    Computes the gradient for logistic regression 
+ 
+    Args:
+      X : (ndarray Shape (m,n)) variable such as house size 
+      y : (array_like Shape (m,1)) actual value 
+      w : (array_like Shape (n,1)) values of parameters of the model      
+      b : (scalar)                 value of parameter of the model 
+      lambda_: unused placeholder.
+    Returns
+      dj_dw: (array_like Shape (n,1)) The gradient of the cost w.r.t. the parameters w. 
+      dj_db: (scalar)                The gradient of the cost w.r.t. the parameter b. 
+    """
+    m, n = X.shape
+    dj_dw = np.zeros(w.shape)
+    dj_db = 0.
+
+    ### START CODE HERE ### 
+    for i in range(m):
+        z_wb = np.dot(w, X[i]) + b
+#         for j in range(n): 
+#             z_wb += None
+#         z_wb += None
+#       they wanted to calculate z_wb with too many steps
+
+        f_wb = sigmoid(z_wb)
+        
+        dj_db_i = f_wb - y[i]
+        dj_db += dj_db_i
+        
+        for j in range(n):
+            dj_dw[j] += (f_wb - y[i]) * X[i][j]
+            
+    dj_dw = dj_dw / m
+    dj_db = dj_db / m
+    ### END CODE HERE ###
+
+        
+    return dj_db, dj_dw
+```
+
+```ad-note
+title:Regarding `z_wb`
+This is how the instructors wrote the code for the part that I skipped with my one-liner (which I had to later use in the other questions):
+
+````python
+for i in range(m):   
+	# Calculate f_wb
+	z_wb = 0
+	# Loop over each feature
+	for j in range(n): 
+		# Add the corresponding term to z_wb
+		z_wb_ij = X[i, j] * w[j]
+		z_wb += z_wb_ij
+	
+	# Add bias term 
+	z_wb += b
+	
+	# Calculate the prediction from the model
+	f_wb = sigmoid(z_wb)	
+```
+
+<br>
+
+```python
+# UNQ_C4
+# GRADED FUNCTION: predict
+
+def predict(X, w, b): 
+    """
+    Predict whether the label is 0 or 1 using learned logistic
+    regression parameters w
+    
+    Args:
+    X : (ndarray Shape (m, n))
+    w : (array_like Shape (n,))      Parameters of the model
+    b : (scalar, float)              Parameter of the model
+
+    Returns:
+    p: (ndarray (m,1))
+        The predictions for X using a threshold at 0.5
+    """
+    # number of training examples
+    m, n = X.shape   
+    p = np.zeros(m)
+   
+    ### START CODE HERE ### 
+    # Loop over each example
+    for i in range(m):   
+        z_wb = 0
+        # Loop over each feature
+        for j in range(n): 
+            # Add the corresponding term to z_wb
+            z_wb += X[i, j] * w[j]
+        
+        # Add bias term 
+        z_wb += b
+        
+        # Calculate the prediction for this example
+        f_wb = sigmoid(z_wb)
+
+        # Apply the threshold
+        p[i] = f_wb >= 0.5
+        
+        
+    ### END CODE HERE ### 
+    return p
+```
+
+<br>
+
+```python
+# UNQ_C5
+def compute_cost_reg(X, y, w, b, lambda_ = 1):
+    """
+    Computes the cost over all examples
+    Args:
+      X : (array_like Shape (m,n)) data, m examples by n features
+      y : (array_like Shape (m,)) target value 
+      w : (array_like Shape (n,)) Values of parameters of the model      
+      b : (array_like Shape (n,)) Values of bias parameter of the model
+      lambda_ : (scalar, float)    Controls amount of regularization
+    Returns:
+      total_cost: (scalar)         cost 
+    """
+
+    m, n = X.shape
+    
+    # Calls the compute_cost function that you implemented above
+    cost_without_reg = compute_cost(X, y, w, b) 
+    
+    # You need to calculate this value
+    reg_cost = 0.
+    
+    ### START CODE HERE ###
+    
+    for j in range(n):
+        reg_cost += (w[j])**2
+        
+    ### END CODE HERE ### 
+    
+    # Add the regularization cost to get the total cost
+    total_cost = cost_without_reg + (lambda_/(2 * m)) * reg_cost
+
+    return total_cost
+```
+
+<br>
+
+```python
+# UNQ_C6
+def compute_gradient_reg(X, y, w, b, lambda_ = 1): 
+    """
+    Computes the gradient for linear regression 
+ 
+    Args:
+      X : (ndarray Shape (m,n))   variable such as house size 
+      y : (ndarray Shape (m,))    actual value 
+      w : (ndarray Shape (n,))    values of parameters of the model      
+      b : (scalar)                value of parameter of the model  
+      lambda_ : (scalar,float)    regularization constant
+    Returns
+      dj_db: (scalar)             The gradient of the cost w.r.t. the parameter b. 
+      dj_dw: (ndarray Shape (n,)) The gradient of the cost w.r.t. the parameters w. 
+
+    """
+    m, n = X.shape
+    
+    dj_db, dj_dw = compute_gradient(X, y, w, b)
+
+    ### START CODE HERE ###     
+    
+#     for i in range(m):
+#         dj_db_i = np.dot(w, X[i]) + b - y[i]
+        
+#         for j in range(n):
+            
+    for j in range(n):
+        dj_dw[j] = dj_dw[j] + (lambda_/m) * w[j]
+        
+    ### END CODE HERE ###         
+        
+    return dj_db, dj_dw
+```
+
+> Passed · 100/100 points ✅
