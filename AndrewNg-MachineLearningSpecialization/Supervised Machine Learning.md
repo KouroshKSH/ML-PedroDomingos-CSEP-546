@@ -2841,12 +2841,12 @@ This week, you'll learn the other type of supervised learning, classification. Y
 ---
 ---
 
-## [[Classification (Statistics)]] with [[Logistic Regression]]
-It turns out that [[Linear Regression]] is not a good algorithm for classification problems. Let's see why, and then realize why logistic regression is a better learning algorithm for [[Machine Learning]]. For example, in [[Spam Filter]] systems, the answer is either:
+## Classification (Statistics) with Logistic Regression
+It turns out that Linear Regression is not a good algorithm for classification problems. Let's see why, and then realize why logistic regression is a better learning algorithm for Machine Learning. For example, in Spam Filter systems, the answer is either:
 - `yes`
 - `no`
 
-This type of classification problem where there are only two possible outputs is called [[Binary Classification]]. Where the word binary refers to there being only two possible classes or two possible categories. In these problems I will use the terms *class* and *category* relatively interchangeably. They mean basically the same thing. 
+This type of classification problem where there are only two possible outputs is called Binary Classification. Where the word binary refers to there being only two possible classes or two possible categories. In these problems I will use the terms *class* and *category* relatively interchangeably. They mean basically the same thing. 
 
 By convention, we say:
 - $0$ = `false`
@@ -2854,27 +2854,27 @@ By convention, we say:
 
 An email that has spam might be referred to as a positive training example because the answer to "Is it spam?" is *yes* or `true` or $1$ to be clear. ==Negative and positive **don't** mean bad versus good or evil versus good!== It's just that negative and positive examples are used to convey the concepts of absence or zero or false vs the presence or true or one of something you might be looking for. 
 
-![[MLS_C1_Motivations1.jpg]]
+!MLS_C1_Motivations1.jpg
 
 So how do you build a classification algorithm? Here's the example of a training set for classifying if the tumor is malignant. The classes are:
 1. malignant, $1$, positive class, *yes*
 2. benign, $0$, negative class, *no*
 
-![[MLS_C1_Motivations2.jpg]]
+!MLS_C1_Motivations2.jpg
 
 If you try to draw a straight line, it wouldn't fit well. Therefore, linear regression is not the best option in this case.
 
-![[MLS_C1_Motivations3.jpg]]
+!MLS_C1_Motivations3.jpg
 
 > Linear regression can predict a range of numbers, but here, we want to classify our data.
 
 One thing you could try is to pick a threshold of say 0.5. So that if the model outputs a value below 0.5, then you predict $\hat{y} = 0$ or not malignant. And if the model outputs a number equal to or greater than 0.5, then $\hat{y} = 1$ or malignant. Notice that this threshold value of 0.5 intersects the best fit straight line at this point. So if you draw this vertical line here, everything to the left ends up with a prediction of y equals zero. And everything on the right ends up with the prediction of y equals one. Now, for this particular data set it looks like linear regression could do something reasonable. 
 
-![[MLS_C1_Motivations4.jpg]]
+!MLS_C1_Motivations4.jpg
 
 Now if you were to introduce to another point, it could ruin the whole thing, and your predictions could become worse. Hence, using logistic regression is a better option.
 
-![[MLS_C1_Motivations5.jpg]]
+!MLS_C1_Motivations5.jpg
 
 ```ad-note
 One thing confusing about the name logistic regression is that even though it has the word "regression" in it, it's actually used for classification. Don't be confused by the name which was given for historical reasons. It's actually used to solve binary classification problems with output label $y$ as either zero or one. 
@@ -2903,23 +2903,23 @@ From now on, I'll provide code from the optional labs if necessary, and in betwe
 ---
 ---
 
-## [[Logistic Regression]]
+## Logistic Regression
 Let's continue with the tumor example. In contrast to linear, what logistic regression we end up doing is fit a curve that looks like an S-shaped curve to this dataset. Even though we have a 0.7 threshold here, the output $y$ will always be either 1 or 0.
 
-![[MLS_C1_LogReg1.jpg]]
+!MLS_C1_LogReg1.jpg
 
-To build out to the logistic regression algorithm, there's an important mathematical function called the [[Sigmoid Function]], sometimes also referred to as the [[Logistic Function]]. 
+To build out to the logistic regression algorithm, there's an important mathematical function called the Sigmoid Function, sometimes also referred to as the Logistic Function. 
 $$g(x) = \frac{1}{1 + e^{-x}}$$
 
 > Where:
-> - $e$ is [[Euler's Number]]
+> - $e$ is Euler's Number
 > - the function will always be: $$0 < g(x) < 1$$
 > - based on the value of $x$: $$\begin{align*} &1. \; x \to +\infty : g(x) \to 1 \\ &2. \; x \to -\infty : g(x) \to 0 \\ &3. \; x = 0 : g(x) = 0.5 \end{align*}$$
 
 ---
 
 ### How to Make it?
-Using [[Function Composition]], we can write the Sigmoid function. Since we know:
+Using Function Composition, we can write the Sigmoid function. Since we know:
 $$f_{\vec w, b} (\vec x) = \vec w \cdot \vec x + b$$
 Then let:
 $$z = \vec w \cdot \vec x + b$$
@@ -2930,7 +2930,7 @@ $$f_{\vec w, b} (\vec x) = g(\vec w \cdot \vec x + b) = \frac{1}{1 + e^{-(\vec w
 
 And what it does is it inputs feature or set of features $x$, and outputs a number between 0 and 1. 
 
-![[MLS_C1_LogReg2.jpg]]
+!MLS_C1_LogReg2.jpg
 
 ---
 
@@ -2940,7 +2940,7 @@ $$f_{\vec w, b} (\vec x) = \frac{1}{1 + e^{-(\vec w \cdot \vec x + b)}}$$
 if the "probability" of the class is considered to be 1, there would be a 70% chance in a patient's case for $y=1$. We can define this using:
 $$f_{\vec w, b} = ( \vec x ) = P \left( y=1 \vert \vec x ; \vec w, b \right)$$
 
-![[MLS_C1_LogReg3.jpg]]
+!MLS_C1_LogReg3.jpg
 
 ==Note that the summation of the probabilities should be 1.==
 $$P(y=0) + P(y=1) = 1$$
@@ -2972,25 +2972,25 @@ def sigmoid(z):
 ---
 ---
 
-## [[Decision Boundary]]
+## Decision Boundary
 The way you let your learning algorithm to predict is that you give it a certain threshold, above which you predict $y = 1$, or you set $\hat y = 1$, and below which you might say $\hat y= 0$. A common choice would be to pick a threshold of 0.5 so that:
 - if $f_{\vec w, b} (\vec x) \geq 0.5$, then predict $\hat y = 1$ 
 - if $f_{\vec w, b} (\vec x) < 0.5$, then predict $\hat y = 0$ 
 
-![[MLS_C1_DecBound1.jpg]]
+!MLS_C1_DecBound1.jpg
 
 If you were to have more than 1 parameter, it would like the graph below. Now, if you were to draw the line differentiating the 2 classes, it would be the "decision boundary", where to the left and right sides of it would be the 2 classes.
 
 $$f_{\vec w, b} = ( \vec x ) = g(z) = g(w_1 x_1 + w_2 x_2 + b)$$
 
-![[MLS_C1_DecBound2.jpg]]
+!MLS_C1_DecBound2.jpg
 
 ---
 
 ### Non-Linear Decision Boundaries
 $$f_{\vec w, b} = ( \vec x ) = g(z) = g(w_1 x_{1}^{2} + w_2 x_{2}^{2} + b)$$
 
-![[MLS_C1_DecBound3.jpg]]
+!MLS_C1_DecBound3.jpg
 
 #question Let’s say you are creating a tumor detection algorithm. Your algorithm will be used to flag potential tumors for future inspection by a specialist. What value should you use for a threshold?
 - High, say a threshold of 0.9?
@@ -3001,20 +3001,20 @@ $$f_{\vec w, b} = ( \vec x ) = g(z) = g(w_1 x_{1}^{2} + w_2 x_{2}^{2} + b)$$
 ---
 ---
 
-## [[Cost Function (Mathematics)]] for [[Logistic Regression]]
-Remember that the cost function gives you a way to measure how well a specific set of parameters fits the training data. Thereby gives you a way to try to choose better parameters. In this video, we'll look at how the [[Squared Error Cost Function]] function is not an ideal cost function for logistic regression. We'll take a look at a different cost function that can help us choose better parameters for logistic regression. 
+## Cost Function (Mathematics) for Logistic Regression
+Remember that the cost function gives you a way to measure how well a specific set of parameters fits the training data. Thereby gives you a way to try to choose better parameters. In this video, we'll look at how the Squared Error Cost Function function is not an ideal cost function for logistic regression. We'll take a look at a different cost function that can help us choose better parameters for logistic regression. 
 
 As for the function:
 $$J \left( \vec w , b \right) = \frac{1}{m} \sum_{i=1}^{m} \frac{1}{2} \left( f_{\vec w , b} \left( \vec x ^{(i)} \right) - y^{(i)} \right) ^{2}$$
 
-And for the [[Loss Function]] we can say:
+And for the Loss Function we can say:
 $$L \left( f_{\vec w , b} \left( \vec x ^{(i)} \right) , y^{(i)} \right)$$
 
-![[MLS_C1_SqCostFunc1.jpg]]
+!MLS_C1_SqCostFunc1.jpg
 
 ---
 
-### [[Loss Function]]
+### Loss Function
 And we can define the loss function as:
 $$
 L \left( f_{\vec w , b} \left( \vec x ^{(i)} \right) , y^{(i)} \right)\ = \left \{
@@ -3032,20 +3032,20 @@ There are 2 scenarios, where depending on $y$, your loss could be maximized or m
 #### 1) $y=1$
 This means that when the prediction is close to the true label $y^{(i)}$, your loss would be minimized.
 
-![[MLS_C1_SqCostFunc2.jpg]]
+!MLS_C1_SqCostFunc2.jpg
 #### 2. $y=0$
 This means that when the prediction is far from the true label $y^{(i)}$, your loss would be maximized.
 
-![[MLS_C1_SqCostFunc3.jpg]] 
+!MLS_C1_SqCostFunc3.jpg 
 
 ---
 
 The loss for each case, whilst the cost is for the whole set. If it's convex, then you can reach a global minimum. Our aim is to find the parameters $w,b$ such that the cost $J$ would be minimized.
 
-![[MLS_C1_SqCostFunc4.jpg]]
+!MLS_C1_SqCostFunc4.jpg
 
 #question Why is the squared error cost not used in logistic regression?
-- The non-linear nature of the model results in a “wiggly”, non-convex cost function (see [[Convex Function]]) with many potential local minima (see [[Local Minimum]]). ✅
+- The non-linear nature of the model results in a “wiggly”, non-convex cost function (see Convex Function) with many potential local minima (see Local Minimum). ✅
 - The mean squared error is used for logistic regression.
 
 > If using the mean squared error for logistic regression, the cost function is "non-convex", so it's more difficult for gradient descent to find an optimal value for the parameters w and b.
@@ -3054,7 +3054,7 @@ The loss for each case, whilst the cost is for the whole set. If it's convex, th
 ---
 
 ## Simplified Cost Function for Logistic Regression
-So if we were to write the [[Cost Function (Mathematics)]] and the [[Loss Function]] in a simpler way, we could rewrite them as below.
+So if we were to write the Cost Function (Mathematics) and the Loss Function in a simpler way, we could rewrite them as below.
 
 ----
 
@@ -3063,7 +3063,7 @@ $$\small
 L \left( f_{\vec w, b} \left( \vec x^{(i)}\right) , y^{(i)}  \right) = -y^{(i)} \log \left( f_{\vec w, b} \left( \vec x^{(i)} \right) \right) - \left( 1 - y^{(i)} \right) \log \left( 1 - f_{\vec w, b} \left( \vec x^{(i)} \right) \right)
 $$
 
-![[MLS_C2_SimplifiedCostFunc1.jpg]]
+!MLS_C2_SimplifiedCostFunc1.jpg
 
 ---
 
@@ -3075,38 +3075,38 @@ J \left( \vec w, b \right) &= \frac{1}{m} \sum_{i=1}^{m} \left[ L \left( f_{\vec
 \end{align}
 $$
 
-![[MLS_C2_SimplifiedCostFunc2.jpg]]
+!MLS_C2_SimplifiedCostFunc2.jpg
 
 ---
 ---
 
-## [[Gradient Descent]] Implementation
+## Gradient Descent Implementation
 
 
 ---
 ---
 
-## The Problem of [[Ovrerfitting]]
+## The Problem of Ovrerfitting
 
 ---
 ---
 
-## Addressing [[Ovrerfitting]]
+## Addressing Ovrerfitting
 
 ---
 ---
 
-## [[Cost Function (Mathematics)]] with [[Regularization (Machine Learning)]]
+## Cost Function (Mathematics) with Regularization (Machine Learning)
 
 ---
 ---
 
-## Regularized [[Linear Regression]]
+## Regularized Linear Regression
 
 ---
 ---
 
-## Regularized [[Logistic Regression]]
+## Regularized Logistic Regression
 
 ---
 ---
